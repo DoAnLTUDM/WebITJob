@@ -1,0 +1,202 @@
+/*==Sytle cho trang main==*/
+* {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box; /*== tiền tố hỗ trợ firefox phien bản cũ ==*/
+	-webkit-box-sizing :border-box; /*== tiền tố hỗ trợ GoogleChrome,Opera phien bản cũ ==*/
+
+}
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 300;
+	color: #333;
+	line-height: 1.254;
+	margin: 0;
+	padding: 0;
+}
+
+a{
+	text-decoration: none;
+	color: #FFFFFF;
+	transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+}
+
+/*a:hover, a:visited{
+	background: #696969;
+	color: #000000;
+}*/
+
+/*==Phân khu website==*/
+#container{
+	padding-bottom: 150px;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	
+}
+#logo{
+	width:20%;
+	
+	float: left;
+	padding-left: 30px;
+
+}
+
+/*Main menu*/
+#menu{
+	height: 400px;
+	padding-left: 70px;
+	padding-right: 70px;
+	background: #F8F8FF;
+	overflow: auto;
+
+
+
+}
+
+#main-menu{
+	width: 80%;
+	float: right;
+	height: 200px;
+	padding-top: 20px;
+	
+}
+
+#slogan{
+	color: #8997a0;
+	font-size: 0.9em;
+	
+	
+}
+#main-menu ul {
+	background: #000000;
+	list-style-type: none;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
+
+#main-menu ul li{
+	line-height: 3.8em;
+	height: 3.8em;
+	width: 150px;
+	display: inline-table;
+	transition: all 1s; 
+	-moz-transition: all 1s; 
+	-webkit-transition: all 1s; 
+	position: relative;
+}
+
+#main-menu ul li a {
+	text-decoration: none;
+	display: block;
+	color: #FFFFFF;
+	padding: 0 ;
+	border-bottom: 1px solid #333;
+}
+
+#main-menu ul li:hover {
+	background: #454545;	
+}
+
+#main-menu ul li > .sub-menu-title{
+	display: none;
+	position: absolute;
+}
+
+#main-menu ul li:hover .sub-menu-title{
+	display: block;
+}
+
+#main-menu ul li > .sub-menu-skill{
+	display: none;
+	position: absolute;
+}
+
+#main-menu ul li:hover .sub-menu-skill{
+	display: block;
+}
+
+#main-menu ul li > .sub-menu-company{
+	display: none;
+	position: absolute;
+}
+
+#main-menu ul li:hover .sub-menu-company{
+	display: block;
+}
+
+/*Thanh Search*/
+#finding{
+	height: 150px;
+	background: #F5F5F5;
+	overflow: auto;
+
+}
+
+input[type=search] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+    font-family: inherit;
+    font-size: 100%;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+    display: none; /* remove the search and cancel icon */
+}
+
+input {
+	outline: none;
+}
+/* search input field */
+input[type=search] {
+    background: #ededed url(img/search-icon.png) no-repeat 9px center;
+    border: solid 1px #ccc;
+    padding: 9px 10px 9px 32px;
+    width: 200px;
+ 
+    -webkit-border-radius: 10em;
+    -moz-border-radius: 10em;
+    border-radius: 10em;
+ 
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+}
+input[type=search]:focus {
+    width: 500px;
+    background-color: #fff;
+    border-color: #6dcff6;
+ 
+    -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    box-shadow: 0 0 5px rgba(109,207,246,.5);
+}
+
+/* placeholder */
+input:-moz-placeholder {
+    color: #999;
+}
+input::-webkit-input-placeholder {
+    color: #999;
+}
+/*Company Recommmed*/
+.row{
+	overflow: hidden;
+	margin: 1.5em auto;
+
+}
+
+.row .col{
+	float: left;
+	width: 30.333%;
+	margin-right: 2em;
+}
+
+#footer{
+	font-size: 85%;
+	border-top: 1px solid #e6e6e6;
+	color: #838383;
+	padding: 1em 1em;
+}
