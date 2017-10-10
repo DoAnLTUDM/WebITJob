@@ -6,6 +6,7 @@
  - Tạo branch mới để code
  - Rồi push lên branch vừa tạo lên
  - Đạt xem code rồi sẽ merge sau
+ 
 #Cấu trúc folder
  - Folder public sẽ gồm các file css, js, fonts
  - Folder data để chứa db
