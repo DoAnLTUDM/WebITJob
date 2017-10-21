@@ -6,12 +6,12 @@ import (
 )
 
 func templateHomePage(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("index.html")
+	t, _ := template.ParseFiles("template/index.html")
 	t.Execute(w, "")
 }
 func main() {
 	server := http.Server{
-		Addr: "120.0.0.1:8000",
+		Addr: "127.0.0.1:8000",
 	}
 	http.HandleFunc("/homepage", templateHomePage)
 	server.ListenAndServe()
