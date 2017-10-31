@@ -1,9 +1,7 @@
 ﻿
-body {
-    font-family: 'Open Sans', sans-serif;
-    line-height: 14px;
-    font-size: 14px;
-}
+
+
+
 
  a{
     text-decoration: none;
@@ -11,129 +9,21 @@ body {
     transition: all 0.5s;
     -moz-transition: all 0.5s;
     -webkit-transition: all 0.5s;
+
 }
 a:hover{
     color: red;
     text-decoration: none;
 }
-.home-sec {
-    padding-top: 10px;
-    padding-bottom: 60px;
-    background: url(../img/header.jpg) no-repeat center center;
-    padding: 0;
-    -webkit-background-size: cover;
-    background-size: cover;
-    color: #fff;
-    background-attachment: fixed;
-}
 
-
-.set-flexi {
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
-    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
-    -o-box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
-    background-color: transparent;
-    border: 0px solid #000;
-    padding-top: 120px;
-}
-
-.flex-control-nav {
-    display: none!important;
-}
-
-.set-flexi a {
-    margin: 5px;
-}
-
-
-.tag-line {
-    background: #E9E9E9;
-    color: #000;
-}
-
-    .tag-line h2 {
-        font-size: 20px;
-        font-weight: 900;
-        padding: 5px 10px 10px 5px;
-        color: #005E5A;
-    }
-
-        .tag-line h2 > i {
-            margin-left: 8px;
-            margin-right: 8px;
-        }
-.header-line {
-    font-weight: 900;
-    font-size: 25px;
-    padding-bottom: 5px;
-    padding-top: 25px;
-    color: #000;
-}
-
-h1::after {
-    content: " ";
-    border: solid 2px #2f9484;
-    display: block;
-    width: 200px;
-    margin: 12px auto;
-}
-
-.about-div {
-    padding: 30px;
-}
-
-.icon-round-border {
-    border: 10px double #1A94C4;
-    color: #2f9484;
-    text-align: center;
-    padding-top: 15px;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    cursor: pointer;
-    -webkit-transition: 0.3s;
-    -moz-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-}
-
-    .icon-round-border:hover {
-        color: #fff;
-        border: 10px double #fff;
-        background-color: #1A94C4;
-        -webkit-transition: 0.3s;
-        -moz-transition: 0.3s;
-        -o-transition: 0.3s;
-        transition: 0.3s;
-    }
-
-.about-div hr {
-    border: 1px solid #1A94C4;
-}
-
-.about-div h3 {
-    font-size: 25px;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.about-div p {
-    padding-top: 10px;
-}
-
-.btn-set {
-    border-radius: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    margin-bottom: 20px;
-}
 /*=====================================
   FACULTY STYLES 
   ===================================*/
+
 #faculty-sec {
     background-color: #000;
     color: #fff;
+    
 }
 
     #faculty-sec .header-line {
@@ -167,6 +57,8 @@ h1::after {
     }
 
 /*Job Recommed*/
+
+
 .job-recommed{
     clear: both;
 }
@@ -176,18 +68,21 @@ h1::after {
     display: flex;
     z-index: 3;
     position: relative;
-    border-top: 2px solid #e7e7e7;
-    border-bottom: 2px solid #e7e7e7;
+    border: 2px solid #e7e7e7;
+/*    border-top: 2px solid #e7e7e7;
+    border-left: 2px solid #e7e7e7;*/ 
     overflow: hidden;
     font-weight: 400;
     padding: 27px 0;
     -webkit-transition: all 0.25s ease;
     transition: all 0.25s ease;
-    margin-bottom: -2px;
+    margin-bottom: 2px;
+    
+
 
 }
 .jobs .job_contest:hover{
-    box-shadow: 10px 10px 5px grey;
+    box-shadow: inset 0px 0px 10px grey;
 }
 .job .job_content .logo {
     margin: 4px 30px 0 25px;
@@ -238,6 +133,7 @@ h1::after {
 }
 .job .job_content .details .title a {
     color: #ea2635;
+    text-decoration: none;
 }
 .job_content .title {
     font-family: "Roboto", sans-serif;
@@ -371,8 +267,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 
 /*Company Recommmed*/
+
 .company-recommed{
-    max-width: 1024px;
+    clear: both;
+}
+.company-recommed{
+    
     margin: auto;
     margin-top: 150px;
     margin-bottom: 150px;
@@ -400,7 +300,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 }
 #top-company:hover{
-    box-shadow: 10px 10px 5px grey;
+    box-shadow: 5px 5px 5px grey;
 }
 
 .top-company__logo{
@@ -435,10 +335,218 @@ div{
 }
 
 
-#footer {
-    padding:5px 20px;
-    background-color:#2d3d5a;
-    text-align:right;
-    color:#fff;
-    font-size:15px;
+
+
+
+
+
+
+
+
+
+
+
+/*Thanh Search*/
+.form-search input.input-text {
+    background-color: transparent;
+    ;
+    border: 0 none;
+    color: #d8373e;
+    float: left;
+    font-weight: 700;
+    font-size: 16px;
+    height: ̀50px;
+    line-height: 34px;
+    padding: 10px 20px;
+    width: 500px;
+}
+.form-search input.input-text::-moz-placeholder {
+    color: #d8373e;
+    opacity: 1;
+}
+.form-search input.input-text:-ms-input-placeholder {
+    color: #d8373e;
+}
+.form-search input.input-text::-webkit-input-placeholder {
+    color: #d8373e;
+}
+.form-search .dropdown {
+    float: left;
+}
+.form-search .dropdown .btn {
+    border: 0;
+    border-left: 3px solid #e1e1e1;
+    background-color: transparent;
+    border-radius: 0;
+    font-size: 13px;
+    margin: 10px 0;
+    line-height: 20px;
+    padding: 7px 15px;
+    box-shadow: none!important;
+    -webkit-box-shadow: none!important;
+    outline: none!important;
+}
+.form-search .dropdown .btn .fa {
+    font-size: 30px;
+    display: inline-block;
+    line-height: 17px;
+    vertical-align: middle;
+    color: #a5a5a5;
+    margin-left: 7px;
+}
+.form-search .dropdown-menu {
+    margin-top: 2px;
+}
+.form-search .btn {
+    font-size: 22px;
+    padding: 12px 19px;
+    line-height: 30px;
+}
+
+/*Footer*/
+.infopage, .footertop {
+    width: 100%;
+    float: left;
+    margin-bottom: -4px;
+}
+
+/*Menu*/
+@media (min-width: 767px) {
+   .navbar-nav .dropdown-menu .caret { transform: rotate(-90deg);}
+}
+
+/*Sign in*/
+
+.sign-in-action-wrapper {
+    padding: 0 10px 10px;
+}
+
+    .sign-in-action-wrapper .sign-in-button {
+        height: 50px;
+        font-size: 18px;
+        color: #FFF;
+        width: 100%;
+        padding: 2px;
+        line-height: 45px;
+        cursor: pointer;
+    }
+
+    .sign-in-action-wrapper .gplus {
+        background-color: #CC3E2F;
+        margin-bottom: 15px;
+    }
+
+    .sign-in-action-wrapper .facebook {
+        background-color: #4C66A4;
+    }
+
+.tab-content {
+    text-align: center;
+}
+
+    .tab-content .hr {
+        position: relative;
+        text-align: center;
+        margin: 14px 0;
+        height: 0;
+        width: 100%;
+        padding-bottom: 14px;
+    }
+
+        .tab-content .hr > span {
+            text-align: center;
+            display: inline-block;
+            position: relative;
+            padding: 2px 10px;
+            top: -1.9em;
+            line-height: 1em;
+            background-color: white;
+        }
+
+    .tab-content .message {
+        margin-bottom: 20px;
+        font-size: 19px;
+    }
+
+
+
+.ibutton {
+    border-radius: 5px;
+    clear: both;
+    text-align: center;
+    outline: 0;
+    border: 0;
+}
+
+
+
+    .ibutton.x-large {
+        padding: 10px 70px;
+        font-size: 20px;
+        cursor: pointer;
+        width: auto;
+    }
+
+.ibutton-red {
+    background-color: #EA1E30;
+    color: white;
+}
+
+/*Summary */
+.about-div {
+    padding: 30px;
+}
+
+.icon-round-border {
+    border: 10px double #1A94C4;
+    color: #2f9484;
+    text-align: center;
+    padding-top: 15px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+
+    .icon-round-border:hover {
+        color: #fff;
+        border: 10px double #fff;
+        background-color: #1A94C4;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -o-transition: 0.3s;
+        transition: 0.3s;
+    }
+
+.about-div hr {
+    border: 1px solid #1A94C4;
+}
+
+.about-div h3 {
+    font-size: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.about-div p {
+    padding-top: 10px;
+}
+
+.btn-set {
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    margin-bottom: 20px;
+}
+element.style {
+    margin-top: 3px;
+    margin-left: 80px;
+    margin-right: 90px;
+}
+.modal-open[style] {
+padding-right: 0px !important;
 }
