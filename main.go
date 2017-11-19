@@ -1,18 +1,26 @@
 package main
 
 import (
-	"html/template"
 	"net/http"
+	"log"
+	"github.com/gorilla/mux"
 )
 
-func templateHomePage(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("template/index.html")
-	t.Execute(w, "")
-}
 func main() {
-	server := http.Server{
-		Addr: "127.0.0.1:8000",
-	}
-	http.HandleFunc("/homepage", templateHomePage)
-	server.ListenAndServe()
+	schedule_crawl_data()
+	r := mux.NewRouter()
+	cssHandler := http.FileServer(http.Dir("./public/css/"))
+	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
+	imagesHandler := http.FileServer(http.Dir("./public/img/"))
+	http.Handle("/img/", http.StripPrefix("/img/", imagesHandler))
+	jsHandler := http.FileServer(http.Dir("./public/js/"))
+	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
+
+
+	r.HandleFunc("/homepage", templateHomePage)
+	r.HandleFunc("/notfound", notFoundPage)
+	log.Println()
+	http.Handle("/homepage",r)
+	http.Handle("/notfound",r)
+	log.Fatal(http.ListenAndServe(":8000",nil))
 }

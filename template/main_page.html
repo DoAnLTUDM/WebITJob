@@ -1,0 +1,426 @@
+{{define "content"}}
+    <div id="wrapper" style="margin-top: 10em" style="padding-right: 0px">
+        <div class="container"> <!--thanh Search-->
+            <form class="form-search">
+                <input type="text" class="input-text" name="q" id="search" placeholder="Search Job...">
+                <div class="dropdown">
+                    <button type="button" class="btn" data-toggle="dropdown">All category <span class="fa fa-angle-down"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#">HCM city</a></li>
+                        <li><a href="#">Da Nang</a></li>
+                        <li><a href="#">Ha Noi </a></li>
+                        <li><a href="#">Hue</a></li>
+                    </ul>
+                </div>
+                <button type="submit" class="btn btn-danger"><span class="fa fa-search"></span></button>
+            </form>
+        </div> <!--End search bar-->
+
+        <div class="job-recommmed">
+            <div class="container">
+                <h3>Job Recommed</h3>
+
+                <div class="jobs" id="{{.jobId}}"> <!--id là mã tin-->
+                    <div class="job_contest">
+                        <div class="logo">
+                            <div class="logo-wrapper" title="Embracing challenges">
+                                <img src="/img/company-logo/vng-logo.png" width="100" height="100" style="margin-left: 10px">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="job_description">
+                            <div class="job_body">
+                                <div class=details>
+                                    <h2 class="title">
+                                        <a href="{{.detailUrl}}">{{.title}}</a>
+                                    </h2>
+                                    <div class="salary">
+                                        <span class="icon-salary"><img src="/img/icon-salary.png" width="50" height="50" ></span>
+                                        <span class="salary-text">{{.salary}}
+                                                </span>
+                                    </div>
+                                    <div class="hidden-xs"></div>
+                                    <div class="description">{{.discription}}</div>
+                                    <div class=visible-xs></div>
+                                </div>
+                                <div class="city_and_posted_date hidden-xs">
+                                    <div class="city">
+                                        <div class="address">
+                                            <div class="text-city">{{.city}}
+                                            </div>
+                                            <div class="other_address">{{.address}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="distance-time-job-posted">
+                                        <span class="distance-time">{{.time}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="job-bottom">
+                                <div class="tab-list">
+                                    <a class="job__skill ilabel" href="#">
+                                        <span>PHP</span>
+                                    </a>
+                                    <a class="job__skill ilabel" href="#">
+                                        <span>HTM5</span>
+                                    </a>
+                                    <a class="job__skill ilabel" href="#">
+                                        <span>AngularJS</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="jobs" id="job_1"> <!--id là mã tin-->
+                    <div class="job_contest">
+                        <div class="logo">
+                            <div class="logo-wrapper" title="Embracing challenges">
+                                <a href="#"></a>
+                                <img src="/img/company-logo/vng-logo.png" alt="VNG" width="100" height="100" style="margin-left: 10px">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="job_description">
+                            <div class="job_body">
+                                <div class=details>
+                                    <h2 class="title">
+                                        <a href="#">500 Developer PHP Up to 1500$</a>
+                                    </h2>
+                                    <div class="salary">
+                                        <span class="icon-salary"><img src="/img/icon-salary.png" width="50" height="50" ></span>
+                                        <span class="salary-text">
+                                                    Up to 1500$
+                                                </span>
+                                    </div>
+                                    <div class="hidden-xs"></div>
+                                    <div class="description">VNG đang có đợt tuyển lập trình viên php</div>
+                                    <div class=visible-xs></div>
+                                </div>
+                                <div class="city_and_posted_date hidden-xs">
+                                    <div class="city">
+                                        <div class="address">
+                                            <div class="text-city">
+                                                TP.HCM
+                                            </div>
+                                            <div class="other_address">
+                                                Quận 1
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="distance-time-job-posted">
+                                        <span class="distance-time">23h ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="job-bottom">
+                                <div class="tab-list">
+                                    <a class="job__skill ilabel" href="#">
+                                        <span>PHP</span>
+                                    </a>
+                                    <a class="job__skill ilabel" href="#">
+                                        <span>HTM5</span>
+                                    </a>
+                                    <a class="job__skill ilabel" href="#">
+                                        <span>AngularJS</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="jobs" id="job_1"> <!--id là mã tin-->
+                    <div class="job_contest">
+                        <div class="logo">
+                            <div class="logo-wrapper" title="Embracing challenges">
+                                <a href="#"></a>
+                                <img src="/img/company-logo/vng-logo.png" alt="VNG" width="100" height="100" style="margin-left: 10px">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="job_description">
+                            <div class="job_body">
+                                <div class=details>
+                                    <h2 class="title">
+                                        <a href="#">500 Developer PHP Up to 1500$</a>
+                                    </h2>
+                                    <div class="salary">
+                                        <span class="icon-salary"><img src="/img/icon-salary.png" width="50" height="50" ></span>
+                                        <span class="salary-text">
+                                                    Up to 1500$
+                                                </span>
+                                    </div>
+                                    <div class="hidden-xs"></div>
+                                    <div class="description">VNG đang có đợt tuyển lập trình viên php</div>
+                                    <div class=visible-xs></div>
+                                </div>
+                                <div class="city_and_posted_date hidden-xs">
+                                    <div class="city">
+                                        <div class="address">
+                                            <div class="text-city">
+                                                TP.HCM
+                                            </div>
+                                            <div class="other_address">
+                                                Quận 1
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="distance-time-job-posted">
+                                        <span class="distance-time">23h ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="job-bottom">
+                                <div class="tab-list">
+                                    <a class="job__skill ilabel" href="#">
+                                        <span>PHP</span>
+                                    </a>
+                                    <a class="job__skill ilabel" href="#">
+                                        <span>HTM5</span>
+                                    </a>
+                                    <a class="job__skill ilabel" href="#">
+                                        <span>AngularJS</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!--End job recommed-->
+
+        <div class="company-recommed"> <!--company recommed-->
+            <div class="container">
+                <h3>Company recommed</h3>
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <a id="top-company" rel="nofollow" data-method="put" href="#">
+                            <div class="top-company__logo text-center">
+                                <img src="/img/company-logo/FPT-logo.png" alt="IT-Job" height="170" width="170">
+                            </div>
+                            <div class="top-company__name text-center">FPT Software</div>
+                            <footer class="top-company__footer text-center">
+                                        <span class="top-company__footer-jobs">
+                                            <span class="red-link">X Jobs</span>
+                                            <span>&nbsp;-&nbsp;</span>
+                                        </span>
+                                <span class="top-company_footer-city">TP.HCM</span>
+                            </footer>
+                        </a>
+                    </div>
+
+                    <div class="col-md-4 col-xs-12">
+                        <a id="top-company" rel="nofollow" data-method="put" href="#">
+                            <div class="top-company__logo text-center">
+                                <img src="/img/company-logo/fujinet-logo.png" height="170" width="170" />
+                            </div>
+                            <div class="top-company__name text-center">FUJINET</div>
+                            <footer class="top-company__footer text-center">
+                                        <span class="top-company__footer-jobs">
+                                            <span class="red-link">X Jobs</span>
+                                            <span>&nbsp;-&nbsp;</span>
+                                        </span>
+                                <span class="top-company_footer-city">TP.HCM</span>
+                            </footer>
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <a id="top-company" rel="nofollow" data-method="put" href="#">
+                            <div class="top-company__logo text-center">
+                                <img src="/img/company-logo/cisco-logo.png" height="170" width="170" />
+                            </div>
+                            <div class="top-company__name text-center">CISCO</div>
+                            <footer class="top-company__footer text-center">
+                                        <span class="top-company__footer-jobs">
+                                            <span class="red-link">X Jobs</span>
+                                            <span>&nbsp;-&nbsp;</span>
+                                        </span>
+                                <span class="top-company_footer-city">TP.HCM</span>
+                            </footer>
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <a id="top-company" rel="nofollow" data-method="put" href="#">
+                            <div class="top-company__logo text-center">
+                                <img src="/img/company-logo/global-logo.png" height="170" width="170" />
+                            </div>
+                            <div class="top-company__name text-center">GLOBAL</div>
+                            <footer class="top-company__footer text-center">
+                                        <span class="top-company__footer-jobs">
+                                            <span class="red-link">X Jobs</span>
+                                            <span>&nbsp;-&nbsp;</span>
+                                        </span>
+                                <span class="top-company_footer-city">TP.HCM</span>
+                            </footer>
+                        </a>
+                    </div>
+
+                    <div class="col-md-4 col-xs-12">
+                        <a id="top-company" rel="nofollow" data-method="put" href="#">
+                            <div class="top-company__logo text-center">
+                                <img src="/img/company-logo/cmc-logo.png" height="170" width="170" />
+                            </div>
+                            <div class="top-company__name text-center">CMC</div>
+                            <footer class="top-company__footer text-center">
+                                        <span class="top-company__footer-jobs">
+                                            <span class="red-link">X Jobs</span>
+                                            <span>&nbsp;-&nbsp;</span>
+                                        </span>
+                                <span class="top-company_footer-city">TP.HCM</span>
+                            </footer>
+                        </a>
+                    </div>
+
+
+
+                    <div class="col-md-4 col-xs-12">
+                        <a id="top-company" rel="nofollow" data-method="put" href="#">
+                            <div class="top-company__logo text-center">
+                                <img src="/img/company-logo/TMA-logo.png" width="170" height="170">
+                            </div>
+                            <div class="top-company__name text-center">TMA Software</div>
+                            <footer class="top-company__footer text-center">
+                                        <span class="top-company__footer-jobs">
+                                            <span class="red-link">X Jobs</span>
+                                            <span>&nbsp;-&nbsp;</span>
+                                        </span>
+                                <span class="top-company_footer-city">TP.HCM</span>
+                            </footer>
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-4 col-xs-12">
+                        <a id="top-company" rel="nofollow" data-method="put" href="#">
+                            <div class="top-company__logo text-center">
+                                <img src="/img/company-logo/VNPT-logo.png" alt="IT-Job" height="170" width="170">
+                            </div>
+                            <div class="top-company__name text-center">VNPT Software</div>
+                            <footer class="top-company__footer text-center">
+                                        <span class="top-company__footer-jobs">
+                                            <span class="red-link">X Jobs</span>
+                                            <span>&nbsp;-&nbsp;</span>
+                                        </span>
+                                <span class="top-company_footer-city">TP.HCM</span>
+                            </footer>
+                        </a>
+                    </div>
+
+                    <div class="col-md-4 col-xs-12">
+                        <a id="top-company" rel="nofollow" data-method="put" href="#">
+                            <div class="top-company__logo text-center">
+                                <img src="/img/company-logo/sunsire-logo.png" alt="IT-Job" height="170" width="170">
+                            </div>
+                            <div class="top-company__name text-center">SUNSIRE</div>
+                            <footer class="top-company__footer text-center">
+                                        <span class="top-company__footer-jobs">
+                                            <span class="red-link">X Jobs</span>
+                                            <span>&nbsp;-&nbsp;</span>
+                                        </span>
+                                <span class="top-company_footer-city">TP.HCM</span>
+                            </footer>
+                        </a>
+                    </div>
+
+                    <div class="col-md-4 col-xs-12">
+                        <a id="top-company" rel="nofollow" data-method="put" href="#">
+                            <div class="top-company__logo text-center">
+                                <img src="/img/company-logo/vng-logo.png" alt="IT-Job" height="170" width="170">
+                            </div>
+                            <div class="top-company__name text-center">VNG game </div>
+                            <footer class="top-company__footer text-center">
+                                        <span class="top-company__footer-jobs">
+                                            <span class="red-link">X Jobs</span>
+                                            <span>&nbsp;-&nbsp;</span>
+                                        </span>
+                                <span class="top-company_footer-city">TP.HCM</span>
+                            </footer>
+                        </a>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+        <!--End Company-recommed-->
+
+        <div id="Sumary"> <!--Summary-->
+        <div class="container " style="margin-bottom: 10em">
+            <div class="row text-center">
+                <div id="features-sec" class="container set-pad" ></div>
+                <div id="course-sec" class="container set-pad">
+                    <div class="row text-center">
+                        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+                            <h1 data-scroll-reveal="enter from the bottom after 0.1s" class="header-line">WELCOME IT JOB </h1>
+                            <h5><p data-scroll-reveal="enter from the bottom after 0.3s">
+                                Bạn đang tìm một công việc thích hợp cho mình. Bạn mong muốn có một công việc ổn định .
+                            </p></h5>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-4 col-xs-12" data-scroll-reveal="enter from the bottom after 0.4s" style="margin-bottom: 20px" >
+                    <div class="about-div" >
+                        <i class="fa fa-paper-plane-o fa-4x icon-round-border" ></i>
+                        <h3 >JOB BY COMPANY </h3>
+                        <hr /><hr />
+                        <p >
+                            <br><a href="#"> Java </a></br>
+                            <br><a href="#"> PhP </a> </br>
+                            <br><a href="#">.Net </a></br>
+                            <br><a href="#"> Tester</a></br>
+                            <br><a href="#"> Anroid</a></br>
+                            <br><a href="#"> IOS </a></br>
+                        </p>
+                        <a href="#" class="btn btn-info btn-set"  >ASK THE EXPERT</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-xs-12" data-scroll-reveal="enter from the bottom after 0.5s" style="margin-bottom: 20px" >
+                    <div class="about-div" >
+                        <i class="fa fa-bolt fa-4x icon-round-border" ></i>
+                        <h3 >JOB BY TITLE </h3>
+                        <hr /><hr />
+                        <p >
+                            <br><a href="#"> Senior Java Developer </a></br>
+                            <br><a href="#"> System Engineer </a> </br>
+                            <br><a href="#">Project Manager</a> </br>
+                            <br><a href="#"> Software Architect</a></br>
+                            <br><a href="#"> QA QC Manager </a></br>
+                            <br><a href="#"> Mobile Developer </a></br>
+                        </p>
+                        <a href="#" class="btn btn-info btn-set"  >ASK THE EXPERT</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-xs-12" data-scroll-reveal="enter from the bottom after 0.6s" style="margin-bottom: 20px" >
+                    <div class="about-div" >
+                        <i class="fa fa-magic fa-4x icon-round-border" ></i>
+                        <h3 >JOB BY SKILL</h3>
+                        <hr /><hr />
+                        <p >
+                            <br><a href="#"> Evolable Asia</a> </br>
+                            <br><a href="#"> VPBank </a></br>
+                            <br><a href="#">Robert Bosch Engineering  </a></br>
+                            <br><a href="#"> And Business Solutions</a></br>
+                            <br><a href="#"> MISFIT </a></br>
+                            <br><a href="#"> Framgia Inc </a></br>
+                        </p>
+                        <a href="#" class="btn btn-info btn-set"  >ASK THE EXPERT</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+{{end}}
