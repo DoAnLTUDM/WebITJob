@@ -1,9 +1,4 @@
-﻿
-
-
-
-
- a{
+﻿a{
     text-decoration: none;
     color: black;
     transition: all 0.5s;
@@ -16,48 +11,7 @@ a:hover{
     text-decoration: none;
 }
 
-/*=====================================
-  FACULTY STYLES 
-  ===================================*/
-
-/*#faculty-sec {
-    background-color: #000;
-    color: #fff;
-    
-}
-
-    #faculty-sec .header-line {
-        color: #fff;
-    }
-.faculty-div h4 {
-    line-height:30px;
-    font-weight:700;
-}
-.faculty-div {
-    padding: 30px;
-}
-
-    .faculty-div hr {
-        border: 1px solid #1A94C4;
-    }
-
-    .faculty-div h3 {
-        font-size: 25px;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-
-    .faculty-div p {
-        padding-top: 10px;
-        padding-bottom: 15px;
-    }
-
-    .faculty-div img {
-        border: 10px double #fff;
-    }*/
-
 /*Job Recommed*/
-
 
 .job-recommed{
     clear: both;
@@ -69,17 +23,12 @@ a:hover{
     z-index: 3;
     position: relative;
     border: 2px solid #e7e7e7;
-/*    border-top: 2px solid #e7e7e7;
-    border-left: 2px solid #e7e7e7;*/ 
     overflow: hidden;
     font-weight: 400;
     padding: 27px 0;
     -webkit-transition: all 0.25s ease;
     transition: all 0.25s ease;
-    margin-bottom: 2px;
-    
-
-
+    margin-bottom: 2px;    
 }
 .jobs .job_contest:hover{
     box-shadow: inset 0px 0px 10px grey;
@@ -265,7 +214,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     display: inline-block;
 }
 
-
 /*Company Recommmed*/
 
 .company-recommed{
@@ -335,18 +283,6 @@ div{
     display: block;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 /*Thanh Search*/
 .form-search input.input-text {
     background-color: transparent;
@@ -404,13 +340,6 @@ div{
     line-height: 30px;
 }
 
-/*Footer*/
-/*.infopage, .footertop {
-    width: 100%;
-    float: left;
-    margin-bottom: -4px;
-}*/
-
 /*Menu*/
 @media (min-width: 767px) {
    .navbar-nav .dropdown-menu .caret { transform: rotate(-90deg);}
@@ -422,54 +351,52 @@ div{
     padding: 0 10px 10px;
 }
 
-    .sign-in-action-wrapper .sign-in-button {
-        height: 50px;
-        font-size: 18px;
-        color: #FFF;
-        width: 100%;
-        padding: 2px;
-        line-height: 45px;
-        cursor: pointer;
-    }
+.sign-in-action-wrapper .sign-in-button {
+    height: 50px;
+    font-size: 18px;
+    color: #FFF;
+    width: 100%;
+    padding: 2px;
+    line-height: 45px;
+    cursor: pointer;
+}
 
-    .sign-in-action-wrapper .gplus {
-        background-color: #CC3E2F;
-        margin-bottom: 15px;
-    }
+.sign-in-action-wrapper .gplus {
+    background-color: #CC3E2F;
+    margin-bottom: 15px;
+}
 
-    .sign-in-action-wrapper .facebook {
-        background-color: #4C66A4;
-    }
+.sign-in-action-wrapper .facebook {
+    background-color: #4C66A4;
+}
 
 .tab-content {
     text-align: center;
 }
 
-    .tab-content .hr {
-        position: relative;
-        text-align: center;
-        margin: 14px 0;
-        height: 0;
-        width: 100%;
-        padding-bottom: 14px;
-    }
+.tab-content .hr {
+    position: relative;
+    text-align: center;
+    margin: 14px 0;
+    height: 0;
+    width: 100%;
+    padding-bottom: 14px;
+}
 
-        .tab-content .hr > span {
-            text-align: center;
-            display: inline-block;
-            position: relative;
-            padding: 2px 10px;
-            top: -1.9em;
-            line-height: 1em;
-            background-color: white;
-        }
+.tab-content .hr > span {
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    padding: 2px 10px;
+    top: -1.9em;
+    line-height: 1em;
+    background-color: white;
+}
 
-    .tab-content .message {
-        margin-bottom: 20px;
-        font-size: 19px;
-    }
-
-
+.tab-content .message {
+    margin-bottom: 20px;
+    font-size: 19px;
+}
 
 .ibutton {
     border-radius: 5px;
@@ -479,14 +406,12 @@ div{
     border: 0;
 }
 
-
-
-    .ibutton.x-large {
-        padding: 10px 70px;
-        font-size: 20px;
-        cursor: pointer;
-        width: auto;
-    }
+.ibutton.x-large {
+    padding: 10px 70px;
+    font-size: 20px;
+    cursor: pointer;
+    width: auto;
+}
 
 .ibutton-red {
     background-color: #EA1E30;
@@ -513,15 +438,15 @@ div{
     transition: 0.3s;
 }
 
-    .icon-round-border:hover {
-        color: #fff;
-        border: 10px double #fff;
-        background-color: #1A94C4;
-        -webkit-transition: 0.3s;
-        -moz-transition: 0.3s;
-        -o-transition: 0.3s;
-        transition: 0.3s;
-    }
+.icon-round-border:hover {
+    color: #fff;
+    border: 10px double #fff;
+    background-color: #1A94C4;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
 
 .about-div hr {
     border: 1px solid #1A94C4;
