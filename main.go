@@ -24,3 +24,4 @@ func main() {
 	http.Handle("/notfound",r)
 	log.Fatal(http.ListenAndServe(":8000",nil))
 }
+
