@@ -1,6 +1,6 @@
 ﻿a{
     text-decoration: none;
-    color: black;
+    /*color: black;*/
     transition: all 0.5s;
     -moz-transition: all 0.5s;
     -webkit-transition: all 0.5s;
@@ -15,12 +15,13 @@ a:hover{
 
 .job-recommed{
     clear: both;
+    z-index: 1;
 }
 .jobs .job_contest{
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    z-index: 3;
+    z-index: 1;
     position: relative;
     border: 2px solid #e7e7e7;
     overflow: hidden;
@@ -28,7 +29,7 @@ a:hover{
     padding: 27px 0;
     -webkit-transition: all 0.25s ease;
     transition: all 0.25s ease;
-    margin-bottom: 2px;    
+        
 }
 .jobs .job_contest:hover{
     box-shadow: inset 0px 0px 10px grey;
@@ -222,8 +223,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .company-recommed{
     
     margin: auto;
-    margin-top: 150px;
-    margin-bottom: 150px;
+    margin-top: 20px;
+    margin-bottom: 100px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -284,66 +285,51 @@ div{
 }
 
 /*Thanh Search*/
-.form-search input.input-text {
-    background-color: transparent;
-    ;
-    border: 0 none;
-    color: #d8373e;
-    float: left;
-    font-weight: 700;
-    font-size: 16px;
-    height: ̀50px;
-    line-height: 34px;
-    padding: 10px 20px;
-    width: 500px;
+.search-tool > div{
+            margin:20px 0px;
+        }
+
+.search-tool .search-box .control {
+    position: relative;
+    width:100%;
 }
-.form-search input.input-text::-moz-placeholder {
-    color: #d8373e;
-    opacity: 1;
+.search-tool .search-button:hover{
+    cursor:pointer;
 }
-.form-search input.input-text:-ms-input-placeholder {
-    color: #d8373e;
+.search-tool .search-button button:focus{
+    outline:none !important;
+    box-shadow: none;
 }
-.form-search input.input-text::-webkit-input-placeholder {
-    color: #d8373e;
+
+.search-tool .search-box {
+    position:relative;
 }
-.form-search .dropdown {
-    float: left;
+
+.search-box > .search-list li{
+    padding:10px;
 }
-.form-search .dropdown .btn {
-    border: 0;
-    border-left: 3px solid #e1e1e1;
-    background-color: transparent;
-    border-radius: 0;
-    font-size: 13px;
-    margin: 10px 0;
-    line-height: 20px;
-    padding: 7px 15px;
-    box-shadow: none!important;
-    -webkit-box-shadow: none!important;
-    outline: none!important;
+
+.search-box > .search-list li:hover {
+    background-color:#1246cc;
 }
-.form-search .dropdown .btn .fa {
-    font-size: 30px;
-    display: inline-block;
-    line-height: 17px;
-    vertical-align: middle;
-    color: #a5a5a5;
-    margin-left: 7px;
+
+.search-box > .search-list li:hover a{
+    color:white;
 }
-.form-search .dropdown-menu {
-    margin-top: 2px;
+
+.search-box > .search-list li a {
+    color:black;
 }
-.form-search .btn {
-    font-size: 22px;
-    padding: 12px 19px;
-    line-height: 30px;
+
+.search-box > .search-list li a:link{
+    text-decoration:none;
 }
 
 /*Menu*/
 @media (min-width: 767px) {
    .navbar-nav .dropdown-menu .caret { transform: rotate(-90deg);}
 }
+.navbar-nav > li > .dropdown-menu { background-color: #D3D3D3; }
 
 /*Sign in*/
 
@@ -714,3 +700,9 @@ footer .bar-wrap{
         margin-right:5px;
     }
 }
+
+/* Slide */
+
+
+
+
