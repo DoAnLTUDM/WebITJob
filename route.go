@@ -21,6 +21,10 @@ func notFoundPage(w http.ResponseWriter, r *http.Request){
 	t.Execute(w,"" )
 }
 
+func login(w http.ResponseWriter, r *http.Request){
+
+}
+
 func getRequestBody(w http.ResponseWriter, r *http.Request){
 	len := r.ContentLength
 	body := make([]byte, len)
