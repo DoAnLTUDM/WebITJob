@@ -58,7 +58,6 @@ func checkError(err error){
 }
 
 func crawl_data(url string)  {
-
 	//Get Url
 	if len(url) < 1{
 		log.Print("Please specify start page")
@@ -92,11 +91,14 @@ func (companies *Companies) getCompaniesByUrl (urlC string) error{
 
 	doc.Find("#container .top-companies .col-md-4 ").Each(func(i int, selection *goquery.Selection) {
 		companyUrl,exist := selection.Find("a").Attr("href")
-		if exist{
+		if exist {
 			if strings.Contains(urlC, "itviec"){
 				companyUrl = "https://itviec.com" + companyUrl
 			}
-		}else {
+			if strings.Contains(urlC, "vietnamworks"){
+				companyUrl = "https://www.vietnamworks.com" + companyUrl
+			}
+		} else {
 			companyUrl = "#"
 		}
 		companies.getInformationCompanies(companyUrl)
@@ -143,6 +145,9 @@ func (jobs *Jobs) getJobsByUrl (urlJ string) error{
 		if exist{
 			if strings.Contains(urlJ, "itviec"){
 				jobUrl = "https://itviec.com" + jobUrl
+			}
+			if strings.Contains(urlJ, "vietnamworks"){
+				jobUrl = "https://www.vietnamworks.com" + jobUrl
 			}
 		}else {
 			jobUrl = "#"
