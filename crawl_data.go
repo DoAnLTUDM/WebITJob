@@ -89,30 +89,33 @@ func (companies *Companies) getCompaniesByUrl (urlC string) error{
         return err
     }
 
-    doc.Find("#container .top-companies .col-md-4 ").Each(func(i int, selection *goquery.Selection) {
-        companyUrl,exist := selection.Find("a").Attr("href")
-        if exist {
-            if strings.Contains(urlC, "itviec"){
-                companyUrl = "https://itviec.com" + companyUrl
-            }
-        } else {
-            companyUrl = "#"
-        }
-        companies.getInformationCompanies(companyUrl)
-    })
-
-    doc.Find("#wrapper #companyList #company-list__home #mostJobs .company-profile-group .container . row .col-sm-12").Each(
-        func(i int, selection *goquery.Selection) {
+    if strings.Contains(urlC, "itviec") {
+        doc.Find("#container .top-companies .col-md-4 ").Each(func(i int, selection *goquery.Selection) {
             companyUrl,exist := selection.Find("a").Attr("href")
             if exist {
-                if strings.Contains(urlC, "vietnamworks"){
-                    companyUrl = "https://www.vietnamworks.com/cong-ty" + companyUrl
+                if strings.Contains(urlC, "itviec"){
+                    companyUrl = "https://itviec.com" + companyUrl
                 }
             } else {
                 companyUrl = "#"
             }
             companies.getInformationCompanies(companyUrl)
         })
+    }
+    else {
+        doc.Find("#mostJobs .company-profile-group .container .col-sm-12").Each(
+            func(i int, selection *goquery.Selection) {
+                companyUrl,exist := selection.Find("a").Attr("href")
+                if exist {
+                    if strings.Contains(urlC, "vietnamworks"){
+                        companyUrl = "https://www.vietnamworks.com/cong-ty" + companyUrl
+                    }
+                } else {
+                    companyUrl = "#"
+                }
+                companies.getInformationCompanies(companyUrl)
+            })
+    }
 
     return nil
 }
