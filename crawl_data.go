@@ -90,7 +90,7 @@ func (companies *Companies) getCompaniesByUrl (urlC string) error{
     }
 
     if strings.Contains(urlC, "itviec") {
-        doc.Find("#container .top-companies .col-md-4 ").Each(func(i int, selection *goquery.Selection) {
+        doc.Find("#container .top-companies .col-md-4").Each(func(i int, selection *goquery.Selection) {
             companyUrl,exist := selection.Find("a").Attr("href")
             if exist {
                 if strings.Contains(urlC, "itviec"){
@@ -101,8 +101,7 @@ func (companies *Companies) getCompaniesByUrl (urlC string) error{
             }
             companies.getInformationCompanies(companyUrl)
         })
-    }
-    else {
+    } else {
         doc.Find("#mostJobs .company-profile-group .container .col-sm-12").Each(
             func(i int, selection *goquery.Selection) {
                 companyUrl,exist := selection.Find("a").Attr("href")
@@ -115,8 +114,46 @@ func (companies *Companies) getCompaniesByUrl (urlC string) error{
                 }
                 companies.getInformationCompanies(companyUrl)
             })
-    }
 
+        doc.Find("#mostViewed .company-profile-group .container .col-sm-12").Each(
+            func(i int, selection *goquery.Selection) {
+                companyUrl,exist := selection.Find("a").Attr("href")
+                if exist {
+                    if strings.Contains(urlC, "vietnamworks"){
+                        companyUrl = "https://www.vietnamworks.com/cong-ty" + companyUrl
+                    }
+                } else {
+                    companyUrl = "#"
+                }
+                companies.getInformationCompanies(companyUrl)
+            })
+
+        doc.Find("#mostFollowed .company-profile-group .container .col-sm-12").Each(
+            func(i int, selection *goquery.Selection) {
+                companyUrl,exist := selection.Find("a").Attr("href")
+                if exist {
+                    if strings.Contains(urlC, "vietnamworks"){
+                        companyUrl = "https://www.vietnamworks.com/cong-ty" + companyUrl
+                    }
+                } else {
+                    companyUrl = "#"
+                }
+                companies.getInformationCompanies(companyUrl)
+            })
+
+        doc.Find("#newest .company-profile-group .container .col-sm-12").Each(
+            func(i int, selection *goquery.Selection) {
+                companyUrl,exist := selection.Find("a").Attr("href")
+                if exist {
+                    if strings.Contains(urlC, "vietnamworks"){
+                        companyUrl = "https://www.vietnamworks.com/cong-ty" + companyUrl
+                    }
+                } else {
+                    companyUrl = "#"
+                }
+                companies.getInformationCompanies(companyUrl)
+            })
+    }
     return nil
 }
 
@@ -127,23 +164,42 @@ func (companies *Companies) getInformationCompanies(companyUrl string) error  {
         return err
     }
 
-    doc.Find("#container .company-content").Each(func(i int, selection *goquery.Selection) {
-        companyImg,_ := selection.Find(".headers .logo-container img").Attr("src")
-        companyName := selection.Find(".headers .name-and-info .title").Text()
-        companyAddr := selection.Find(".col-md-3 .map-address").Text()
-        companyCountry := selection.Find(".headers .company-info .country span").Text()
+    if strings.Contains(companyUrl, "itviec") {
+        doc.Find("#container .company-content").Each(func(i int, selection *goquery.Selection) {
+            companyImg,_ := selection.Find(".headers .logo-container img").Attr("src")
+            companyName := selection.Find(".headers .name-and-info .title").Text()
+            companyAddr := selection.Find(".col-md-3 .map-address").Text()
+            companyCountry := selection.Find(".headers .company-info .country span").Text()
 
-        company := Company{
-            name:companyName,
-            urlC:companyUrl,
-            logo:companyImg,
-            address:companyAddr,
-            country:companyCountry,
-        }
+            company := Company{
+                name:companyName,
+                urlC:companyUrl,
+                logo:companyImg,
+                address:companyAddr,
+                country:companyCountry,
+            }
+            companies.totalCompanies++
+            companies.ListCompanies = append(companies.ListCompanies, company)
+        })
+    } else {
+        doc.Find("#container .company-content").Each(func(i int, selection *goquery.Selection) {
+            companyImg,_ := selection.Find(".headers .logo-container img").Attr("src")
+            companyName := selection.Find(".headers .name-and-info .title").Text()
+            companyAddr := selection.Find(".col-md-3 .map-address").Text()
+            companyCountry := selection.Find(".headers .company-info .country span").Text()
 
-        companies.totalCompanies++
-        companies.ListCompanies = append(companies.ListCompanies, company)
-    })
+            company := Company{
+                name:companyName,
+                urlC:companyUrl,
+                logo:companyImg,
+                address:companyAddr,
+                country:companyCountry,
+            }
+
+            companies.totalCompanies++
+            companies.ListCompanies = append(companies.ListCompanies, company)
+        })
+    }
     return nil
 }
 
