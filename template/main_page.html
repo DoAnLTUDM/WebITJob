@@ -4,31 +4,31 @@
         <div id="carousel-simple" class="carousel slide col-md-12 col-md-offset-0" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-            <li data-target="#carousel-simple" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-simple" data-slide-to="1"></li>
-            <li data-target="#carousel-simple" data-slide-to="2"></li>
-            <li data-target="#carousel-simple" data-slide-to="3"></li>
-            <li data-target="#carousel-simple" data-slide-to="4"></li>
+                <li data-target="#carousel-simple" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-simple" data-slide-to="1"></li>
+                <li data-target="#carousel-simple" data-slide-to="2"></li>
+                <li data-target="#carousel-simple" data-slide-to="3"></li>
+                <li data-target="#carousel-simple" data-slide-to="4"></li>
             </ol>
 
             <!-- Wrapper for slides -->
             <style> .carousel-inner > .item > img{ width:100%; height:480px; } </style>
             <div class="carousel-inner" role="listbox">
-            <div class="item active">
-            <img src="/img/slideshow/img1.png" >
-            </div>
-            <div class="item">
-            <img src="/img/slideshow/img2.png" >
-            </div>
-            <div class="item">
-            <img src="/img/slideshow/img3.png" >
-            </div>
-            <div class="item">
-            <img src="/img/slideshow/img4.png" >
-            </div>
-            <div class="item">
-            <img src="/img/slideshow/img5.png" >
-            </div>
+                <div class="item active">
+                    <img src="/img/slideshow/img1.png" >
+                </div>
+                <div class="item">
+                    <img src="/img/slideshow/img2.png" >
+                </div>
+                <div class="item">
+                    <img src="/img/slideshow/img3.png" >
+                </div>
+                <div class="item">
+                    <img src="/img/slideshow/img4.png" >
+                </div>
+                <div class="item">
+                    <img src="/img/slideshow/img5.png" >
+                </div>
             </div>
 
             <!-- Controls -->
@@ -44,26 +44,26 @@
 
         <div class="container"> <!--thanh Search-->
             <div style="background-color:#D3D3D3;" class="row">
-        <div class="search-tool" >
-            <div class="col-md-8 col-sm-12">
-                <div class="search-box" style="margin-top: 7px">
-                    <div class="input-group" style="padding:5px 0px 5px 0px;background-color:white;">
-                        <span class="input-group-addon" style="border:none;background-color:white" id="basic-addon1">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </span>
-                        <input type="text" class="form-control control" style="border:none; box-shadow:none;padding:0" placeholder="Job search" aria-describedby="basic-addon1">
+                <div class="search-tool" >
+                    <div class="col-md-8 col-sm-12">
+                        <div class="search-box" style="margin-top: 7px">
+                            <div class="input-group" style="padding:5px 0px 5px 0px;background-color:white;">
+                                <span class="input-group-addon" style="border:none;background-color:white" id="basic-addon1">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </span>
+                                <input type="text" class="form-control control" style="border:none; box-shadow:none;padding:0" placeholder="Job search" aria-describedby="basic-addon1">
+                            </div>
+                            <div style="clear:both; z-index:2;display:none;position:absolute;width:100%" class="search-list">
+                                <ul style="list-style-type:none; padding:0px;background:white;box-shadow: 0px 0px 5px gray; margin-top:5px;">
+                                    <li><a href="#">Java</a></li>
+                                    <li><a href="#">PHP</a></li>
+                                    <li><a href="#">Nodejs</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div style="clear:both; z-index:2;display:none;position:absolute;width:100%" class="search-list">
-                        <ul style="list-style-type:none; padding:0px;background:white;box-shadow: 0px 0px 5px gray; margin-top:5px;">
-                            <li><a href="#">Java</a></li>
-                            <li><a href="#">PHP</a></li>
-                            <li><a href="#">Nodejs</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-12" >
-                    <div class="search-box" style="margin-top: 9px">
+                    <div class="col-md-2 col-sm-12" >
+                        <div class="search-box" style="margin-top: 9px">
                             <div class="input-group" style="padding:5px 0px 5px 0px;background-color:white">
                                 <span class="input-group-addon" style="border:none;background-color:white" id="basic-addon1">
                                     <span class="glyphicon glyphicon-search"></span>
@@ -79,22 +79,21 @@
                                 </ul>
                             </div>
                         </div>
-            </div>
-            <div class="col-md-2 col-sm-12">
-                <div class="search-button" style="width:100%;padding:5px;text-align:center;background-color:#EA1E30">
-                    <div style="position:relative;width:100%;color:white; height:30px;border:none;background-color: rgba(0, 0, 0, 0);">
-                            <p >Tìm kiếm</p>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <div class="search-button" style="width:100%;padding:5px;text-align:center;background-color:#EA1E30">
+                            <div style="position:relative;width:100%;color:white; height:30px;border:none;background-color: rgba(0, 0, 0, 0);">
+                                <p >Tìm kiếm</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
         </div> <!--End search bar-->
 
         <div class="job-recommmed">
             <div class="container">
                 <h3>Job Recommed</h3>
-
                 <div class="jobs" id="{{.jobId}}"> <!--id là mã tin-->
                     <div class="job_contest" style="background-color: white">
                         <div class="logo">
@@ -111,8 +110,7 @@
                                     </h2>
                                     <div class="salary">
                                         <span class="icon-salary"><img src="/img/icon-salary.png" width="50" height="50" ></span>
-                                        <span class="salary-text">{{.salary}}
-                                                </span>
+                                        <span class="salary-text">{{.salary}}</span>
                                     </div>
                                     <div class="hidden-xs"></div>
                                     <div class="description">{{.discription}}</div>
@@ -121,10 +119,8 @@
                                 <div class="city_and_posted_date hidden-xs">
                                     <div class="city">
                                         <div class="address">
-                                            <div class="text-city">{{.city}}
-                                            </div>
-                                            <div class="other_address">{{.address}}
-                                            </div>
+                                            <div class="text-city">{{.city}}</div>
+                                            <div class="other_address">{{.address}}</div>
                                         </div>
                                     </div>
                                     <div class="distance-time-job-posted">
@@ -156,9 +152,12 @@
                                 <a href="#"></a>
                                 <img src="/img/company-logo/vng-logo.png" alt="VNG" width="100" height="100" style="margin-left: 10px">
                             </div>
+
                             <div class="clearfix"></div>
                         </div>
+
                         <div class="job_description">
+
                             <div class="job_body">
                                 <div class=details>
                                     <h2 class="title">
@@ -166,9 +165,7 @@
                                     </h2>
                                     <div class="salary">
                                         <span class="icon-salary"><img src="/img/icon-salary.png" width="50" height="50" ></span>
-                                        <span class="salary-text">
-                                                    Up to 1500$
-                                                </span>
+                                        <span class="salary-text">Up to 1500$</span>
                                     </div>
                                     <div class="hidden-xs"></div>
                                     <div class="description">VNG đang có đợt tuyển lập trình viên php</div>
@@ -177,12 +174,8 @@
                                 <div class="city_and_posted_date hidden-xs">
                                     <div class="city">
                                         <div class="address">
-                                            <div class="text-city">
-                                                TP.HCM
-                                            </div>
-                                            <div class="other_address">
-                                                Quận 1
-                                            </div>
+                                            <div class="text-city">TP.HCM</div>
+                                            <div class="other_address">Quận 1</div>
                                         </div>
                                     </div>
                                     <div class="distance-time-job-posted">
@@ -190,6 +183,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="job-bottom">
                                 <div class="tab-list">
                                     <a class="job__skill ilabel" href="#">
@@ -214,8 +208,10 @@
                                 <a href="#"></a>
                                 <img src="/img/company-logo/vng-logo.png" alt="VNG" width="100" height="100" style="margin-left: 10px">
                             </div>
+
                             <div class="clearfix"></div>
                         </div>
+
                         <div class="job_description">
                             <div class="job_body">
                                 <div class=details>
@@ -223,24 +219,19 @@
                                         <a href="#">500 Developer PHP Up to 1500$</a>
                                     </h2>
                                     <div class="salary">
-                                        <span class="icon-salary"><img src="/img/icon-salary.png" width="50" height="50" ></span>
-                                        <span class="salary-text">
-                                                    Up to 1500$
-                                                </span>
+                                        <span class="icon-salary"><img src="/img/icon-salary.png" width="50" height="50"></span>
+                                        <span class="salary-text">Up to 1500$</span>
                                     </div>
                                     <div class="hidden-xs"></div>
                                     <div class="description">VNG đang có đợt tuyển lập trình viên php</div>
                                     <div class=visible-xs></div>
                                 </div>
+
                                 <div class="city_and_posted_date hidden-xs">
                                     <div class="city">
                                         <div class="address">
-                                            <div class="text-city">
-                                                TP.HCM
-                                            </div>
-                                            <div class="other_address">
-                                                Quận 1
-                                            </div>
+                                            <div class="text-city">TP.HCM</div>
+                                            <div class="other_address">Quận 1</div>
                                         </div>
                                     </div>
                                     <div class="distance-time-job-posted">
@@ -248,6 +239,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="job-bottom">
                                 <div class="tab-list">
                                     <a class="job__skill ilabel" href="#">
@@ -276,12 +268,15 @@
                             <div class="top-company__logo text-center">
                                 <img src="/img/company-logo/FPT-logo.png" alt="IT-Job" height="170" width="170">
                             </div>
+
                             <div class="top-company__name text-center">FPT Software</div>
+
                             <footer class="top-company__footer text-center">
-                                        <span class="top-company__footer-jobs">
-                                            <span class="red-link">X Jobs</span>
-                                            <span>&nbsp;-&nbsp;</span>
-                                        </span>
+                                <span class="top-company__footer-jobs">
+                                    <span class="red-link">X Jobs</span>
+                                    <span>&nbsp;-&nbsp;</span>
+                                </span>
+
                                 <span class="top-company_footer-city">TP.HCM</span>
                             </footer>
                         </a>
@@ -292,16 +287,20 @@
                             <div class="top-company__logo text-center">
                                 <img src="/img/company-logo/fujinet-logo.png" height="170" width="170" />
                             </div>
+
                             <div class="top-company__name text-center">FUJINET</div>
+
                             <footer class="top-company__footer text-center">
-                                        <span class="top-company__footer-jobs">
-                                            <span class="red-link">X Jobs</span>
-                                            <span>&nbsp;-&nbsp;</span>
-                                        </span>
+                                <span class="top-company__footer-jobs">
+                                    <span class="red-link">X Jobs</span>
+                                    <span>&nbsp;-&nbsp;</span>
+                                </span>
+
                                 <span class="top-company_footer-city">TP.HCM</span>
                             </footer>
                         </a>
                     </div>
+
                     <div class="col-md-4 col-xs-12">
                         <a id="top-company" rel="nofollow" data-method="put" href="#">
                             <div class="top-company__logo text-center">
@@ -309,14 +308,15 @@
                             </div>
                             <div class="top-company__name text-center">CISCO</div>
                             <footer class="top-company__footer text-center">
-                                        <span class="top-company__footer-jobs">
-                                            <span class="red-link">X Jobs</span>
-                                            <span>&nbsp;-&nbsp;</span>
-                                        </span>
+                                <span class="top-company__footer-jobs">
+                                    <span class="red-link">X Jobs</span>
+                                    <span>&nbsp;-&nbsp;</span>
+                                </span>
                                 <span class="top-company_footer-city">TP.HCM</span>
                             </footer>
                         </a>
                     </div>
+                    
                     <div class="col-md-4 col-xs-12">
                         <a id="top-company" rel="nofollow" data-method="put" href="#">
                             <div class="top-company__logo text-center">
@@ -324,10 +324,10 @@
                             </div>
                             <div class="top-company__name text-center">GLOBAL</div>
                             <footer class="top-company__footer text-center">
-                                        <span class="top-company__footer-jobs">
-                                            <span class="red-link">X Jobs</span>
-                                            <span>&nbsp;-&nbsp;</span>
-                                        </span>
+                                <span class="top-company__footer-jobs">
+                                    <span class="red-link">X Jobs</span>
+                                    <span>&nbsp;-&nbsp;</span>
+                                </span>
                                 <span class="top-company_footer-city">TP.HCM</span>
                             </footer>
                         </a>
@@ -340,16 +340,14 @@
                             </div>
                             <div class="top-company__name text-center">CMC</div>
                             <footer class="top-company__footer text-center">
-                                        <span class="top-company__footer-jobs">
-                                            <span class="red-link">X Jobs</span>
-                                            <span>&nbsp;-&nbsp;</span>
-                                        </span>
+                                <span class="top-company__footer-jobs">
+                                    <span class="red-link">X Jobs</span>
+                                    <span>&nbsp;-&nbsp;</span>
+                                </span>
                                 <span class="top-company_footer-city">TP.HCM</span>
                             </footer>
                         </a>
                     </div>
-
-
 
                     <div class="col-md-4 col-xs-12">
                         <a id="top-company" rel="nofollow" data-method="put" href="#">
@@ -358,10 +356,10 @@
                             </div>
                             <div class="top-company__name text-center">TMA Software</div>
                             <footer class="top-company__footer text-center">
-                                        <span class="top-company__footer-jobs">
-                                            <span class="red-link">X Jobs</span>
-                                            <span>&nbsp;-&nbsp;</span>
-                                        </span>
+                                <span class="top-company__footer-jobs">
+                                    <span class="red-link">X Jobs</span>
+                                    <span>&nbsp;-&nbsp;</span>
+                                </span>
                                 <span class="top-company_footer-city">TP.HCM</span>
                             </footer>
                         </a>
@@ -375,10 +373,10 @@
                             </div>
                             <div class="top-company__name text-center">VNPT Software</div>
                             <footer class="top-company__footer text-center">
-                                        <span class="top-company__footer-jobs">
-                                            <span class="red-link">X Jobs</span>
-                                            <span>&nbsp;-&nbsp;</span>
-                                        </span>
+                                <span class="top-company__footer-jobs">
+                                    <span class="red-link">X Jobs</span>
+                                    <span>&nbsp;-&nbsp;</span>
+                                </span>
                                 <span class="top-company_footer-city">TP.HCM</span>
                             </footer>
                         </a>
@@ -391,10 +389,10 @@
                             </div>
                             <div class="top-company__name text-center">SUNSIRE</div>
                             <footer class="top-company__footer text-center">
-                                        <span class="top-company__footer-jobs">
-                                            <span class="red-link">X Jobs</span>
-                                            <span>&nbsp;-&nbsp;</span>
-                                        </span>
+                                <span class="top-company__footer-jobs">
+                                    <span class="red-link">X Jobs</span>
+                                    <span>&nbsp;-&nbsp;</span>
+                                </span>
                                 <span class="top-company_footer-city">TP.HCM</span>
                             </footer>
                         </a>
@@ -407,19 +405,15 @@
                             </div>
                             <div class="top-company__name text-center">VNG game </div>
                             <footer class="top-company__footer text-center">
-                                        <span class="top-company__footer-jobs">
-                                            <span class="red-link">X Jobs</span>
-                                            <span>&nbsp;-&nbsp;</span>
-                                        </span>
+                                <span class="top-company__footer-jobs">
+                                    <span class="red-link">X Jobs</span>
+                                    <span>&nbsp;-&nbsp;</span>
+                                </span>
                                 <span class="top-company_footer-city">TP.HCM</span>
                             </footer>
                         </a>
                     </div>
-
                 </div>
-
-
-
             </div>
         </div>
         <!--End Company-recommed-->
@@ -436,18 +430,15 @@
                                     Bạn đang tìm một công việc thích hợp cho mình. Bạn mong muốn có một công việc ổn định .
                                 </p></h5>
                             </div>
-
                         </div>
                     </div>
-
-
 
                     <div class="col-md-4 col-xs-12" data-scroll-reveal="enter from the bottom after 0.4s" style="margin-bottom: 20px" >
                         <div class="about-div" >
                             <i class="fa fa-paper-plane-o fa-4x icon-round-border" ></i>
-                            <h3 >JOB BY COMPANY </h3>
-                            <hr /><hr />
-                            <p >
+                            <h3>JOB BY COMPANY </h3>
+                            <hr/><hr/>
+                            <p>
                                 <br><a href="#"> Java </a></br>
                                 <br><a href="#"> PhP </a> </br>
                                 <br><a href="#">.Net </a></br>
@@ -462,9 +453,9 @@
                     <div class="col-md-4 col-xs-12" data-scroll-reveal="enter from the bottom after 0.5s" style="margin-bottom: 20px" >
                         <div class="about-div" >
                             <i class="fa fa-bolt fa-4x icon-round-border" ></i>
-                            <h3 >JOB BY TITLE </h3>
-                            <hr /><hr />
-                            <p >
+                            <h3>JOB BY TITLE </h3>
+                            <hr/><hr />
+                            <p>
                                 <br><a href="#"> Senior Java Developer </a></br>
                                 <br><a href="#"> System Engineer </a> </br>
                                 <br><a href="#">Project Manager</a> </br>
@@ -472,16 +463,16 @@
                                 <br><a href="#"> QA QC Manager </a></br>
                                 <br><a href="#"> Mobile Developer </a></br>
                             </p>
-                            <a href="#" class="btn btn-info btn-set"  >ASK THE EXPERT</a>
+                            <a href="#" class="btn btn-info btn-set">ASK THE EXPERT</a>
                         </div>
                     </div>
 
                     <div class="col-md-4 col-xs-12" data-scroll-reveal="enter from the bottom after 0.6s" style="margin-bottom: 20px" >
                         <div class="about-div" >
                             <i class="fa fa-magic fa-4x icon-round-border" ></i>
-                            <h3 >JOB BY SKILL</h3>
-                            <hr /><hr />
-                            <p >
+                            <h3>JOB BY SKILL</h3>
+                            <hr/><hr/>
+                            <p>
                                 <br><a href="#"> Evolable Asia</a> </br>
                                 <br><a href="#"> VPBank </a></br>
                                 <br><a href="#">Robert Bosch Engineering  </a></br>
@@ -489,15 +480,12 @@
                                 <br><a href="#"> MISFIT </a></br>
                                 <br><a href="#"> Framgia Inc </a></br>
                             </p>
-                            <a href="#" class="btn btn-info btn-set"  >ASK THE EXPERT</a>
+                            <a href="#" class="btn btn-info btn-set">ASK THE EXPERT</a>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-
 {{end}}
