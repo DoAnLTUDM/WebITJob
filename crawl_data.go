@@ -2,45 +2,42 @@ package main
 
 import (
 	"log"
-	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"os"
 	"strings"
 	"regexp"
 	"golang.org/x/sync/errgroup"
-	"encoding/json"
-	"io/ioutil"
 )
 
+
 type Job struct {
-	title string `json:"title"`
-	jobId string `json:"jobId"`
-	salary string `json:"salary"`
-	address string `json:"address"`
-	time_posted string `json:"time_posted"`
-	job_reason string `json:"job_reason"`
-	job_description string `json:"job_description"`
-	skill_expirence string `json:"skill_expirence"`
-	qualification string `json:"qualification"`
-	company_name string `json:"company_name"`
+	Title string
+	Salary string
+	Address string
+	Time_posted string
+	Job_reason string
+	Job_description string
+	Skill_expirence string
+	Qualification string
+	Company_name string
 }
 
 type Jobs struct{
-	totalJobs int `json:total_jobs`
-	ListJobs []Job `json:"jobs"`
+	TotalJobs int
+	ListJobs []Job
 }
 
 type Company struct{
-	name string `json:"name"`
-	address string `json:"address"`
-	country string `json:"country"`
-	logo string `json:"image"`
-	urlC string `json:"url"`
+	Name string
+	Address string
+	Country string
+	Logo string
+	UrlC string
 }
 
 type Companies struct{
-	totalCompanies int `json:total_companies`
-	ListCompanies []Company `json:"companies"`
+	totalCompanies int
+	ListCompanies []Company
 }
 
 func NewJobs() *Jobs  {
@@ -70,17 +67,9 @@ func crawl_data(url string)  {
 	companies := NewCompanies()
 	err := companies.getCompaniesByUrl(currentUrl)
 	checkError(err)
-	companiesJson, err := json.Marshal(companies) // Chuyển kiểu dữ liệu companies sang JSON
-	checkError(err)
-	err = ioutil.WriteFile("companies.json", companiesJson, 0644) // Ghi dữ liệu vào file JSON
-	checkError(err)
 
 	jobs := NewJobs()
 	err = jobs.GetAllJobs(companies)
-	checkError(err)
-	jobsJson, err := json.Marshal(jobs) // Chuyển kiểu dữ liệu jobs sang JSON
-	checkError(err)
-	err = ioutil.WriteFile("jobs.json", jobsJson, 0644) // Ghi dữ liệu vào file JSON
 	checkError(err)
 }
 
@@ -113,22 +102,55 @@ func (companies *Companies) getInformationCompanies(companyUrl string) error  {
 	}
 
 	doc.Find("#container .company-content").Each(func(i int, selection *goquery.Selection) {
+		re := regexp.MustCompile(`\r?\n`)
 		companyImg,_ := selection.Find(".headers .logo-container img").Attr("src")
-		companyName := selection.Find(".headers .name-and-info .title").Text()
-		companyAddr := selection.Find(".col-md-3 .map-address").Text()
+		companyName := re.ReplaceAllString(strings.TrimSpace(selection.Find(
+			".headers .name-and-info .title").Text()), " ")
+		var imgName string
+		locat := "public/img/company-logo/"
+		if strings.Contains(companyImg, "png"){
+			tmp := companyName
+			imgName = strings.Replace(tmp," ","",-1) + ".png"
+		}else{
+			tmp := companyName
+			imgName = strings.Replace(tmp," ","",-1) + ".jpg"
+		}
+		download(companyImg, locat, imgName)
+		companyAddr := re.ReplaceAllString(strings.TrimSpace(selection.Find(".col-md-3 .map-address").Text())," ")
 		companyCountry := selection.Find(".headers .company-info .country span").Text()
 
 		company := Company{
-			name:companyName,
-			urlC:companyUrl,
-			logo:companyImg,
-			address:companyAddr,
-			country:companyCountry,
+			Name:companyName,
+			UrlC:companyUrl,
+			Logo:strings.Replace(locat,"public", "", -1)+imgName,
+			Address:companyAddr,
+			Country:companyCountry,
 		}
-
+		company.Create()
 		companies.totalCompanies++
 		companies.ListCompanies = append(companies.ListCompanies, company)
 	})
+	return nil
+}
+
+func (jobs *Jobs) GetAllJobs(companies *Companies) error {
+	eg := errgroup.Group{}
+	if companies.totalCompanies > 0 {
+		for i := 0; i < companies.totalCompanies; i++ {
+			// https://golang.org/doc/faq#closures_and_goroutines
+			url := companies.ListCompanies[i].UrlC
+			eg.Go(func() error {
+				err := jobs.getJobsByUrl(url)
+				if err != nil {
+					return err
+				}
+				return nil
+			})
+		}
+		if err := eg.Wait(); err != nil { // Error Group chờ đợi các group goroutines done, nếu có lỗi thì trả về
+			return err
+		}
+	}
 	return nil
 }
 
@@ -159,7 +181,6 @@ func (jobs *Jobs) getDetailJob(jobUrl string) error  {
 		return err
 	}
 	doc.Find("#container").Each(func(i int, selection *goquery.Selection) {
-		jobId,_ := selection.Find(".show_content").Attr("id")
 		jobTitle := strings.TrimSpace(selection.Find(".job_title").Text())
 		jobSalary := selection.Find(".salary_text").Text()
 		jobCompany := selection.Find(".inside .employer-info a").Text()
@@ -205,61 +226,20 @@ func (jobs *Jobs) getDetailJob(jobUrl string) error  {
 			}
 		})
 
-		//jobCompany := selection.Find("")
-		//
 		job := Job {
-			jobId:jobId,
-			title:jobTitle,
-			company_name: jobCompany,
-			salary: jobSalary,
-			address: jobAddress,
-			time_posted: jobTimePosted,
-			job_reason: jobReason ,
-			job_description: jobDescription,
-			skill_expirence: jobSkill,
+			Title:jobTitle,
+			Company_name: jobCompany,
+			Salary: jobSalary,
+			Address: jobAddress,
+			Time_posted: jobTimePosted,
+			Job_reason: jobReason ,
+			Job_description: jobDescription,
+			Skill_expirence: jobSkill,
 		}
-
-		jobs.totalJobs++
+		job.Create()
+		jobs.TotalJobs++
 		jobs.ListJobs = append(jobs.ListJobs, job)
 	})
-
 	return nil
 }
 
-func (jobs *Jobs) GetAllJobs(companies *Companies) error {
-	eg := errgroup.Group{}
-	if companies.totalCompanies > 0 {
-		for i := 0; i < companies.totalCompanies; i++ {
-			// https://golang.org/doc/faq#closures_and_goroutines
-			url := companies.ListCompanies[i].urlC
-			eg.Go(func() error {
-				err := jobs.getJobsByUrl(url)
-				if err != nil {
-					return err
-				}
-				return nil
-			})
-		}
-		if err := eg.Wait(); err != nil { // Error Group chờ đợi các group goroutines done, nếu có lỗi thì trả về
-			return err
-		}
-	}
-	return nil
-}
-
-func saveJsonFile(j interface{}, dir string){
-	if _, err := os.Stat(dir); err != nil {
-		if os.IsNotExist(err) {
-			os.Mkdir(dir, 0755)
-		} else {
-			log.Println(err)
-		}
-	}
-
-	path := fmt.Sprint(dir, "companies")
-
-	b, err := json.Marshal(j)
-	if err != nil { log.Println(err) }
-
-	ioutil.WriteFile(path, b, 0644)
-}

@@ -1,13 +1,16 @@
 CREATE TABLE  company (
-  id INT NOT NULL PRIMARY KEY ,
-  idJob INT[] REFERENCES job(id),
-  name TEXT,
+  id SERIAL UNIQUE NOT NULL PRIMARY KEY,
+  idJobs INT ARRAY,
+  company_name TEXT UNIQUE ,
   address TEXT,
-  country TEXT
+  country TEXT,
+  logo TEXT,
+  urlC TEXT
 );
 
 CREATE TABLE  job (
-  id INT NOT NULL PRIMARY KEY,
+  id SERIAL UNIQUE NOT NULL  PRIMARY KEY,
+  idPLang INT,
   title TEXT,
   salary MONEY,
   address TEXT,
@@ -15,20 +18,20 @@ CREATE TABLE  job (
   reason TEXT,
   description TEXT,
   skill TEXT,
-  qualification TEXT
+  qualification TEXT,
+  company_name TEXT
 );
 
 CREATE TABLE programming_language(
-  id INT NOT NULL PRIMARY KEY ,
-  idJob INT[] REFERENCES job(id),
-  name text
+  id SERIAL UNIQUE NOT NULL PRIMARY KEY ,
+  pl_name TEXT
 );
 
-CREATE TABLE user(
-  id INT NOT NULL PRIMARY KEY ,
-  idPLangs INT[] REFERENCES programming_language(id),
-  idCompanies INT[] REFERENCES company(id),
-  name TEXT,
+CREATE TABLE user_account(
+  id SERIAL UNIQUE NOT NULL PRIMARY KEY ,
+  idPLangs INT ARRAY,
+  idCompanies INT ARRAY,
+  usr_name TEXT,
   email TEXT,
   username TEXT,
   passwd TEXT,

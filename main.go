@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/gorilla/mux"
 	"net/http"
 	"log"
-	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -15,6 +15,8 @@ func main() {
 	http.Handle("/img/", http.StripPrefix("/img/", imagesHandler))
 	jsHandler := http.FileServer(http.Dir("./public/js/"))
 	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
+	fontsHandler := http.FileServer(http.Dir("./public/fonts/"))
+	http.Handle("/fonts/", http.StripPrefix("/fonts/", fontsHandler))
 
 
 	r.HandleFunc("/homepage", templateHomePage)

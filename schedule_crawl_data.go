@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/robfig/cron"
 	"log"
+	"github.com/robfig/cron"
 )
 
 func schedule_crawl_data(){
