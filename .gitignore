@@ -1,4 +1,6 @@
 
+pkg/
+src/
 *.exe
 
 .idea/*.iml
