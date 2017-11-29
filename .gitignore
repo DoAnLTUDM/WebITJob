@@ -1,7 +1,5 @@
 
-pkg/
-src/
 *.exe
-
+.idea/
 .idea/*.iml
 .idea/*.xml
