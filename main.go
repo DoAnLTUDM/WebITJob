@@ -19,8 +19,12 @@ func main() {
 
 	r.HandleFunc("/homepage", templateHomePage)
 	r.HandleFunc("/notfound", notFoundPage)
+	r.HandleFunc("/infojob", infoJobPage)
+	r.HandleFunc("/infocompany",infoCompanyPage)
 	log.Println()
 	http.Handle("/homepage",r)
 	http.Handle("/notfound",r)
+	http.Handle("/infojob",r)
+	http.Handle("/infocompany",r)
 	log.Fatal(http.ListenAndServe(":8000",nil))
 }
