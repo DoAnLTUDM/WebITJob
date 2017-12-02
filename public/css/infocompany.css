@@ -1,0 +1,141 @@
+
+.company-content {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    border-radius: 5px;
+    max-width: 1024px;
+    margin: auto;
+    position: relative;
+    top: -49px;
+    z-index: 4;
+}
+.company-content .company-page, .company-content .company-review {
+    top: 48px;
+    position: relative;
+    margin-bottom: 50px;
+    padding-bottom: 40px;
+    font-size: 15px;
+}
+.company-content .company-page .cover-images-cropped, .company-content .company-review .cover-images-cropped {
+    margin-bottom: -30px;
+    max-height: 500px;
+    overflow: hidden;
+}
+.visible-xs, .hiring-mobile, .visible-sm, .visible-md, .visible-lg {
+    display: none !important;
+}
+.company-content .company-page .company-container, .company-content .company-review .company-container {
+    background: transparent;
+}
+.company-content .company-page .headers, .company-content .company-review .headers {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.company-content .company-page .headers, .company-content .company-review .headers {
+    min-height: 130px;
+    background-color: white;
+    border: 1px solid #D8D8D8;
+    border-radius: 0 0 4px 4px;
+    padding-top: 30px;
+}
+.company-content .company-page .headers .logo-container, .company-content .company-review .headers .logo-container {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 186px;
+    flex: 0 1 186px;
+}
+.company-content .company-page .headers .logo.has-overtime, .company-content .company-review .headers .logo.has-overtime {
+    left: 19px;
+    top: 20px;
+}
+.company-content .company-page .headers .logo, .company-content .company-review .headers .logo {
+    width: 168px;
+    height: 160px;
+    background-color: #fff;
+    border: 1px solid #D2D2D2;
+    border-radius: 2px;
+    top: -31px;
+    position: relative;
+    margin-bottom: -32px;
+    margin-left: -1px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 5px;
+}
+.company-content .company-page .name-and-info, .company-content .company-review .name-and-info {
+    padding-left: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.company-content .company-page .panel-title, .company-content .company-review .panel-title {
+    font-size: 25px;
+    font-weight: 500;
+    margin-top: 10px;
+    color: #3d3d3d;
+    font-family: "Roboto Condensed", sans-serif;
+}
+h3 {
+    font-size: 1.17em;
+    margin: 1em 0;
+}
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+}
+.company-content .company-page .panel, .company-content .company-review .panel {
+    margin-bottom: 15px;
+    background-color: white;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+.company-content .company-page .company-ratings, .company-content .company-review .company-ratings {
+    margin-top: 20px;
+}
+.rating-stars-box, .rating-bar-box {
+    font-size: 0;
+    position: relative;
+    white-space: nowrap;
+    display: inline-block;
+    margin: 0 auto;
+}
+.ion-ios-star.default, .ion-arrow-down-b.default {
+    background: #E9E9E9;
+}
+.ion-ios-star.small, .ion-arrow-down-b.small {
+    font-size: 15px;
+    padding: 0 3px 0px 3px;
+    border-radius: 2px;
+    margin-right: 3px;
+}
+.ion-ios-star, .ion-arrow-down-b {
+    font-size: 35px;
+    padding: 0 4px 0 6px;
+    color: white;
+    border-radius: 4px;
+    margin-right: 3px;
+}
+
+@media (max-width: 768px){
+.company-content .company-page .cover-images-mobile, .company-content .company-review .cover-images-mobile {
+    background-size: cover !important;
+    height: 415px;
+}
+@media (max-width: 767px){
+.visible-xs, .hiring-mobile {
+    display: block !important;
+}

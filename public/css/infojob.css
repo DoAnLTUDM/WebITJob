@@ -1,0 +1,174 @@
+
+#container {
+    background: #e9e9e9;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition: top 0.3s;
+    transition: top 0.3s;
+    border-top: 0.1px solid transparent;
+}
+.main-content {
+    position: relative;
+    z-index: 2;
+    margin: auto;
+    overflow: visible;
+    padding: 0;
+    border: 1px solid #D8D8D8;
+    max-width: 1024px;
+    background-color: white;
+}
+.show_content .main-content {
+    margin-top: -2px;
+}
+.show_content .content {
+    display: inline-block;
+    width: 29%;
+    height: 185px;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    cursor: pointer;
+}
+.show_content .content {
+    text-align: center;
+ }
+.show_content .content .side_bar {
+    margin-left: 19px;
+    background: white;
+    width: 29.4%;
+    float: left;
+    margin-top: 5px;
+}
+.show_content .content .side_bar .inside {
+    border: solid 2px #f3f3f3;
+    padding: 20px;
+}
+
+.show_content .content .side_bar .inside .employer-info {
+    margin: 0 -20px -2px;
+    background-color: #F5F5F5;
+    padding: 1px 20px 1px;
+}
+.show_content .content .side_bar .inside .name {
+    font-size: 25px;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.show_content .content .side_bar .inside .basic-info {
+    color: #58595b;
+    font-size: 13px;
+    line-height: 21px;
+}
+.show_content .content .side_bar .inside .basic-info .short {
+    padding: 10px 0;
+}
+p {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.flag.flag-vn {
+    background-position: -366px -229px;
+    width: 24px;
+    height: 16px;
+}
+.show_content .content .side_bar .inside .basic-info .country-icon .country-name {
+    padding-left: 15px;
+}
+.show_content .content .job-detail {
+    width: 60%;
+    font-weight: 400;
+    padding-right: 15px;
+    padding-left: 55px;
+    float: right;
+}
+.show_content .content .job-detail .header {
+    overflow: hidden;
+    border-bottom: solid 2px #f3f3f3;
+}
+.show_content .content .job-detail .header .job_info {
+    display: inline-block;
+    overflow: hidden;
+    float: right;
+    width: 100%;
+}
+.show_content .content .job-detail .header .job_info .job_title {
+    margin: 0;
+    color: #353535;
+    font-size: 31px;
+}
+.show_content .content .job-detail .header .job_info .address {
+    color: #58595b;
+    margin: 6px 25px 6px 0;
+    font-size: 14px;
+}
+.show_content .content .job-detail .header .job_info .address__full-address {
+    display: inline;
+}
+.show_content .content .job-detail .job_description, .show_content .content .job-detail .skills_experience, .show_content .content .job-detail .love_working_here {
+    padding: 20px 0 10px 0px;
+}
+.show_content .content .job-detail .apply_now, .show_content .content .job-detail .apply_now:hover, .show_content .content .job-detail .apply_now:visited {
+    cursor: pointer;
+    width: auto;
+    vertical-align: middle;
+    color: white;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    line-height: 48px;
+    font-size: 21px;
+    height: 50px !important;
+    padding: 0 40px !important;
+}
+.button-red, body.users_show .content .user-info  {
+    font-family: "Roboto", sans-serif;
+    padding: 0 15px;
+    padding-top: 5px;
+    height: 37px;
+    color: white;
+    border: 0;
+    border-radius: 4px;
+    font-size: 18px;
+    background-color: #EA1E30;
+    -webkit-font-smoothing: antialiased;
+    outline: 0;
+    text-align: center;
+    width: 50%;
+    margin-left: 25%;
+
+}
+
+.button, .apply_now, .apply_now_bottom, .cancel {
+    text-align: center;
+    font-weight: 500 !important;
+    mar
+
+}
+.btn-block {
+    display: block;
+    width: 50%;
+    padding-left: 0;
+    padding-right: 0;
+}
+.show_content .content .job-detail .space-bottom {
+    clear: both;
+    padding-bottom: 40px;
+}
+
+@media (max-width: 768px){
+.button-red.btn-block, body.users_show .content .user-info #collapseEmail .btn-block.save-email {
+    width: 100%;}
+
+@media (max-width: 768px){
+.button-red, body.users_show .content .user-info #collapseEmail .save-email {
+    width: auto;
+}
+@media (max-width: 768px){
+.show_content .content {
+    padding: 0 15px 30px;
+}
