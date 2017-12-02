@@ -89,17 +89,95 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="job-bottom">
-                            <div class="tab-list">
-                                <a class="job__skill ilabel" href="#">
-                                    <span>PHP</span>
-                                </a>
-                                <a class="job__skill ilabel" href="#">
-                                    <span>HTM5</span>
-                                </a>
-                                <a class="job__skill ilabel" href="#">
-                                    <span>AngularJS</span>
-                                </a>
+                    </div>
+                </div>
+            </div> <!--End search bar-->
+
+            <div class="job-recommmed">
+                <div class="container">
+                    <h3>Job Recommed</h3>
+                    {{template "job_recommend"}}
+                </div>
+            </div> <!--End job recommed-->
+
+            <div class="company-recommed"> <!--company recommed-->
+                <div class="container">
+                    <h3>Company recommed</h3>
+                    <div class="row">
+                        {{template "company_recommend" .}}
+                    </div>
+                </div>
+            </div>
+            <!--End Company-recommed-->
+
+            <div id="Sumary"> <!--Summary-->
+                <div class="container">
+                    <div class="row text-center">
+                        <div id="features-sec" class="container set-pad"></div>
+                        <div id="course-sec" class="container set-pad">
+                            <div class="row text-center">
+                                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+                                    <h1 data-scroll-reveal="enter from the bottom after 0.1s" class="header-line">
+                                        WELCOME IT JOB
+                                    </h1>
+                                    <h5>
+                                        <p data-scroll-reveal="enter from the bottom after 0.3s">
+                                            Bạn đang tìm một công việc thích hợp cho mình.
+                                            Bạn mong muốn có một công việc ổn định.
+                                        </p>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12" data-scroll-reveal="enter from the bottom after 0.4s" style="margin-bottom: 20px">
+                            <div class="about-div">
+                                <i class="fa fa-paper-plane-o fa-4x icon-round-border"></i>
+                                <h3>JOB BY COMPANY </h3>
+                                <hr/><hr/>
+                                <p >
+                                    <br><a href="#"> Java </a></br>
+                                    <br><a href="#"> PhP </a></br>
+                                    <br><a href="#">.Net </a></br>
+                                    <br><a href="#"> Tester</a></br>
+                                    <br><a href="#"> Anroid</a></br>
+                                    <br><a href="#"> IOS </a></br>
+                                </p>
+                                <a href="#" class="btn btn-info btn-set">ASK THE EXPERT</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12" data-scroll-reveal="enter from the bottom after 0.5s" style="margin-bottom: 20px">
+                            <div class="about-div">
+                                <i class="fa fa-bolt fa-4x icon-round-border"></i>
+                                <h3>JOB BY TITLE </h3>
+                                <hr/><hr/>
+                                <p>
+                                    <br><a href="#"> Senior Java Developer </a></br>
+                                    <br><a href="#"> System Engineer </a></br>
+                                    <br><a href="#">Project Manager</a></br>
+                                    <br><a href="#"> Software Architect</a></br>
+                                    <br><a href="#"> QA QC Manager </a></br>
+                                    <br><a href="#"> Mobile Developer </a></br>
+                                </p>
+                                <a href="#" class="btn btn-info btn-set">ASK THE EXPERT</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12" data-scroll-reveal="enter from the bottom after 0.6s" style="margin-bottom: 20px">
+                            <div class="about-div">
+                                <i class="fa fa-magic fa-4x icon-round-border"></i>
+                                <h3>JOB BY SKILL</h3>
+                                <hr/><hr/>
+                                <p>
+                                    <br><a href="#"> Evolable Asia</a> </br>
+                                    <br><a href="#"> VPBank </a></br>
+                                    <br><a href="#">Robert Bosch Engineering  </a></br>
+                                    <br><a href="#"> And Business Solutions</a></br>
+                                    <br><a href="#"> MISFIT </a></br>
+                                    <br><a href="#"> Framgia Inc </a></br>
+                                </p>
+                                <a href="#" class="btn btn-info btn-set">ASK THE EXPERT</a>
                             </div>
                         </div>
                     </div>
