@@ -1,6 +1,7 @@
 
 WebITJob
 *.exe
+.vs/
 .idea/
 .idea/*.iml
 .idea/*.xml
