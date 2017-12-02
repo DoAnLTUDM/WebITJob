@@ -1,4 +1,3 @@
-
 .company-content {
     background: transparent;
     border: 0;
@@ -130,12 +129,15 @@ h3 {
     margin-right: 3px;
 }
 
-@media (max-width: 768px){
-.company-content .company-page .cover-images-mobile, .company-content .company-review .cover-images-mobile {
-    background-size: cover !important;
-    height: 415px;
+@media (max-width: 768px) {
+    .company-content .company-page .cover-images-mobile, .company-content .company-review .cover-images-mobile {
+        background-size: cover !important;
+        height: 415px;
+    }
 }
-@media (max-width: 767px){
-.visible-xs, .hiring-mobile {
-    display: block !important;
+
+@media (max-width: 767px) {
+    .visible-xs, .hiring-mobile {
+        display: block !important;
+    }
 }
