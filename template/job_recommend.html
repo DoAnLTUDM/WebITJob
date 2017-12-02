@@ -1,0 +1,166 @@
+{{define "job_recommend"}}
+<div class="jobs" id="{{.id}}"> <!--id là mã tin-->
+    <div class="job_contest" style="background-color: white">
+        <div class="logo">
+            <div class="logo-wrapper" title="Embracing challenges">
+                <img src="/img/company-logo/vng-logo.png" width="100" height="100" style="margin-left: 10px">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="job_description">
+            <div class="job_body">
+                <div class=details>
+                    <h2 class="title">
+                        <a href="{{.detailUrl}}">{{.title}}</a>
+                    </h2>
+                    <div class="salary">
+                        <span class="icon-salary">
+                            <img src="/img/icon-salary.png" width="50" height="50">
+                        </span>
+                        <span class="salary-text">{{.salary}}</span>
+                    </div>
+                    <div class="hidden-xs"></div>
+                    <div class="description">{{.discription}}</div>
+                    <div class="visible-xs"></div>
+
+                    <div class="city_and_posted_date hidden-xs">
+                        <div class="city">
+                            <div class="address">
+                                <div class="text-city">{{.city}}</div>
+                                <div class="other_address">{{.address}}</div>
+                            </div>
+                        </div>
+                        <div class="distance-time-job-posted">
+                            <span class="distance-time">{{.time}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="job-bottom">
+                    <div class="tab-list">
+                        <a class="job__skill ilabel" href="#">
+                            <span>PHP</span>
+                        </a>
+                        <a class="job__skill ilabel" href="#">
+                            <span>HTM5</span>
+                        </a>
+                        <a class="job__skill ilabel" href="#">
+                            <span>AngularJS</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="jobs" id="job_1"> <!--id là mã tin-->
+        <div class="job_contest" style="background-color: white">
+            <div class="logo">
+                <div class="logo-wrapper" title="Embracing challenges">
+                    <a href="#"></a>
+                    <img src="/img/company-logo/vng-logo.png" alt="VNG" width="100" height="100" style="margin-left: 10px">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="job_description">
+                <div class="job_body">
+                    <div class=details>
+                        <h2 class="title">
+                            <a href="#">500 Developer PHP Up to 1500$</a>
+                        </h2>
+                        <div class="salary">
+                            <span class="icon-salary">
+                                <img src="/img/icon-salary.png" width="50" height="50">
+                            </span>
+                            <span class="salary-text">Up to 1500$</span>
+                        </div>
+                        <div class="hidden-xs"></div>
+                        <div class="description">VNG đang có đợt tuyển lập trình viên php</div>
+                        <div class="visible-xs"></div>
+                    </div>
+                    <div class="city_and_posted_date hidden-xs">
+                        <div class="city">
+                            <div class="address">
+                                <div class="text-city">TP.HCM</div>
+                                <div class="other_address">Quận 1</div>
+                            </div>
+                        </div>
+                        <div class="distance-time-job-posted">
+                            <span class="distance-time">23h ago</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="job-bottom">
+                    <div class="tab-list">
+                        <a class="job__skill ilabel" href="#">
+                            <span>PHP</span>
+                        </a>
+                        <a class="job__skill ilabel" href="#">
+                            <span>HTM5</span>
+                        </a>
+                        <a class="job__skill ilabel" href="#">
+                            <span>AngularJS</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="jobs" id="job_1"> <!--id là mã tin-->
+        <div class="job_contest" style="background-color: white">
+            <div class="logo">
+                <div class="logo-wrapper" title="Embracing challenges">
+                    <a href="#"></a>
+                    <img src="/img/company-logo/vng-logo.png" alt="VNG" width="100" height="100" style="margin-left: 10px">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="job_description">
+                <div class="job_body">
+                    <div class=details>
+                        <h2 class="title">
+                            <a href="#">500 Developer PHP Up to 1500$</a>
+                        </h2>
+                        <div class="salary">
+                            <span class="icon-salary">
+                                <img src="/img/icon-salary.png" width="50" height="50">
+                            </span>
+                            <span class="salary-text">Up to 1500$</span>
+                        </div>
+                        <div class="hidden-xs"></div>
+                        <div class="description">VNG đang có đợt tuyển lập trình viên php</div>
+                        <div class="visible-xs"></div>
+                    </div>
+                    <div class="city_and_posted_date hidden-xs">
+                        <div class="city">
+                            <div class="address">
+                                <div class="text-city">TP.HCM</div>
+                                <div class="other_address">Quận 1</div>
+                            </div>
+                        </div>
+                        <div class="distance-time-job-posted">
+                            <span class="distance-time">23h ago</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="job-bottom">
+                    <div class="tab-list">
+                        <a class="job__skill ilabel" href="#">
+                            <span>PHP</span>
+                        </a>
+                        <a class="job__skill ilabel" href="#">
+                            <span>HTM5</span>
+                        </a>
+                        <a class="job__skill ilabel" href="#">
+                            <span>AngularJS</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

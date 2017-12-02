@@ -1,21 +1,22 @@
 package main
 
 import (
-	"net/http"
-	"log"
-	"github.com/gorilla/mux"
+    "github.com/gorilla/mux"
+    "net/http"
+    "log"
 )
 
 func main() {
-	schedule_crawl_data()
-	r := mux.NewRouter()
-	cssHandler := http.FileServer(http.Dir("./public/css/"))
-	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
-	imagesHandler := http.FileServer(http.Dir("./public/img/"))
-	http.Handle("/img/", http.StripPrefix("/img/", imagesHandler))
-	jsHandler := http.FileServer(http.Dir("./public/js/"))
-	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
-
+    schedule_crawl_data()
+    r := mux.NewRouter()
+    cssHandler := http.FileServer(http.Dir("./public/css/"))
+    http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
+    imagesHandler := http.FileServer(http.Dir("./public/img/"))
+    http.Handle("/img/", http.StripPrefix("/img/", imagesHandler))
+    jsHandler := http.FileServer(http.Dir("./public/js/"))
+    http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
+    fontsHandler := http.FileServer(http.Dir("./public/fonts/"))
+    http.Handle("/fonts/", http.StripPrefix("/fonts/", fontsHandler))
 
 	r.HandleFunc("/homepage", templateHomePage)
 	r.HandleFunc("/notfound", notFoundPage)
