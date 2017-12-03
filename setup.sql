@@ -31,10 +31,12 @@ CREATE TABLE user_account(
   id SERIAL UNIQUE NOT NULL PRIMARY KEY ,
   idPLangs INT ARRAY,
   idCompanies INT ARRAY,
-  usr_name TEXT,
+  fullname TEXT,
   email TEXT,
-  username TEXT,
+  username TEXT UNIQUE,
   passwd TEXT,
   address TEXT,
   phone TEXT
 );
+
+
