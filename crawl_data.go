@@ -8,8 +8,8 @@ import (
     "regexp"
     "golang.org/x/sync/errgroup"
     "strconv"
+    //"fmt"
 )
-
 
 type Job struct {
     Title string
@@ -66,11 +66,11 @@ func crawl_data(url string)  {
     log.Println("Access to",currentUrl)
 
     companies := NewCompanies()
-    err := companies.getCompaniesByUrl(currentUrl)
-    checkError(err)
+    //err := companies.getCompaniesByUrl(currentUrl)
+    //checkError(err)
 
     jobs := NewJobs()
-    err = jobs.GetAllJobs(companies)
+    err := jobs.GetAllJobs(companies)
     checkError(err)
 }
 
@@ -144,37 +144,38 @@ func (companies *Companies) getInformationCompanies(companyUrl string) error  {
             companies.ListCompanies = append(companies.ListCompanies, company)
         })
     } else {
-        //doc.Find("#ajaxlistcompany .companies-items .row:first-child").Each(func(i int, selection *goquery.Selection) {
-        //    re := regexp.MustCompile(`\r?\n`)
-        //    companyImg, _ := selection.Find(
-        //        "ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-item-banner div.cp-logo img").Attr("src")
-        //    companyName := re.ReplaceAllString(strings.TrimSpace(selection.Find(
-        //        "#ajaxlistcompany .companies-items .row:first-child ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-company-info h3.ellipsis").Text()), " ")
-        //    var imgName string
-        //    locat := "public/img/company-logo/"
-        //    if strings.Contains(companyImg, "png") {
-        //        tmp := companyName
-        //        imgName = strings.Replace(tmp, " ", "", -1) + ".png"
-        //    } else {
-        //        tmp := companyName
-        //        imgName = strings.Replace(tmp, " ", "", -1) + ".jpg"
-        //    }
-        //
-        //    download(companyImg, locat, imgName)
-        //
-        //    companyAddr := re.ReplaceAllString(strings.TrimSpace(selection.Find(
-        //        "#ajaxlistcompany .companies-items .row:first-child ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-company-info ul li.ellipsis:first-child").Text()), " ")
-        //
-        //    company := Company{
-        //        Name:    companyName,
-        //        UrlC:    companyUrl,
-        //        Logo:    strings.Replace(locat, "public", "", -1) + imgName,
-        //        Address: companyAddr,
-        //    }
-        //    company.Create()
-        //    companies.totalCompanies++
-        //    companies.ListCompanies = append(companies.ListCompanies, company)
-        //})
+        doc.Find("#ajaxlistcompany .companies-items .row:first-child").Each(func(i int, selection *goquery.Selection) {
+            re := regexp.MustCompile(`\r?\n`)
+            companyImg, _ := selection.Find(
+                "ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-item-banner div.cp-logo img").Attr("src")
+            companyName := re.ReplaceAllString(strings.TrimSpace(selection.Find(
+                "#ajaxlistcompany .companies-items .row:first-child ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-company-info h3.ellipsis").Text()), " ")
+            var imgName string
+            locat := "public/img/company-logo/"
+            if strings.Contains(companyImg, "png") {
+                tmp := companyName
+                imgName = strings.Replace(tmp, " ", "", -1) + ".png"
+            } else {
+                tmp := companyName
+                imgName = strings.Replace(tmp, " ", "", -1) + ".jpg"
+            }
+
+            download(companyImg, locat, imgName)
+
+            companyAddr := re.ReplaceAllString(strings.TrimSpace(selection.Find(
+                "#ajaxlistcompany .companies-items .row:first-child ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-company-info ul li.ellipsis:first-child").Text()), " ")
+
+            company := Company{
+                Name:    companyName,
+                UrlC:    companyUrl,
+                Logo:    strings.Replace(locat, "public", "", -1) + imgName,
+                Address: companyAddr,
+                Country: "Viet Nam",
+            }
+            company.Create()
+            companies.totalCompanies++
+            companies.ListCompanies = append(companies.ListCompanies, company)
+        })
     }
     return nil
 }
@@ -237,13 +238,6 @@ func (jobs *Jobs) getJobsByUrl (urlJ string) error{
     } else {
         doc.Find(".itw_page .navbar .container-fluid .hidden-xs ul:first-child li.dropdown ul.dropdown-menu li").Each(func(i int, selection *goquery.Selection) {
             jobUrl, exist := selection.Find("a").Attr("href")
-            //if exist {
-            //    if strings.Contains(urlJ, "itviec") {
-            //        jobUrl = "https://itviec.com" + jobUrl
-            //    }
-            //} else {
-            //    jobUrl = "#"
-            //}
             if !exist {
                 jobUrl = jobUrl + "/#"
             }
@@ -261,65 +255,124 @@ func (jobs *Jobs) getDetailJob(jobUrl string) error  {
     if err != nil {
         return err
     }
-    doc.Find("#container").Each(func(i int, selection *goquery.Selection) {
-        jobTitle := strings.TrimSpace(selection.Find(".job_title").Text())
-        jobSalary := selection.Find(".salary_text").Text()
-        jobCompany := selection.Find(".inside .employer-info a").Text()
-        re := regexp.MustCompile(`\r?\n`)
-        jobAddress := re.ReplaceAllString(strings.TrimSpace(
-            selection.Find(".address__full-address").Text()), " ")
-        jobTimePosted := strings.TrimSpace(selection.Find(".distance-time-job-posted").Text())
-        var jobReason string
-        s := selection.Find(".love_working_here .culture_description")
-        s = s.Contents().Each(func(i int, selection *goquery.Selection) {
+    if strings.Contains(jobUrl, "itviec") {
+        doc.Find("#container").Each(func(i int, selection *goquery.Selection) {
+            jobTitle := strings.TrimSpace(selection.Find(".job_title").Text())
+            jobSalary := selection.Find(".salary_text").Text()
+            jobCompany := selection.Find(".inside .employer-info a").Text()
+            re := regexp.MustCompile(`\r?\n`)
+            jobAddress := re.ReplaceAllString(strings.TrimSpace(
+                selection.Find(".address__full-address").Text()), " ")
+            jobTimePosted := strings.TrimSpace(selection.Find(".distance-time-job-posted").Text())
+            var jobReason string
+            s := selection.Find(".love_working_here .culture_description")
+            s = s.Contents().Each(func(i int, selection *goquery.Selection) {
 
-            //if goquery.NodeName(selection) == "li" || goquery.NodeName(selection) == "ul" {
-            //jobReason += selection.Find(goquery.NodeName(selection)).Text() + " *** "
-            //fmt.Println("++++",goquery.NodeName(selection),"++++")
-            //}
-            if   goquery.NodeName(selection) == "p" || goquery.NodeName(selection) == "div" {
-                jobReason += selection.Text() + " *** "
-            }
-            s1 := selection.Find("li")
-            s1 = s1.Contents().Each(func(i int, selection *goquery.Selection) {
-                if   goquery.NodeName(selection) == "strong" {
-                    jobReason += selection.Text()
-                }
-                if goquery.NodeName(selection) == "#text"{
+                //if goquery.NodeName(selection) == "li" || goquery.NodeName(selection) == "ul" {
+                //jobReason += selection.Find(goquery.NodeName(selection)).Text() + " *** "
+                //fmt.Println("++++",goquery.NodeName(selection),"++++")
+                //}
+                if goquery.NodeName(selection) == "p" || goquery.NodeName(selection) == "div" {
                     jobReason += selection.Text() + " *** "
                 }
+                s1 := selection.Find("li")
+                s1 = s1.Contents().Each(func(i int, selection *goquery.Selection) {
+                    if goquery.NodeName(selection) == "strong" {
+                        jobReason += selection.Text()
+                    }
+                    if goquery.NodeName(selection) == "#text" {
+                        jobReason += selection.Text() + " *** "
+                    }
+                })
             })
-        })
-        var jobDescription string
-        s = selection.Find(".job_description .description li")
-        s = s.Contents().Each(func(i int, selection *goquery.Selection) {
+            var jobDescription string
+            s = selection.Find(".job_description .description li")
+            s = s.Contents().Each(func(i int, selection *goquery.Selection) {
 
-            if goquery.NodeName(selection) == "#text" {
-                jobDescription += selection.Text() + " *** "
+                if goquery.NodeName(selection) == "#text" {
+                    jobDescription += selection.Text() + " *** "
+                }
+            })
+
+            var jobSkill string
+            s = selection.Find(".skills_experience .experience ul li")
+            s = s.Contents().Each(func(i int, selection *goquery.Selection) {
+                if goquery.NodeName(selection) == "#text" {
+                    jobSkill += selection.Text() + " *** "
+                }
+            })
+
+            job := Job{
+                Title:           jobTitle,
+                Company_name:    jobCompany,
+                Salary:          jobSalary,
+                Address:         jobAddress,
+                Time_posted:     jobTimePosted,
+                Job_reason:      jobReason,
+                Job_description: jobDescription,
+                Skill_expirence: jobSkill,
             }
+            job.Create()
+            jobs.TotalJobs++
+            jobs.ListJobs = append(jobs.ListJobs, job)
         })
+    } else {
+        doc.Find("#hits").Each(func(i int, selection *goquery.Selection) {
+            jobTitle := strings.TrimSpace(selection.Find("#hits .hit .hit-content .row .col-xs-12 .row .col-xs-12:first-child .hit-name a").Text())
+            jobSalary := selection.Find("#hits .hit .hit-content .row .col-xs-12 .row .col-xs-12:last-child div.hit-salary").Text()
+            jobCompany := selection.Find("#hits .hit .hit-content .row .col-xs-12 .row .col-xs-12:first-child p.hit-company").Text()
+            re := regexp.MustCompile(`\r?\n`)
+            jobAddress := re.ReplaceAllString(strings.TrimSpace(
+                selection.Find("#hits .hit .hit-content .row .col-xs-12 .row .col-xs-12:first-child p.hit-company span.location-label span.result-label").Text()), " ")
+            jobTimePosted := strings.TrimSpace(selection.Find(
+                "#hits .hit .hit-content .row .col-xs-12 .row .col-xs-12:last-child div.hit-date-posting").Text())
+            //var jobReason string
+            s := selection.Find(".love_working_here .culture_description")
+            //s = s.Contents().Each(func(i int, selection *goquery.Selection) {
+            //    if goquery.NodeName(selection) == "p" || goquery.NodeName(selection) == "div" {
+            //        jobReason += selection.Text() + " *** "
+            //    }
+            //    s1 := selection.Find("li")
+            //    s1 = s1.Contents().Each(func(i int, selection *goquery.Selection) {
+            //        if goquery.NodeName(selection) == "strong" {
+            //            jobReason += selection.Text()
+            //        }
+            //        if goquery.NodeName(selection) == "#text" {
+            //            jobReason += selection.Text() + " *** "
+            //        }
+            //    })
+            //})
+            //var jobDescription string
+            //s = selection.Find(".job_description .description li")
+            //s = s.Contents().Each(func(i int, selection *goquery.Selection) {
+            //
+            //    if goquery.NodeName(selection) == "#text" {
+            //        jobDescription += selection.Text() + " *** "
+            //    }
+            //})
 
-        var jobSkill string
-        s = selection.Find(".skills_experience .experience ul li")
-        s = s.Contents().Each(func(i int, selection *goquery.Selection) {
-            if goquery.NodeName(selection) == "#text" {
-                jobSkill += selection.Text() + " *** "
+            var jobSkill string
+            s = selection.Find("#hits .hit .hit-content .row .col-xs-12 .row .col-xs-12:first-child div.skills-listing")
+            s = s.Contents().Each(func(i int, selection *goquery.Selection) {
+                if goquery.NodeName(selection) == ".label-skill" {
+                    jobSkill += selection.Text() + " *** "
+                }
+            })
+
+            job := Job{
+                Title:           jobTitle,
+                Company_name:    jobCompany,
+                Salary:          jobSalary,
+                Address:         jobAddress,
+                Time_posted:     jobTimePosted,
+                //Job_reason:      jobReason,
+                //Job_description: jobDescription,
+                Skill_expirence: jobSkill,
             }
+            job.Create()
+            jobs.TotalJobs++
+            jobs.ListJobs = append(jobs.ListJobs, job)
         })
-
-        job := Job {
-            Title:jobTitle,
-            Company_name: jobCompany,
-            Salary: jobSalary,
-            Address: jobAddress,
-            Time_posted: jobTimePosted,
-            Job_reason: jobReason ,
-            Job_description: jobDescription,
-            Skill_expirence: jobSkill,
-        }
-        job.Create()
-        jobs.TotalJobs++
-        jobs.ListJobs = append(jobs.ListJobs, job)
-    })
+    }
     return nil
 }
