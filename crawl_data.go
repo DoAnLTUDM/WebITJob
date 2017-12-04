@@ -144,36 +144,37 @@ func (companies *Companies) getInformationCompanies(companyUrl string) error  {
             companies.ListCompanies = append(companies.ListCompanies, company)
         })
     } else {
-        doc.Find("#ajaxlistcompany .companies-items .row:first-child").Each(func(i int, selection *goquery.Selection) {
-            //re := regexp.MustCompile(`\r?\n`)
-            companyImg, _ := selection.Find(
-                "ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-item-banner div.cp-logo img").Attr("src")
-            companyName := selection.Find(
-                "#ajaxlistcompany .companies-items .row:first-child ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-company-info h3.ellipsis").Text()
-            var imgName string
-            locat := "public/img/company-logo/"
-            if strings.Contains(companyImg, "png") {
-                tmp := companyName
-                imgName = strings.Replace(tmp, " ", "", -1) + ".png"
-            } else {
-                tmp := companyName
-                imgName = strings.Replace(tmp, " ", "", -1) + ".jpg"
-            }
-
-            download(companyImg, locat, imgName)
-            companyAddr := selection.Find(
-                "#ajaxlistcompany .companies-items .row:first-child ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-company-info ul li.ellipsis:first-child").Text()
-
-            company := Company{
-                Name:    companyName,
-                UrlC:    companyUrl,
-                Logo:    strings.Replace(locat, "public", "", -1) + imgName,
-                Address: companyAddr,
-            }
-            company.Create()
-            companies.totalCompanies++
-            companies.ListCompanies = append(companies.ListCompanies, company)
-        })
+        //doc.Find("#ajaxlistcompany .companies-items .row:first-child").Each(func(i int, selection *goquery.Selection) {
+        //    re := regexp.MustCompile(`\r?\n`)
+        //    companyImg, _ := selection.Find(
+        //        "ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-item-banner div.cp-logo img").Attr("src")
+        //    companyName := re.ReplaceAllString(strings.TrimSpace(selection.Find(
+        //        "#ajaxlistcompany .companies-items .row:first-child ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-company-info h3.ellipsis").Text()), " ")
+        //    var imgName string
+        //    locat := "public/img/company-logo/"
+        //    if strings.Contains(companyImg, "png") {
+        //        tmp := companyName
+        //        imgName = strings.Replace(tmp, " ", "", -1) + ".png"
+        //    } else {
+        //        tmp := companyName
+        //        imgName = strings.Replace(tmp, " ", "", -1) + ".jpg"
+        //    }
+        //
+        //    download(companyImg, locat, imgName)
+        //
+        //    companyAddr := re.ReplaceAllString(strings.TrimSpace(selection.Find(
+        //        "#ajaxlistcompany .companies-items .row:first-child ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-company-info ul li.ellipsis:first-child").Text()), " ")
+        //
+        //    company := Company{
+        //        Name:    companyName,
+        //        UrlC:    companyUrl,
+        //        Logo:    strings.Replace(locat, "public", "", -1) + imgName,
+        //        Address: companyAddr,
+        //    }
+        //    company.Create()
+        //    companies.totalCompanies++
+        //    companies.ListCompanies = append(companies.ListCompanies, company)
+        //})
     }
     return nil
 }
