@@ -2,14 +2,15 @@ package main
 
 import (
     "log"
-    "github.com/robfig/cron"
+    //"github.com/robfig/cron"
 )
 
 func schedule_crawl_data(){
-    c := cron.New()
-    c.AddFunc("@daily", func() {
-        crawl_data("https://itviec.com/vi")
+    //c := cron.New()
+    //c.AddFunc("@daily", func() {
+    //    crawl_data("https://itviec.com/vi")
+        crawl_data("https://www.topitworks.com/vi")
         log.Println("Daily crawing data")
-    })
-    c.Start()
+    //})
+    //c.Start()
 }

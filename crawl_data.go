@@ -7,6 +7,7 @@ import (
     "strings"
     "regexp"
     "golang.org/x/sync/errgroup"
+    "strconv"
 )
 
 
@@ -62,7 +63,7 @@ func crawl_data(url string)  {
         os.Exit(1)
     }
     currentUrl := url
-    log.Println("Access to ",currentUrl)
+    log.Println("Access to",currentUrl)
 
     companies := NewCompanies()
     err := companies.getCompaniesByUrl(currentUrl)
@@ -78,19 +79,30 @@ func (companies *Companies) getCompaniesByUrl (urlC string) error{
     if err != nil {
         return err
     }
-
-    doc.Find("#container .top-companies .col-md-4 ").Each(func(i int, selection *goquery.Selection) {
-        companyUrl,exist := selection.Find("a").Attr("href")
-        if exist{
-            if strings.Contains(urlC, "itviec"){
-                companyUrl = "https://itviec.com" + companyUrl
+    if strings.Contains(urlC, "itviec") {
+        doc.Find("#container .top-companies .col-md-4").Each(func(i int, selection *goquery.Selection) {
+            companyUrl, exist := selection.Find("a").Attr("href")
+            if exist {
+                if strings.Contains(urlC, "itviec") {
+                    companyUrl = "https://itviec.com" + companyUrl
+                }
+            } else {
+                companyUrl = "#"
             }
-        }else {
-            companyUrl = "#"
-        }
-        companies.getInformationCompanies(companyUrl)
-    })
-
+            companies.getInformationCompanies(companyUrl)
+        })
+    } else {
+        doc.Find(".itw_page .navbar .container-fluid .hidden-xs ul:first-child li").Each(func(
+            i int, selection *goquery.Selection) {
+                companyUrl, exist := selection.Find("a").Attr("href")
+                if !exist {
+                    companyUrl = urlC + "/#"
+                }
+                if strings.Contains(companyUrl, "cong-ty-it") {
+                    companies.getInformationCompanies(companyUrl)
+                }
+            })
+    }
     return nil
 }
 
@@ -101,35 +113,68 @@ func (companies *Companies) getInformationCompanies(companyUrl string) error  {
         return err
     }
 
-    doc.Find("#container .company-content").Each(func(i int, selection *goquery.Selection) {
-        re := regexp.MustCompile(`\r?\n`)
-        companyImg,_ := selection.Find(".headers .logo-container img").Attr("src")
-        companyName := re.ReplaceAllString(strings.TrimSpace(selection.Find(
-            ".headers .name-and-info .title").Text()), " ")
-        var imgName string
-        locat := "public/img/company-logo/"
-        if strings.Contains(companyImg, "png"){
-            tmp := companyName
-            imgName = strings.Replace(tmp," ","",-1) + ".png"
-        }else{
-            tmp := companyName
-            imgName = strings.Replace(tmp," ","",-1) + ".jpg"
-        }
-        download(companyImg, locat, imgName)
-        companyAddr := re.ReplaceAllString(strings.TrimSpace(selection.Find(".col-md-3 .map-address").Text())," ")
-        companyCountry := selection.Find(".headers .company-info .country span").Text()
+    if strings.Contains(companyUrl, "itviec") {
+        doc.Find("#container .company-content").Each(func(i int, selection *goquery.Selection) {
+            re := regexp.MustCompile(`\r?\n`)
+            companyImg, _ := selection.Find(".headers .logo-container img").Attr("src")
+            companyName := re.ReplaceAllString(strings.TrimSpace(selection.Find(
+                ".headers .name-and-info .title").Text()), " ")
+            var imgName string
+            locat := "public/img/company-logo/"
+            if strings.Contains(companyImg, "png") {
+                tmp := companyName
+                imgName = strings.Replace(tmp, " ", "", -1) + ".png"
+            } else {
+                tmp := companyName
+                imgName = strings.Replace(tmp, " ", "", -1) + ".jpg"
+            }
+            download(companyImg, locat, imgName)
+            companyAddr := re.ReplaceAllString(strings.TrimSpace(selection.Find(".col-md-3 .map-address").Text()), " ")
+            companyCountry := selection.Find(".headers .company-info .country span").Text()
 
-        company := Company{
-            Name:companyName,
-            UrlC:companyUrl,
-            Logo:strings.Replace(locat,"public", "", -1)+imgName,
-            Address:companyAddr,
-            Country:companyCountry,
-        }
-        company.Create()
-        companies.totalCompanies++
-        companies.ListCompanies = append(companies.ListCompanies, company)
-    })
+            company := Company{
+                Name:    companyName,
+                UrlC:    companyUrl,
+                Logo:    strings.Replace(locat, "public", "", -1) + imgName,
+                Address: companyAddr,
+                Country: companyCountry,
+            }
+            company.Create()
+            companies.totalCompanies++
+            companies.ListCompanies = append(companies.ListCompanies, company)
+        })
+    } else {
+        doc.Find("#ajaxlistcompany .companies-items .row:first-child").Each(func(i int, selection *goquery.Selection) {
+            //re := regexp.MustCompile(`\r?\n`)
+            companyImg, _ := selection.Find(
+                "ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-item-banner div.cp-logo img").Attr("src")
+            companyName := selection.Find(
+                "#ajaxlistcompany .companies-items .row:first-child ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-company-info h3.ellipsis").Text()
+            var imgName string
+            locat := "public/img/company-logo/"
+            if strings.Contains(companyImg, "png") {
+                tmp := companyName
+                imgName = strings.Replace(tmp, " ", "", -1) + ".png"
+            } else {
+                tmp := companyName
+                imgName = strings.Replace(tmp, " ", "", -1) + ".jpg"
+            }
+
+            download(companyImg, locat, imgName)
+            companyAddr := selection.Find(
+                "#ajaxlistcompany .companies-items .row:first-child ul.company-profile-list li.col-xs-12 div.cp-item-detail div.cp-company-info ul li.ellipsis:first-child").Text()
+
+            company := Company{
+                Name:    companyName,
+                UrlC:    companyUrl,
+                Logo:    strings.Replace(locat, "public", "", -1) + imgName,
+                Address: companyAddr,
+            }
+            company.Create()
+            companies.totalCompanies++
+            companies.ListCompanies = append(companies.ListCompanies, company)
+        })
+    }
     return nil
 }
 
@@ -154,24 +199,59 @@ func (jobs *Jobs) GetAllJobs(companies *Companies) error {
     return nil
 }
 
+func (jobs *Jobs) GetTotalPages(url string) error {
+    // https://viblo.asia/p/crawl-data-trong-golang-voi-goquery-LzD5dNoEZjY
+    doc, err := goquery.NewDocument(url)
+    if err != nil {
+        return err
+    }
+    lastPageLink, _ := doc.Find("").Attr("href")
+    if lastPageLink == "javascript:void();" {
+        jobs.TotalJobs = 49
+        return nil
+    }
+    split := strings.Split(lastPageLink, "?p=")
+    totalPages, _ := strconv.Atoi(split[1])
+    jobs.TotalJobs = totalPages
+    return nil
+}
+
 func (jobs *Jobs) getJobsByUrl (urlJ string) error{
     doc, err := goquery.NewDocument(urlJ)
     if err != nil {
         return err
     }
-
-    doc.Find(".job_content .title").Each(func(i int, selection *goquery.Selection) {
-        jobUrl,exist := selection.Find("a").Attr("href")
-        if exist{
-            if strings.Contains(urlJ, "itviec"){
-                jobUrl = "https://itviec.com" + jobUrl
+    if strings.Contains(urlJ, "itviec") {
+        doc.Find(".job_content .title").Each(func(i int, selection *goquery.Selection) {
+            jobUrl, exist := selection.Find("a").Attr("href")
+            if exist {
+                if strings.Contains(urlJ, "itviec") {
+                    jobUrl = "https://itviec.com" + jobUrl
+                }
+            } else {
+                jobUrl = "#"
             }
-        }else {
-            jobUrl = "#"
-        }
-        jobs.getDetailJob(jobUrl)
-    })
-
+            jobs.getDetailJob(jobUrl)
+        })
+    } else {
+        doc.Find(".itw_page .navbar .container-fluid .hidden-xs ul:first-child li.dropdown ul.dropdown-menu li").Each(func(i int, selection *goquery.Selection) {
+            jobUrl, exist := selection.Find("a").Attr("href")
+            //if exist {
+            //    if strings.Contains(urlJ, "itviec") {
+            //        jobUrl = "https://itviec.com" + jobUrl
+            //    }
+            //} else {
+            //    jobUrl = "#"
+            //}
+            if !exist {
+                jobUrl = jobUrl + "/#"
+            }
+            log.Println(jobUrl)
+            if strings.Contains(jobUrl, "viec-lam") {
+                jobs.getDetailJob(jobUrl)
+            }
+        })
+    }
     return nil
 }
 
@@ -193,8 +273,8 @@ func (jobs *Jobs) getDetailJob(jobUrl string) error  {
         s = s.Contents().Each(func(i int, selection *goquery.Selection) {
 
             //if goquery.NodeName(selection) == "li" || goquery.NodeName(selection) == "ul" {
-            //	jobReason += selection.Find(goquery.NodeName(selection)).Text() + " *** "
-            //	fmt.Println("++++",goquery.NodeName(selection),"++++")
+            //jobReason += selection.Find(goquery.NodeName(selection)).Text() + " *** "
+            //fmt.Println("++++",goquery.NodeName(selection),"++++")
             //}
             if   goquery.NodeName(selection) == "p" || goquery.NodeName(selection) == "div" {
                 jobReason += selection.Text() + " *** "
