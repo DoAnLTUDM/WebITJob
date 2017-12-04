@@ -9,7 +9,6 @@ a{
     transition: all 0.5s;
     -moz-transition: all 0.5s;
     -webkit-transition: all 0.5s;
-
 }
 a:hover{
     color: red;
@@ -17,7 +16,6 @@ a:hover{
 }
 
 /*Job Recommed*/
-
 .job-recommed{
     clear: both;
     z-index: 1;
@@ -34,7 +32,6 @@ a:hover{
     padding: 27px 0;
     -webkit-transition: all 0.25s ease;
     transition: all 0.25s ease;
-        
 }
 .jobs .job_contest:hover{
     box-shadow: inset 0px 0px 10px grey;
@@ -93,7 +90,6 @@ a:hover{
 .job_content .title {
     font-family: "Roboto", sans-serif;
 }
-
 .title {
     color: #353535;
     line-height: 35.2px;
@@ -101,26 +97,21 @@ a:hover{
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
 .title, h1 {
     font-weight: 400;
     font-family: "Roboto Condensed", sans-serif;
 }
-
 h2 {
     font-size: 1.5em;
     margin: 0.83em 0;
 }
-
 h2 {
     font-size: 11pt;
     margin: 0;
 }
-
 h2, .h2 {
     font-size: 30px;
 }
-
 h1, .h1, h2, .h2, h3, .h3 {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -151,13 +142,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     min-width: 100px;
     float: right;
 }
-
 .job .job_content .details .salary {
     display: inline-block;
     margin: 0;
     width: 210px;
 }
-
 .salary {
     font-size: 14px;
     color: #68ba50;
@@ -205,7 +194,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .ilabel:visited {
     color: red;
 }
-
 .ilabel {
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -222,7 +210,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 /*Company Recommmed*/
-
 .company-recommed{
     clear: both;
 }
@@ -239,8 +226,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     -ms-flex-direction: column;
     flex-direction: column;
 }
-
-
 #top-company{
     color:black;
     border: 1px solid #D8D8D8;
@@ -254,7 +239,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 #top-company:hover{
     box-shadow: 5px 5px 5px grey;
 }
-
 .top-company__logo{
     width: 170px;
     height: 170px;
@@ -263,13 +247,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-bottom: 20px;
     line-height: 170px;
 }
-
 .top_company_name{
     margin-top: 10px;
     font-size: 20px;
     height: 60px;
 }
-
 footer.top-company__footer{
     margin-top: 20px;
     background: white;
@@ -303,38 +285,29 @@ div{
     outline:none !important;
     box-shadow: none;
 }
-
 .search-tool .search-box {
     position:relative;
 }
-
 .search-box > .search-list li{
     padding:10px;
 }
-
 .search-box > .search-list li:hover {
     background-color:#1246cc;
 }
-
 .search-box > .search-list li:hover a{
     color:white;
 }
-
 .search-box > .search-list li a {
     color:black;
 }
-
 .search-box > .search-list li a:link{
     text-decoration:none;
 }
 
-
 /*Sign in*/
-
 .sign-in-action-wrapper {
     padding: 0 10px 10px;
 }
-
 .sign-in-action-wrapper .sign-in-button {
     height: 50px;
     font-size: 18px;
@@ -344,20 +317,16 @@ div{
     line-height: 45px;
     cursor: pointer;
 }
-
 .sign-in-action-wrapper .gplus {
     background-color: #CC3E2F;
     margin-bottom: 15px;
 }
-
 .sign-in-action-wrapper .facebook {
     background-color: #4C66A4;
 }
-
 .tab-content {
     text-align: center;
 }
-
 .tab-content .hr {
     position: relative;
     text-align: center;
@@ -366,7 +335,6 @@ div{
     width: 100%;
     padding-bottom: 14px;
 }
-
 .tab-content .hr > span {
     text-align: center;
     display: inline-block;
@@ -376,12 +344,10 @@ div{
     line-height: 1em;
     background-color: white;
 }
-
 .tab-content .message {
     margin-bottom: 20px;
     font-size: 19px;
 }
-
 .ibutton {
     border-radius: 5px;
     clear: both;
@@ -389,14 +355,12 @@ div{
     outline: 0;
     border: 0;
 }
-
 .ibutton.x-large {
     padding: 10px 70px;
     font-size: 20px;
     cursor: pointer;
     width: auto;
 }
-
 .ibutton-red {
     background-color: #EA1E30;
     color: white;
@@ -406,7 +370,6 @@ div{
 .about-div {
     padding: 30px;
 }
-
 .icon-round-border {
     border: 10px double #1A94C4;
     color: #2f9484;
@@ -421,7 +384,6 @@ div{
     -o-transition: 0.3s;
     transition: 0.3s;
 }
-
 .icon-round-border:hover {
     color: #fff;
     border: 10px double #fff;
@@ -431,21 +393,17 @@ div{
     -o-transition: 0.3s;
     transition: 0.3s;
 }
-
 .about-div hr {
     border: 1px solid #1A94C4;
 }
-
 .about-div h3 {
     font-size: 25px;
     font-weight: 700;
     text-transform: uppercase;
 }
-
 .about-div p {
     padding-top: 10px;
 }
-
 .btn-set {
     border-radius: 0px;
     -webkit-border-radius: 0px;
@@ -467,21 +425,17 @@ padding-right: 0px !important;
     margin:0;
     padding:0;
 }
-
 @font-face{
     font-family:'zocial', sans-serif;
 }
-
 [data-icon]:before{
     font-family:'zocial';
     content:attr(data-icon);
     -webkit-font-smoothing:antialiased;
 }
-
 body{
     font-family:'Verdana', sans-serif;
 }
-
 a{
     text-decoration:none;
     -webkit-transition:all .2s linear;
@@ -490,9 +444,9 @@ a{
     -o-transition:all .2s linear;
     transition:all .2s linear;
 }
-
-.clear{ clear:both; }
-
+.clear{
+    clear:both;
+}
 footer{
     background-color:#2E3639;
     position:relative;
@@ -541,7 +495,6 @@ footer > ul{
     position:relative;
     width:95%;
 }
-
 footer > ul li{
     float:left;
     padding:20px 15px;
@@ -549,20 +502,18 @@ footer > ul li{
     box-sizing:border-box;
     -moz-box-sizing:border-box;
 }
-
 footer > ul li:first-child{
     padding-left:0;
 }
-
-footer > ul li:nth-child(3){padding-right:0;}
-
+footer > ul li:nth-child(3){
+    padding-right:0;
+}
 footer > ul li .icon{
     color:#999999;
     float:left;
     font-size:80px;
     line-height:80px;
 }
-
 footer > ul li .text{
     color:#848889;
     font-size:13px;
@@ -571,31 +522,26 @@ footer > ul li .text{
     position:relative;
     text-align:justify;
 }
-
 .text h4{
     color:#ffffff;
     font-size:24px;
     font-weight:bold;
     margin-bottom:10px;
 }
-
 .text a{
     border-bottom:1px dotted transparent;
     color:#FFDD00;
     font-weight:bold;
 }
-
 .text a:hover{
     border-color:#FFDD00;
 }
 
 /* bar section */
-
 footer .bar{
     background-color:#1E2629;
     padding:20px 0;
 }
-
 footer .bar-wrap{
     font-size:12px;
     margin:0 auto;
@@ -603,30 +549,33 @@ footer .bar-wrap{
     position:relative;
     width:95%;
 }
-
 .links{
     float:left;
     list-style:none outside none;
     position:relative;
 }
-
 .links li{
     float:left;
     margin-right:10px;
 }
-
-.links a{ color:#778888;}
-
-.links a:hover{color:#FFFFFF;}
-
+.links a{
+    color:#778888;
+}
+.links a:hover{
+    color:#FFFFFF;
+}
 .social{
     position:absolute;
     right:0;
     top:0;
 }
-
-.social a{ color:#778888; margin-left:20px;}
-.social a:hover{color:#ffffff;}
+.social a{
+    color:#778888;
+    margin-left:20px;
+}
+.social a:hover{
+    color:#ffffff;
+}
 .social .icon{
     display:inline-block;
     font-size:36px;
@@ -638,7 +587,6 @@ footer .bar-wrap{
     -o-transition:-ms-transform .3s linear;
     transition: transform .3s linear;
 }
-
 .social a:hover .icon{
    -webkit-transform:rotate(360deg);
    -moz-transform:rotate(360deg);
@@ -646,13 +594,13 @@ footer .bar-wrap{
    -o-transform:rotate(360deg);
     transform:rotate(360deg);
 }
-
 .social .info{
     display:inline-block;
     vertical-align:middle;
 }
-
-.social .info .num{display:block;}
+.social .info .num{
+    display:block;
+}
 .copyright{
     color:#778888;
     margin-top:5px;
@@ -661,43 +609,43 @@ footer .bar-wrap{
 
 /* Responsive */
 @media (min-width: 767px) {
-   .navbar-nav .dropdown-menu .caret { transform: rotate(-90deg);}
+   .navbar-nav .dropdown-menu .caret {
+       transform: rotate(-90deg);
+   }
 }
-.navbar-nav > li > .dropdown-menu { background-color: #D3D3D3; }
+.navbar-nav > li > .dropdown-menu {
+    background-color: #D3D3D3;
+}
 
 @media screen and (max-width:1000px){
     .links, .social, .copyright{
         float:none;
         text-align:center;
     }
-    
     .social{
         position:relative;
         margin:10px 0;
     }
-    
     .links li{
         display:inline-block;
         float:none;
     }
-    
     .bar{
         position:relative;
     }
-    
     .bar-wrap{
         margin-bottom:0;
     }
 }
 
-@media screen and (max-width: 835px)  {
+@media screen and (max-width: 835px){
     footer > ul li {
         float:none;
         width:auto;
     }
 }
 
-@media screen and (max-width: 768px)  {
+@media screen and (max-width: 768px){
     .links li {
         margin-right:5px;
     }

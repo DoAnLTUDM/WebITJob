@@ -31,13 +31,13 @@ func login(w http.ResponseWriter, r *http.Request){
 }
 
 func infoJobPage(w http.ResponseWriter, r *http.Request){
-	t, _ := template.ParseFiles("template/index.html", "template/infojob.html")
-	t.Execute(w,"" )
+    t, _ := template.ParseFiles("template/index.html", "template/infojob.html")
+    t.Execute(w,"" )
 }
 
 func infoCompanyPage(w http.ResponseWriter, r *http.Request){
-	t, _ := template.ParseFiles("template/index.html", "template/infocompany.html")
-	t.Execute(w,"" )
+    t, _ := template.ParseFiles("template/index.html", "template/infocompany.html")
+    t.Execute(w,"" )
 }
 
 func getRequestBody(w http.ResponseWriter, r *http.Request){
