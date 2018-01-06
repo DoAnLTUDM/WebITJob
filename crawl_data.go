@@ -2,50 +2,45 @@ package main
 
 import (
     "log"
-    "github.com/PuerkitoBio/goquery"
-    "os"
     "strings"
     "regexp"
-    "golang.org/x/sync/errgroup"
+    "time"
+    "strconv"
+    "github.com/tebeka/selenium"
 )
 
 
 type Job struct {
+    Id int
+    IdComp int
+    IdSkills []int
+    DetailUrl string
     Title string
     Salary string
+    SrcImage string
     Address string
-    Time_posted string
-    Job_reason string
-    Job_description string
-    Skill_expirence string
-    Qualification string
-    Company_name string
-}
-
-type Jobs struct{
-    TotalJobs int
-    ListJobs []Job
+    Time_posted time.Time
+    Job_reason []string
+    Job_description []string
+    Skill_expirence []string
+    ImgComp string
 }
 
 type Company struct{
+    Id int
     Name string
     Address string
     Country string
     Logo string
-    UrlC string
+    Banner string
+    Introduce []string
+    IdSkills []int
+    Numjobs int
 }
 
-type Companies struct{
-    totalCompanies int
-    ListCompanies []Company
-}
-
-func NewJobs() *Jobs  {
-    return &Jobs{}
-}
-
-func NewCompanies() *Companies {
-    return &Companies{}
+type Skill struct{
+    Id int
+    Name string
 }
 
 func checkError(err error){
@@ -56,189 +51,300 @@ func checkError(err error){
 
 func crawl_data(url string)  {
 
-    //Get Url
-    if len(url) < 1{
-        log.Print("Please specify start page")
-        os.Exit(1)
-    }
-    currentUrl := url
-    log.Println("Access to ",currentUrl)
+    // FireFox driver without specific version
+    caps := selenium.Capabilities{"browserName": "firefox"}
+    wd, _ := selenium.NewRemote(caps, "")
+    defer wd.Quit()
 
-    companies := NewCompanies()
-    err := companies.getCompaniesByUrl(currentUrl)
-    checkError(err)
+    // Get simple playground interface
+    wd.Get(url)
 
-    jobs := NewJobs()
-    err = jobs.GetAllJobs(companies)
-    checkError(err)
+    checkError(getDataItViec(wd))
 }
 
-func (companies *Companies) getCompaniesByUrl (urlC string) error{
-    doc, err := goquery.NewDocument(urlC)
-    if err != nil {
-        return err
+func  convertTimePost(day string) time.Time {
+    re := regexp.MustCompile("[0-9]+")
+    //lấy số trong chuỗi string
+    timePosted, _:= strconv.Atoi(re.FindAllString(day, -1)[0])
+    return time.Now().AddDate(0, 0, -timePosted)
+}
+
+func loginItViec(wd selenium.WebDriver){
+    //Tìm và click vào nút đăng nhập
+    btn, err := wd.FindElement(selenium.ByXPATH, "(//a[contains(text(),'Đăng Nhập')])[2]")
+    if err != nil{
+        log.Println(err)
+    }
+    btn.Click()
+
+    //Nhập vào tên đăng nhập
+    email, err := wd.FindElement(selenium.ByXPATH, "(//input[@id='user_email'])[2]")
+    if err != nil{
+        log.Println(err)
+    }
+    email.SendKeys("testcast2@gmail.com")
+
+    //Nhập vào mật khẩu
+    passwd, err := wd.FindElement(selenium.ByXPATH, "(//input[@id='user_password'])[2]")
+    if err != nil{
+        log.Println(err)
+    }
+    passwd.SendKeys("00147Dat")
+
+    //Commit thông tin đăng nhập
+    btn, err = wd.FindElement(selenium.ByXPATH, "(//input[@name='commit'])[3]")
+    if err != nil{
+        log.Println(err)
+    }
+    btn.Click()
+    time.Sleep(time.Second*2)
+}
+
+func getDataItViec(wd selenium.WebDriver) error{
+    //Mở thẻ "Công ty IT Hàng Đầu"
+    if btn, err := wd.FindElement(selenium.ByLinkText, "Công ty IT Hàng Đầu"); err == nil{
+        btn.Click()
+    }else {
+        log.Println(err)
     }
 
-    doc.Find("#container .top-companies .col-md-4 ").Each(func(i int, selection *goquery.Selection) {
-        companyUrl,exist := selection.Find("a").Attr("href")
-        if exist{
-            if strings.Contains(urlC, "itviec"){
-                companyUrl = "https://itviec.com" + companyUrl
+    //Mở tất cả các công ty trong thẻ "Công ty IT Hàng Đầu"
+    if btn, err := wd.FindElement(selenium.ByLinkText, "Xem thêm"); err == nil {
+        btn.Click()
+        time.Sleep(time.Second)
+    } else {
+        log.Println(err)
+    }
+
+    //Đếm số lượng công ty
+    count, _ := wd.FindElements(selenium.ByXPATH, "//div[@id='most-popular-companies']/div/div[3]/div/div[@class='col-md-4']")
+    for i := 1; i < len(count)+1; i++{
+        getTotalInfo(i, wd)
+    }
+    return nil
+}
+
+func getTotalInfo(num int, wd selenium.WebDriver)  {
+
+    companyElement, _ :=	wd.FindElement(selenium.ByXPATH,"//div[@id='most-popular-companies']/div/div[3]/div/div["+strconv.Itoa(num)+"]/a")
+    urlCompany, _ := companyElement.GetAttribute("href")
+
+    caps := selenium.Capabilities{"browserName": "firefox"}
+    companyWd, _ := selenium.NewRemote(caps, "")
+    defer companyWd.Quit()
+
+    companyXPATH := "//div[@class='company-content']/div[@class='company-page']"
+
+    getCompanyInfo(companyWd, urlCompany, companyXPATH)
+    //go getJobInfo(countJob, idCompany, jobWd, companyXPATH )
+}
+
+func getCompanyInfo(companyWd selenium.WebDriver, urlCompany string, companyXPATH string )  {
+    company := Company{}
+    // Get simple playground interface
+    companyWd.Get("https://itviec.com"+urlCompany)
+
+    getName, _ := companyWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[2]/div[@class='name-and-info']/h1")
+    company.Name, _ = getName.Text()
+    getBanner, _ := companyWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[1]/img")
+    banner,_ := getBanner.GetAttribute("src")
+    company.Banner = banner
+
+    getLogo, _ := companyWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[2]/div[@class='logo-container']/div/img")
+    logo, _ := getLogo.GetAttribute("src")
+    company.Logo = logo
+
+    getCity, _ := companyWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[2]/div[@class='name-and-info']/span")
+    company.Address, _ = getCity.Text()
+
+    getCountry, _ := companyWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[2]/div[@class='name-and-info']" +
+        "/div[@class='company-info']/div[@class='country']")
+    company.Country, _ = getCountry.Text()
+
+    getIntroTitle, _ := companyWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[3]/div/div/div[@class='panel-heading']/h3")
+    title, _ := getIntroTitle.Text()
+    company.Introduce = append(company.Introduce, title)
+
+
+    getIntroBody, _ := companyWd.FindElements(selenium.ByXPATH, companyXPATH+"/div[3]/div[1]/div[1]/div[@class='panel-body']" +
+    	"/div[1]/p")
+
+    for i:=1; i<len(getIntroBody)+1;i++{
+        body, _ := companyWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[3]/div[1]/div[1]/div[@class='panel-body']" +
+        	"/div[1]/p["+strconv.Itoa(i)+"]")
+        introBody, _ := body.Text()
+        company.Introduce = append(company.Introduce, introBody)
+    }
+
+    countSkills, _ := companyWd.FindElements(selenium.ByXPATH, companyXPATH+"/div[3]/div/div/" +
+        "div[@class='panel-body']/ul[@class='employer-skills']/li")
+
+    for i:=1; i < len(countSkills)+1;i++{
+        skill := Skill{}
+        getSkill, _ := companyWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[3]/div/div/" +
+            "div[@class='panel-body']/ul[@class='employer-skills']/li["+strconv.Itoa(i)+"]")
+        skill.Name, _ = getSkill.Text()
+        idSkill, _ := skill.Create()
+        if idSkill == 0{
+            idSkill, _ = getIdSkill(skill.Name)
+        }
+        company.IdSkills = append(company.IdSkills, idSkill)
+    }
+    idC, _ := company.Create()
+    if idC == 0{
+        idC, _ = getIdCompany(company.Name)
+    }
+    countJobs, _ := companyWd.FindElements(selenium.ByXPATH, companyXPATH+"/div[3]/div[1]/" +
+        "div[2]/div[@class='panel-body']/div")
+
+    getJobInfo(len(countJobs), idC, companyWd, companyXPATH)
+}
+
+func getJobInfo(countJob int, idCompany int, jobWd selenium.WebDriver, companyXPATH string){
+    if(countJob>0){
+        loginItViec(jobWd)
+        for i:=1; i < countJob+1;i++{
+            job := Job{}
+            job.IdComp = idCompany
+            getTitle, error := jobWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[3]/div[1]/" +
+                "div[2]/div[@class='panel-body']/div["+strconv.Itoa(i)+"]/div/div[2]/div/div/h4[@class='title']/a")
+            if error == nil{
+                job.Title, _ = getTitle.Text()
+            }
+
+            getSalary, error:= jobWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[3]/div[1]/" +
+                "div[2]/div[@class='panel-body']/div["+strconv.Itoa(i)+"]/div/div[2]/div/div/div[@class='salary']" +
+                "/span[@class='salary-text']")
+            if error == nil{
+                job.Salary, _ = getSalary.Text()
+            }
+
+            getTimePost, error := jobWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[3]/div[1]/" +
+                "div[2]/div[@class='panel-body']/div["+strconv.Itoa(i)+"]/div/div[2]/div[1]/div[2]/" +
+                "div[@class='distance-time-job-posted']/span")
+            if error == nil{
+                timePost, _ := getTimePost.Text()
+                job.Time_posted = convertTimePost(timePost)
+            }
+
+            countSkills, error := jobWd.FindElements(selenium.ByXPATH, companyXPATH+"/div[3]/div[1]/" +
+                "div[2]/div[@class='panel-body']/div["+strconv.Itoa(i)+"]/div/div[2]/div[2]/div[@class='tag-list']/a")
+            if error == nil{
+                for j:=1;j<len(countSkills)+1;j++{
+                    skill := Skill{}
+                    getSkills, _ := jobWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[3]/div[1]/" +
+                        "div[2]/div[@class='panel-body']/div["+strconv.Itoa(i)+"]/div/div[2]/div[2]/div[@class='tag-list']" +
+                        "/a["+strconv.Itoa(j)+"]/span")
+                    skill.Name, _= getSkills.Text()
+                    idSkill, _ := skill.Create()
+                    if idSkill == 0{
+                        idSkill, _ = getIdSkill(skill.Name)
+                    }
+                    job.IdSkills = append(job.IdSkills, idSkill)
+                }
+            }
+        getUrl, error := jobWd.FindElement(selenium.ByXPATH, companyXPATH+"/div[3]/div[1]/" +
+            "div[2]/div[@class='panel-body']/div["+strconv.Itoa(i)+"]/div[@class='job_content']/" +
+            "div[@class='job__description']/div[@class='job__body']/div[@class='details']/h4/a")
+        if error == nil {
+            urlJob, _ := getUrl.GetAttribute("href")
+            caps := selenium.Capabilities{"browserName": "firefox"}
+            wd, _ := selenium.NewRemote(caps, "")
+            defer wd.Quit()
+            wd.Get("https://itviec.com"+ urlJob)
+
+            //Get Address
+            numAddress,_ := wd.FindElements(selenium.ByXPATH, "//div[@class='job_info']/div[@class='address']" +
+                "/div[@class='address__full-address']/span")
+            for j:=1;j<len(numAddress)+1;j++{
+                getAddress, _ := wd.FindElement(selenium.ByXPATH, "//div[@class='job_info']/div[@class='address']" +
+                    "/div[@class='address__full-address']/span["+strconv.Itoa(j)+"]")
+                address, _ := getAddress.Text()
+                job.Address += address
+            }
+
+            //Get Reason
+            getTitleReason, _ := wd.FindElement(selenium.ByXPATH, "//div[@class='job-detail']/" +
+                "div[@class='job_reason_to_join_us']/h2")
+            titleReason, _:= getTitleReason.Text()
+            job.Job_reason = append(job.Job_reason, titleReason)
+            getReasons, _ := wd.FindElements(selenium.ByXPATH, "//div[@class='job-detail']/" +
+                "div[@class='job_reason_to_join_us']/div/ul/li")
+            for j:=1;j<len(getReasons)+1;j++{
+                getReason, _ := wd.FindElement(selenium.ByXPATH, "//div[@class='job-detail']/" +
+                    "div[@class='job_reason_to_join_us']/div/ul/li["+strconv.Itoa(j)+"]")
+                reason, _ := getReason.Text()
+                job.Job_reason = append(job.Job_reason, reason)
+            }
+
+            //Get description
+            getTitleDesc, _ := wd.FindElement(selenium.ByXPATH, "//div[@class='job_description']/" +
+                "div[@class='title-apply-line']/h2")
+            titleDesc, _:= getTitleDesc.Text()
+            job.Job_description = append(job.Job_description, titleDesc)
+            getDescs, _ := wd.FindElements(selenium.ByXPATH, "//div[@class='job_description']/" +
+                "div[@class='description']/ul")
+            if len(getDescs) > 0{
+                for k:=1;k<len(getDescs)+1;k++{
+                    getdescs, _ := wd.FindElements(selenium.ByXPATH, "//div[@class='job_description']/" +
+                        "div[@class='description']/ul["+strconv.Itoa(k)+"]"+"/li")
+                    for j:=1;j<len(getdescs)+1;j++{
+                        getdesc, _ := wd.FindElement(selenium.ByXPATH, "//div[@class='job_description']/" +
+                            "div[@class='description']/ul["+strconv.Itoa(k)+"]"+"/li["+strconv.Itoa(j)+"]")
+                        desc, _ := getdesc.Text()
+                        job.Job_description = append(job.Job_description, desc)
+                    }
+                }
+            }else{
+                getDescs, _ := wd.FindElements(selenium.ByXPATH, "//div[@class='job_description']/" +
+                    "div[@class='description']/p")
+                for j:=1;j<len(getDescs)+1;j++{
+                    getDesc, _ := wd.FindElement(selenium.ByXPATH, "//div[@class='job_description']/" +
+                        "div[@class='description']/p["+strconv.Itoa(j)+"]")
+                    desc, _ := getDesc.Text()
+                    job.Job_description = append(job.Job_description, desc)
+                }
+            }
+
+            //Get skill
+            getTitleSkill, _ := wd.FindElement(selenium.ByXPATH, "//div[@class='skills_experience']/h2")
+            titleSkill, _:= getTitleSkill.Text()
+            job.Skill_expirence = append(job.Job_description, titleSkill)
+            getSkills, _ := wd.FindElements(selenium.ByXPATH, "//div[@class='skills_experience']/" +
+                "div[@class='experience']/ul")
+            if len(getSkills) > 0{
+                for k:=1;k<len(getSkills)+1;k++{
+                    getskills, _ := wd.FindElements(selenium.ByXPATH, "//div[@class='skills_experience']/" +
+                        "div[@class='experience']/ul["+strconv.Itoa(k)+"]"+"/li")
+                    for j:=1;j<len(getskills)+1;j++{
+                        getskill, _ := wd.FindElement(selenium.ByXPATH, "//div[@class='skills_experience']/" +
+                            "div[@class='experience']/ul["+strconv.Itoa(k)+"]"+"/li["+strconv.Itoa(j)+"]")
+                        skill, _ := getskill.Text()
+                        job.Job_description = append(job.Job_description, skill)
+                    }
+                }
+            }else{
+                getSkills, _ := wd.FindElements(selenium.ByXPATH, "//div[@class='skills_experience']/" +
+                    "div[@class='experience']/p")
+                for j:=1;j<len(getSkills)+1;j++{
+                    getSkill, _ := wd.FindElement(selenium.ByXPATH, "//div[@class='skills_experience']/" +
+                        "div[@class='experience']/p["+strconv.Itoa(j)+"]")
+                    skill, _ := getSkill.Text()
+                    job.Job_description = append(job.Job_description, skill)
+                }
             }
         }else {
-            companyUrl = "#"
-        }
-        companies.getInformationCompanies(companyUrl)
-    })
-
-    return nil
-}
-
-func (companies *Companies) getInformationCompanies(companyUrl string) error  {
-    doc, err := goquery.NewDocument(companyUrl)
-
-    if err != nil {
-        return err
-    }
-
-    doc.Find("#container .company-content").Each(func(i int, selection *goquery.Selection) {
-        re := regexp.MustCompile(`\r?\n`)
-        companyImg,_ := selection.Find(".headers .logo-container img").Attr("src")
-        companyName := re.ReplaceAllString(strings.TrimSpace(selection.Find(
-            ".headers .name-and-info .title").Text()), " ")
-        var imgName string
-        locat := "public/img/company-logo/"
-        if strings.Contains(companyImg, "png"){
-            tmp := companyName
-            imgName = strings.Replace(tmp," ","",-1) + ".png"
-        }else{
-            tmp := companyName
-            imgName = strings.Replace(tmp," ","",-1) + ".jpg"
-        }
-        download(companyImg, locat, imgName)
-        companyAddr := re.ReplaceAllString(strings.TrimSpace(selection.Find(".col-md-3 .map-address").Text())," ")
-        companyCountry := selection.Find(".headers .company-info .country span").Text()
-
-        company := Company{
-            Name:companyName,
-            UrlC:companyUrl,
-            Logo:strings.Replace(locat,"public", "", -1)+imgName,
-            Address:companyAddr,
-            Country:companyCountry,
-        }
-        company.Create()
-        companies.totalCompanies++
-        companies.ListCompanies = append(companies.ListCompanies, company)
-    })
-    return nil
-}
-
-func (jobs *Jobs) GetAllJobs(companies *Companies) error {
-    eg := errgroup.Group{}
-    if companies.totalCompanies > 0 {
-        for i := 0; i < companies.totalCompanies; i++ {
-            // https://golang.org/doc/faq#closures_and_goroutines
-            url := companies.ListCompanies[i].UrlC
-            eg.Go(func() error {
-                err := jobs.getJobsByUrl(url)
-                if err != nil {
-                    return err
-                }
-                return nil
-            })
-        }
-        if err := eg.Wait(); err != nil { // Error Group chờ đợi các group goroutines done, nếu có lỗi thì trả về
-            return err
-        }
-    }
-    return nil
-}
-
-func (jobs *Jobs) getJobsByUrl (urlJ string) error{
-    doc, err := goquery.NewDocument(urlJ)
-    if err != nil {
-        return err
-    }
-
-    doc.Find(".job_content .title").Each(func(i int, selection *goquery.Selection) {
-        jobUrl,exist := selection.Find("a").Attr("href")
-        if exist{
-            if strings.Contains(urlJ, "itviec"){
-                jobUrl = "https://itviec.com" + jobUrl
-            }
-        }else {
-            jobUrl = "#"
-        }
-        jobs.getDetailJob(jobUrl)
-    })
-
-    return nil
-}
-
-func (jobs *Jobs) getDetailJob(jobUrl string) error  {
-    doc, err := goquery.NewDocument(jobUrl)
-    if err != nil {
-        return err
-    }
-    doc.Find("#container").Each(func(i int, selection *goquery.Selection) {
-        jobTitle := strings.TrimSpace(selection.Find(".job_title").Text())
-        jobSalary := selection.Find(".salary_text").Text()
-        jobCompany := selection.Find(".inside .employer-info a").Text()
-        re := regexp.MustCompile(`\r?\n`)
-        jobAddress := re.ReplaceAllString(strings.TrimSpace(
-            selection.Find(".address__full-address").Text()), " ")
-        jobTimePosted := strings.TrimSpace(selection.Find(".distance-time-job-posted").Text())
-        var jobReason string
-        s := selection.Find(".love_working_here .culture_description")
-        s = s.Contents().Each(func(i int, selection *goquery.Selection) {
-
-            //if goquery.NodeName(selection) == "li" || goquery.NodeName(selection) == "ul" {
-            //	jobReason += selection.Find(goquery.NodeName(selection)).Text() + " *** "
-            //	fmt.Println("++++",goquery.NodeName(selection),"++++")
-            //}
-            if   goquery.NodeName(selection) == "p" || goquery.NodeName(selection) == "div" {
-                jobReason += selection.Text() + " *** "
-            }
-            s1 := selection.Find("li")
-            s1 = s1.Contents().Each(func(i int, selection *goquery.Selection) {
-                if   goquery.NodeName(selection) == "strong" {
-                    jobReason += selection.Text()
-                }
-                if goquery.NodeName(selection) == "#text"{
-                    jobReason += selection.Text() + " *** "
-                }
-            })
-        })
-        var jobDescription string
-        s = selection.Find(".job_description .description li")
-        s = s.Contents().Each(func(i int, selection *goquery.Selection) {
-
-            if goquery.NodeName(selection) == "#text" {
-                jobDescription += selection.Text() + " *** "
-            }
-        })
-
-        var jobSkill string
-        s = selection.Find(".skills_experience .experience ul li")
-        s = s.Contents().Each(func(i int, selection *goquery.Selection) {
-            if goquery.NodeName(selection) == "#text" {
-                jobSkill += selection.Text() + " *** "
-            }
-        })
-
-        job := Job {
-            Title:jobTitle,
-            Company_name: jobCompany,
-            Salary: jobSalary,
-            Address: jobAddress,
-            Time_posted: jobTimePosted,
-            Job_reason: jobReason ,
-            Job_description: jobDescription,
-            Skill_expirence: jobSkill,
+            log.Println(error)
         }
         job.Create()
-        jobs.TotalJobs++
-        jobs.ListJobs = append(jobs.ListJobs, job)
-    })
-    return nil
+        }
+    }
+}
+
+func checkFormatImg(src string, name string) string{
+    if strings.Contains(src, "png"){
+        return strings.Replace(name," ","",-1) + ".png"
+    }else{
+        return strings.Replace(name," ","",-1) + ".jpg"
+    }
 }

@@ -1,36 +1,37 @@
+CREATE TABLE skill(
+  id SERIAL UNIQUE NOT NULL PRIMARY KEY ,
+  nameSkill TEXT UNIQUE
+);
+
 CREATE TABLE  company (
   id SERIAL UNIQUE NOT NULL PRIMARY KEY,
   idJobs INT ARRAY,
-  company_name TEXT UNIQUE ,
+  idSkill INT ARRAY,
+  nameComp TEXT UNIQUE ,
   address TEXT,
   country TEXT,
   logo TEXT,
-  urlC TEXT
+  banner TEXT,
+  intro TEXT ARRAY
 );
 
 CREATE TABLE  job (
   id SERIAL UNIQUE NOT NULL  PRIMARY KEY,
-  idPLang INT,
-  title TEXT,
-  salary MONEY,
+  idSkill INT ARRAY,
+  idComp INT REFERENCES company(id),
+  title TEXT UNIQUE,
+  salary TEXT,
   address TEXT,
-  time_posted TIME,
-  reason TEXT,
-  description TEXT,
-  skill TEXT,
-  qualification TEXT,
-  company_name TEXT
-);
-
-CREATE TABLE programming_language(
-  id SERIAL UNIQUE NOT NULL PRIMARY KEY ,
-  pl_name TEXT
+  time_posted DATE,
+  reason TEXT ARRAY,
+  description TEXT ARRAY,
+  skill TEXT ARRAY
 );
 
 CREATE TABLE user_account(
   id SERIAL UNIQUE NOT NULL PRIMARY KEY ,
-  idPLangs INT ARRAY,
-  idCompanies INT ARRAY,
+  idSkill INT ARRAY,
+  idComps INT ARRAY,
   fullname TEXT,
   email TEXT,
   username TEXT UNIQUE,

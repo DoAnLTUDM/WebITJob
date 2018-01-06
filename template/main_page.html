@@ -42,74 +42,35 @@
                 </a>
             </div>
 
-            <div class="container"> <!--thanh Search-->
-                <div style="background-color:#D3D3D3;" class="row">
-                    <div class="search-tool">
-                        <div class="col-md-8 col-sm-12">
-                            <div class="search-box" style="margin-top: 7px">
-                                <div class="input-group" style="padding:5px 0px 5px 0px;background-color:white;">
-                                    <span class="input-group-addon" style="border:none;background-color:white" id="basic-addon1">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </span>
-                                    <input type="text" class="form-control control" style="border:none; box-shadow:none;padding:0" placeholder="Job search" aria-describedby="basic-addon1">
-                                </div>
-                                <div style="clear:both; z-index:2;display:none;position:absolute;width:100%" class="search-list">
-                                    <ul style="list-style-type:none; padding:0px;background:white;box-shadow: 0px 0px 5px gray; margin-top:5px;">
-                                        <li><a href="#">Java</a></li>
-                                        <li><a href="#">PHP</a></li>
-                                        <li><a href="#">Nodejs</a></li>
-                                    </ul>
+            <form action="/search" method="post">
+                <div class="container"> <!--thanh Search-->
+                    <div style="background-color:#D3D3D3;" class="row">
+                        <div class="search-tool">
+                            <div class="col-md-8 col-sm-12">
+                                <div class="search-box" style="margin-top: 7px">
+                                    <div class="input-group" style="padding:5px 0px 5px 0px;background-color:white;">
+                                        <span class="input-group-addon" style="border:none;background-color:white" id="basic-addon1">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </span>
+                                        <input name="search" type="text" class="form-control" style="border:none; box-shadow:none;padding:0" placeholder="Job search" aria-describedby="basic-addon1">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-2 col-sm-12" >
-                            <div class="search-box" style="margin-top: 9px">
-                                <div class="input-group" style="padding:5px 0px 5px 0px;background-color:white">
-                                    <span class="input-group-addon" style="border:none;background-color:white" id="basic-addon1">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </span>
-                                    <button class="control" style="border:none;text-align:left; box-shadow:none;padding:4px 0px 0px 0px;background:white;"aria-describedby="basic-addon1">Hồ Chí Minh</button>
-                                </div>
-                                <div style="clear:both; z-index:2;display:none;position:absolute;width:100%" class="search-list">
-                                    <ul style="list-style-type:none; padding:0px;background:white;box-shadow: 0px 0px 5px gray;">
-                                        <li><a href="#">Hà Nội</a></li>
-                                        <li><a href="#">Đà Nẵng</a></li>
-                                        <li><a href="#">Huế</a></li>
-                                        <li><a href="#">Khác</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 col-sm-12">
-                            <div class="search-button" style="width:100%;padding:5px;text-align:center;background-color:#EA1E30">
-                                <div style="position:relative;width:100%;color:white; height:30px;border:none;background-color: rgba(0, 0, 0, 0);">
-                                    <p >Tìm kiếm</p>
+                            <div class="col-md-4 col-sm-12">
+                                <div class="search-button" style="width:100%;padding:5px;text-align:center;background-color:#EA1E30">
+                                    <div style="position:relative;width:100%;color:white; height:30px;border:none;background-color: rgba(0, 0, 0, 0);">
+                                        <button id="submit">Tìm Kiếm</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> <!--End search bar-->
+            </form>
+             <!--End search bar-->
 
-            <div class="job-recommmed">
-                <div class="container">
-                    <h3>Job Recommed</h3>
-                    {{template "job_recommend"}}
-                </div>
-            </div> <!--End job recommed-->
-
-            <div class="company-recommed"> <!--company recommed-->
-                <div class="container">
-                    <h3>Company recommed</h3>
-                    <div class="row">
-                        {{template "company_recommend" .}}
-                    </div>
-                </div>
-            </div>
-            <!--End Company-recommed-->
-
+            {{template "subcontent" .}}
+            
             <div id="Sumary"> <!--Summary-->
                 <div class="container">
                     <div class="row text-center">
@@ -136,12 +97,12 @@
                                 <h3>JOB BY COMPANY </h3>
                                 <hr/><hr/>
                                 <p >
-                                    <br><a href="#"> Java </a></br>
-                                    <br><a href="#"> PhP </a></br>
-                                    <br><a href="#">.Net </a></br>
-                                    <br><a href="#"> Tester</a></br>
-                                    <br><a href="#"> Anroid</a></br>
-                                    <br><a href="#"> IOS </a></br>
+                                    <br><a href="/jobskill/java" value="java"> Java </a></br>
+                                    <br><a href="/jobskill/php"> PHP </a></br>
+                                    <br><a href="/jobskill/.net">.Net </a></br>
+                                    <br><a href="/jobskill/qc"> Tester</a></br>
+                                    <br><a href="/jobskill/android"> Anroid</a></br>
+                                    <br><a href="/jobskill/ios"> IOS </a></br>
                                 </p>
                                 <a href="#" class="btn btn-info btn-set">ASK THE EXPERT</a>
                             </div>

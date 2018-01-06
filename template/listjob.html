@@ -1,0 +1,64 @@
+{{define "subcontent"}}
+    {{range .}}
+        <div class="jobs" id="1"> <!--id là mã tin-->
+        <div class="job_contest" style="background-color: white">
+            <div class="logo">
+                <div class="logo-wrapper" title={{.Title}}>
+                    <img src={{.ImgComp}} width="100" height="100" style="margin-left: 10px">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="job_description">
+                <div class="job_body">
+                    <div class=details>
+                        <h2 class="title">
+                            <a href="{{.DetailUrl}}">{{.Title}}</a>
+                        </h2>
+                        <div class="salary">
+                                <span class="icon-salary">
+                                    <img src="img/icon-salary.jpg" width="50" height="50">
+                                </span>
+                            <span class="salary-text">{{.Salary}}</span>
+                        </div>
+                        <div class="hidden-xs"></div>
+                        <script>
+                            var val = {{.Job_description}};
+                        </script>
+                        <div class="description">
+                            <div id="test"></div>
+                        </div>
+                        <div class="visible-xs"></div>
+
+                        <div class="city_and_posted_date hidden-xs">
+                            <div class="city">
+                                <div class="address">
+                                    <div class="text-city">HCM</div>
+                                    <div class="other_address">{{.Address}}</div>
+                                </div>
+                            </div>
+                            <div class="distance-time-job-posted">
+                                <span class="distance-time">{{.Time_posted}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="job-bottom">
+                        <div class="tab-list">
+                            <a class="job__skill ilabel" href="#">
+                                <span>PHP</span>
+                            </a>
+                            <a class="job__skill ilabel" href="#">
+                                <span>HTM5</span>
+                            </a>
+                            <a class="job__skill ilabel" href="#">
+                                <span>AngularJS</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{end}}
+{{end}}
