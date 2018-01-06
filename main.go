@@ -29,5 +29,5 @@ func main() {
 	http.Handle("/infojob",r)
 	http.Handle("/infocompany",r)
 	//http.Handle("/jobskill/{skill}",r)
-	log.Fatal(http.ListenAndServe(":8000",nil))
+	log.Fatal(http.ListenAndServe(":8000",r))
 }
