@@ -4,7 +4,6 @@ import (
     "html/template"
     "net/http"
     "log"
-    "fmt"
     "github.com/gorilla/mux"
 )
 
@@ -42,10 +41,12 @@ func infoJobPage(w http.ResponseWriter, r *http.Request){
 }
 
 func infoCompanyPage(w http.ResponseWriter, r *http.Request){
-    //val := mux.Vars(r)
-    //company_name := val["company_name"]
+    val := mux.Vars(r)
+    company_name := val["company_name"]
 	t, _ := template.ParseFiles("template/index.html", "template/infocompany.html")
-	t.Execute(w,"" )
+    company, _ := getCompanyByName(company_name)
+    log.Print(company)
+	t.Execute(w,company)
 }
 
 func searchJobBySkill(w http.ResponseWriter, r *http.Request){
@@ -60,22 +61,6 @@ func searchJobBySkill(w http.ResponseWriter, r *http.Request){
     t.Execute(w,job)
 }
 
-func getRequestBody(w http.ResponseWriter, r *http.Request){
-    len := r.ContentLength
-    body := make([]byte, len)
-    r.Body.Read(body)
-    fmt.Println(w, string(body))
-}
-
 func search(w http.ResponseWriter, r *http.Request){
 
 }
-
-func getCompanies(mapList map[string]interface{}) interface{}{
-    return mapList["company"]
-}
-
-func getJobs(mapList map[string]interface{}) interface{}  {
-    return mapList["job"]
-}
-

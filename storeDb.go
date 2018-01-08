@@ -81,22 +81,29 @@ func getIdCompany(name string) (id int, err error) {
 
 }
 
-//func getCompanyById(id int) (company Company, err error)  {
-//    company = Company{}
-//    err = DB.QueryRow("select company_name, address, country, logo, urlC from company where id = $1", id).Scan(
-//        &company.Name, &company.Address, &company.Country, &company.Logo, &company.UrlC)
-//    return company, err
-//}
+func getCompanyByName(name string) (company Company, err error)  {
+    rows, err := DB.Query("select id, namecomp, address, country, logo, banner, intro from company" +
+        " where namecomp = $1;", name)
+    if err != nil {
+        return company, err
+    }
+    if rows.Next(){
+        company = Company{}
+        err = rows.Scan(&company.Id, &company.Name, &company.Address,
+            &company.Country, &company.Logo, &company.Banner, (*pq.StringArray)(&company.Introduce))
+    }
+        log.Print("==========id skill============",company.IdSkills, company.Name)
+    return company, err
+}
 
 func getLimitCompany(limit int) (companies []Company, err error){
-    rows, err := DB.Query("select id, nameComp, address, country, logo, banner, intro from company limit $1", limit)
+    rows, err := DB.Query("select id, nameComp, address, country, logo, banner from company limit $1", limit)
     if err != nil {
         return companies, err
     }
     for rows.Next() {
         company := Company{}
-        err = rows.Scan(&company.Id, &company.Name, &company.Address, &company.Country, &company.Logo, &company.Banner,
-            (*pq.StringArray)(&company.Introduce))
+        err = rows.Scan(&company.Id, &company.Name, &company.Address, &company.Country, &company.Logo, &company.Banner)
         if err != nil {
             return companies, err
         }
@@ -107,16 +114,20 @@ func getLimitCompany(limit int) (companies []Company, err error){
 }
 
 func getLimitJob(limit int) (jobs []Job, err error){
-    rows, err := DB.Query("select title, salary, address, time_posted, reason," +
-        "description, skill from job limit $1", limit)
+    rows, err := DB.Query("select title, salary, address, time_posted, description, skill " +
+        "from job limit $1", limit)
     if err != nil {
         return jobs, err
     }
+
     for rows.Next() {
         job := Job{}
-        err = rows.Scan(&job.Title, &job.Salary, &job.Address, &job.Time_posted,
-            (*pq.StringArray)(&job.Job_reason), (*pq.StringArray)(&job.Job_description),
+        err = rows.Scan(&job.Title, &job.Salary, &job.Address, &job.Time_posted, (*pq.StringArray)(&job.Job_description),
                 (*pq.StringArray)(&job.Skill_expirence))
+        var temp []string
+        for i:=1; i<4;i++{
+            temp = append(temp, job.Job_description[i])
+        }
         if err != nil {
             return jobs, err
         }
