@@ -16,24 +16,20 @@
                             <a href="{{.DetailUrl}}">{{.Title}}</a>
                         </h2>
                         <div class="salary">
-                                <span class="icon-salary">
-                                    <img src="img/icon-salary.jpg" width="50" height="50">
-                                </span>
+                            <span class="glyphicon glyphicon-usd"></span>
                             <span class="salary-text">{{.Salary}}</span>
                         </div>
                         <div class="hidden-xs"></div>
-                        <script>
-                            var val = &Job_description;
-                        </script>
-                        <div class="description">
-                            <div id="test"></div>
-                        </div>
+                        <ul>
+                        {{range .Job_description}}
+                            <li class="description">{{.}}</li>
+                        {{end}}
+                        </ul>
                         <div class="visible-xs"></div>
 
                         <div class="city_and_posted_date hidden-xs">
                             <div class="city">
                                 <div class="address">
-                                    <div class="text-city">HCM</div>
                                     <div class="other_address">{{.Address}}</div>
                                 </div>
                             </div>
@@ -45,15 +41,11 @@
 
                     <div class="job-bottom">
                         <div class="tab-list">
-                            <a class="job__skill ilabel" href="#">
-                                <span>PHP</span>
-                            </a>
-                            <a class="job__skill ilabel" href="#">
-                                <span>HTM5</span>
-                            </a>
-                            <a class="job__skill ilabel" href="#">
-                                <span>AngularJS</span>
-                            </a>
+                            {{range .Skill_name}}
+                                <a class="job__skill ilabel" href="/jobskill/{{.}}">
+                                    <span>{{.}}</span>
+                                </a>
+                            {{end}}
                         </div>
                     </div>
                 </div>

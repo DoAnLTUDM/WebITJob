@@ -14,6 +14,7 @@ type Job struct {
     Id int
     IdComp int
     IdSkills []int
+    Skill_name []string
     DetailUrl string
     Title string
     Salary string
@@ -21,8 +22,11 @@ type Job struct {
     Address string
     Time_posted time.Time
     Job_reason []string
+    Job_reason_map map[string]interface{}
     Job_description []string
+    Job_description_map map[string]interface{}
     Skill_expirence []string
+    Skill_expirence_map map[string]interface{}
     ImgComp string
 }
 
@@ -34,7 +38,9 @@ type Company struct{
     Logo string
     Banner string
     Introduce []string
+    Introduce_map map[string]interface{}
     IdSkills []int
+    Skill_name []string
     Numjobs int
 }
 

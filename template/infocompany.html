@@ -47,61 +47,30 @@
         <div class="row" >
             <div class="col-md-8 col-xs-12 col-left" style="border: 1px solid #D8D8D8;">
                 <div class="panel">
-                    <div class="panel-heading">
-                        <h3 class="title">Make the Internet change Vietnamese lives</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class=paragraph>
-                            <p>VNG believes in the power of the Internet and sees it as its mission to bring Internet users meaningful experiences. Each day, millions of young Vietnamese entertain, network and make friends, shop online or engage in social activities through VNG products, which are the ways VNG creates value for the society.</p>
-                        </div>
-                        <h2 class="title">Our key Skill </h2>
-                        <div class="tab-list">
-                            <a class="job__skill ilabel" href="#">
-                                <span>PHP</span>
-                            </a>
-                            <a class="job__skill ilabel" href="#">
-                                <span>HTM5</span>
-                            </a>
-                            <a class="job__skill ilabel" href="#">
-                                <span>AngularJS</span>
-                            </a>
-                        </div>
-                        <h2 class="title">Why You'll Love Working Here</h2>
-                        <div class="top-3-reason">
-                            <ul>
-                                <li>A special working environment </li>
-                                <li>Learning opportunity </li>
-                                <li>Not just a job, where to build your career </li>
-                            </ul>
-                        </div>
-                        <div class="paragraph">
-                            <p>We hope VNG is a place where you build your career. Whether you want to pursue to be a manager or focus on professional development, we acknowledge and appreciate your talents. Therefore, we open up to you more promotion opportunities in VNG, and designed program to help you succeed in every single career path. </p>
-                        </div>
-                        <div>
-                            <br>
-                            <strong>NO SUIT, NO TIE: </strong>
-                            <p>At VNG, we do not have many rules because we respect you and want to make comfortable atmosphere to help employees perform their jobs well.</p>
-                            <br>
-                        </div>
-                        <div>
-                            <br>
-                            <strong>Company “pay” for you: </strong>
-                            <p>Lunch, parking, swimming, learning English or gym for free and you know you are really in care.</p>
-                            <br>
-                        </div>
-                        <div>
-                            <br>
-                            <strong>NO BARRIERS: </strong>
-                            <p>Office of VNG is an open space because we always try to remove all barriers to help members easily shares with each other.</p>
-                            <br>
-                        </div>
-                        <div>
-                            <br>
-                            <strong>Being a big family: </strong>
-                            <p>Like a gift for family day. A party for the kids. We know how much your family matters.</p>
-                            <br>
-                        </div>
-                    </div>
+                    {{range $index,$element := .Introduce_map}}
+                        {{if eq $index "title"}}
+                            <div class="panel-heading">
+                                <h3 class="title">{{$element}}</h3>
+                            </div>
+                        {{end}}
+                        {{if eq $index "content"}}
+                            <div class="panel-body">
+                                <div class=paragraph>
+                                    {{range $element}}
+                                        <p>{{.}}</p>
+                                    {{end}}
+                                </div>
+                            </div>
+                        {{end}}
+                    {{end}}
+                            <h2 class="title">Our key Skill </h2>
+                            <div class="tab-list">
+                                {{range .Skill_name}}
+                                    <a class="job__skill ilabel" href="/jobskill/{{.}}">
+                                        <span>{{.}}</span>
+                                    </a>
+                                {{end}}
+                            </div>
                 </div>
             </div>
             <div class="col-md-4 col-xs-12 col-right">
@@ -112,13 +81,6 @@
                     <div class="panel-body">
                         <div class="review featured">
                             <strong>"Đánh giá công ty"</strong>
-                            <span class="rating-stars-box">
-												<i class="glyphicon glyphicon-star"></i>
-												<i class="glyphicon glyphicon-star"></i>
-												<i class="glyphicon glyphicon-star"></i>
-												<i class="glyphicon glyphicon-star"></i>
-												<i class="glyphicon glyphicon-star"></i>
-											</span>
                             <div class="paragaph">
                                 <p>Môi trường tốt, nhân viên hòa đồng. Cơ sở vật chất hiện đại</p>
                             </div>
@@ -126,13 +88,6 @@
                         </div>
                         <div class="review featured">
                             <strong>"Môi trường tốt"</strong>
-                            <span class="rating-stars-box">
-												<i class="glyphicon glyphicon-star"></i>
-												<i class="glyphicon glyphicon-star"></i>
-												<i class="glyphicon glyphicon-star"></i>
-												<i class="glyphicon glyphicon-star"></i>
-												<i class="glyphicon glyphicon-star"></i>
-											</span>
                             <div class="paragaph">
                                 <p>Môi trường trẻ năng động, nhân viên phát triển cống hiến.Có nhiều hoạt động vui chơi. Chế độ lương thưởng tương đối tốt</p>
                             </div>
@@ -140,12 +95,6 @@
                         </div>
                         <div class="review featured">
                             <strong>Công ty thường được chọn vào Top 100 employers</strong>
-                            <span class="rating-stars-box">
-												<i class="glyphicon glyphicon-star"></i>
-												<i class="glyphicon glyphicon-star"></i>
-												<i class="glyphicon glyphicon-star"></i>
-												<i class="glyphicon glyphicon-star"></i>
-											</span>
                             <div class="paragaph">
                                 <p>Chế độ phúc lợi tốt. Công ty cố gắng đáp ứng các nhu cầu của Top 100 employers</p>
                             </div>
@@ -318,15 +267,11 @@
                         </div>
                         <div class="job-bottom">
                             <div class="tab-list">
-                                <a class="job__skill ilabel" href="#">
-                                    <span>PHP</span>
-                                </a>
-                                <a class="job__skill ilabel" href="#">
-                                    <span>HTM5</span>
-                                </a>
-                                <a class="job__skill ilabel" href="#">
-                                    <span>AngularJS</span>
-                                </a>
+                                {{range .Skill_name}}
+                                    <a class="job__skill ilabel" href="/jobskill/"{{.}}>
+                                        <span>{{.}}</span>
+                                    </a>
+                                {{end}}
                             </div>
                         </div>
                     </div>

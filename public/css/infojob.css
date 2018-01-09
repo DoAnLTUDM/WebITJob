@@ -111,7 +111,7 @@ p {
     display: inline;
 }
 .show_content .content .job-detail .job_description, .show_content .content .job-detail .skills_experience, .show_content .content .job-detail .love_working_here {
-    padding: 20px 0 10px 0px;
+    padding: 20px 0px 10px 50px;
 }
 .show_content .content .job-detail .apply_now, .show_content .content .job-detail .apply_now:hover, .show_content .content .job-detail .apply_now:visited {
     cursor: pointer;
@@ -146,7 +146,6 @@ p {
 .button, .apply_now, .apply_now_bottom, .cancel {
     text-align: center;
     font-weight: 500 !important;
-    mar
 
 }
 .btn-block {
@@ -163,12 +162,14 @@ p {
 @media (max-width: 768px){
 .button-red.btn-block, body.users_show .content .user-info #collapseEmail .btn-block.save-email {
     width: 100%;}
+}
 
 @media (max-width: 768px){
 .button-red, body.users_show .content .user-info #collapseEmail .save-email {
-    width: auto;
+    width: auto;}
 }
+
 @media (max-width: 768px){
 .show_content .content {
-    padding: 0 15px 30px;
+    padding: 0 15px 30px;}
 }

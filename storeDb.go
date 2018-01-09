@@ -4,6 +4,7 @@ import (
     "database/sql"
     "log"
     "github.com/lib/pq"
+    "strings"
 )
 
 var DB *sql.DB
@@ -82,17 +83,23 @@ func getIdCompany(name string) (id int, err error) {
 }
 
 func getCompanyByName(name string) (company Company, err error)  {
-    rows, err := DB.Query("select id, namecomp, address, country, logo, banner, intro from company" +
+    rows, err := DB.Query("select id, namecomp, address, country, logo, banner, intro, idSkill from company" +
         " where namecomp = $1;", name)
     if err != nil {
         return company, err
     }
     if rows.Next(){
+        var idSkill_int64 []int64
         company = Company{}
-        err = rows.Scan(&company.Id, &company.Name, &company.Address,
-            &company.Country, &company.Logo, &company.Banner, (*pq.StringArray)(&company.Introduce))
+        err = rows.Scan(&company.Id, &company.Name, &company.Address, &company.Country, &company.Logo, &company.Banner,
+            (*pq.StringArray)(&company.Introduce), (*pq.Int64Array)(&idSkill_int64))
+        for j:=0; j<len(idSkill_int64);j++{
+            nameSkill, _ := getSkillName(idSkill_int64[j])
+            company.Skill_name = append(company.Skill_name, nameSkill)
+        }
+        company.Introduce_map["title"] = company.Introduce[0]
+        company.Introduce_map["content"] = company.Introduce[1:]
     }
-        log.Print("==========id skill============",company.IdSkills, company.Name)
     return company, err
 }
 
@@ -114,19 +121,27 @@ func getLimitCompany(limit int) (companies []Company, err error){
 }
 
 func getLimitJob(limit int) (jobs []Job, err error){
-    rows, err := DB.Query("select title, salary, address, time_posted, description, skill " +
-        "from job limit $1", limit)
+    rows, err := DB.Query("select job.title, job.salary, job.address, job.time_posted, job.description, job.skill," +
+        " company.logo, job.idSkill from job inner join company on job.idComp = company.id limit $1;", limit)
     if err != nil {
         return jobs, err
     }
 
     for rows.Next() {
         job := Job{}
+        var idSkill_int64 []int64
         err = rows.Scan(&job.Title, &job.Salary, &job.Address, &job.Time_posted, (*pq.StringArray)(&job.Job_description),
-                (*pq.StringArray)(&job.Skill_expirence))
+                (*pq.StringArray)(&job.Skill_expirence), &job.ImgComp, (*pq.Int64Array)(&idSkill_int64))
         var temp []string
-        for i:=1; i<4;i++{
-            temp = append(temp, job.Job_description[i])
+        for i:=1; i<3;i++ {
+            if (job.Job_description[i] != ""){
+                temp = append(temp, job.Job_description[i])
+            }
+        }
+        job.Job_description = temp
+        for j:=0; j<len(idSkill_int64);j++{
+            nameSkill, _ := getSkillName(idSkill_int64[j])
+            job.Skill_name = append(job.Skill_name, nameSkill)
         }
         if err != nil {
             return jobs, err
@@ -138,26 +153,38 @@ func getLimitJob(limit int) (jobs []Job, err error){
 
 func getJobBySkill(name string) (jobs []Job, err error){
     var id int
-    rows, err := DB.Query("select id from skill where lower(nameskill)=$1;", name)
+
+    rows, err := DB.Query("select id from skill where lower(nameskill)=$1;", strings.ToLower(name))
     if err != nil {
         return jobs, err
     }
     if rows.Next() {
         err = rows.Scan(&id)
     }
-
-    rows, err = DB.Query("select title, salary, address, time_posted, reason, description, skill, idcomp " +
+    rows, err = DB.Query("select title, salary, address, time_posted, reason, description, skill, idcomp, idSkill " +
         "from job where $1 = ANY(idSkill);", id)
     if err != nil {
         return jobs, err
     }
     for rows.Next() {
         job := Job{}
+        var idSkill_int64 []int64
         err = rows.Scan(&job.Title, &job.Salary, &job.Address, &job.Time_posted,
             (*pq.StringArray)(&job.Job_reason), (*pq.StringArray)(&job.Job_description),
-            (*pq.StringArray)(&job.Skill_expirence), &job.IdComp)
+            (*pq.StringArray)(&job.Skill_expirence), &job.IdComp, (*pq.Int64Array)(&idSkill_int64))
         if err != nil {
             return jobs, err
+        }
+        var temp []string
+        for i:=1; i<3;i++ {
+            if (job.Job_description[i] != ""){
+                temp = append(temp, job.Job_description[i])
+            }
+        }
+        job.Job_description = temp
+        for j:=0; j<len(idSkill_int64);j++{
+            nameSkill, _ := getSkillName(idSkill_int64[j])
+            job.Skill_name = append(job.Skill_name, nameSkill)
         }
         img, _ := DB.Query("select logo from company where id=$1;", job.IdComp)
         if img.Next(){
@@ -180,4 +207,15 @@ func countJobs(id_company int)  (id int, err error){
     }
     log.Print(id)
     return id, err
+}
+
+func getSkillName(id int64) (name string, err error){
+    rows, err := DB.Query("select nameskill from skill where id=$1;", int(id))
+    if err != nil {
+        return name, err
+    }
+    if rows.Next() {
+        err = rows.Scan(&name)
+    }
+    return name, err
 }

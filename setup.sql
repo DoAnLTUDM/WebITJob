@@ -6,7 +6,7 @@ CREATE TABLE skill(
 CREATE TABLE  company (
   id SERIAL UNIQUE NOT NULL PRIMARY KEY,
   idJobs INT ARRAY,
-  idSkill INT ARRAY,
+  idSkill TEXT ARRAY,
   nameComp TEXT UNIQUE ,
   address TEXT,
   country TEXT,
@@ -17,7 +17,7 @@ CREATE TABLE  company (
 
 CREATE TABLE  job (
   id SERIAL UNIQUE NOT NULL  PRIMARY KEY,
-  idSkill INT ARRAY,
+  idSkill TEXT ARRAY,
   idComp INT REFERENCES company(id),
   title TEXT UNIQUE,
   salary TEXT,
