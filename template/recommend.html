@@ -8,8 +8,8 @@
                             <div class="jobs" id="1"> <!--id là mã tin-->
                                 <div class="job_contest" style="background-color: white">
                                     <div class="logo">
-                                        <div class="logo-wrapper" title={{.Title}}>
-                                            <img src={{.ImgComp}} width="100" height="100" style="margin-left: 10px">
+                                        <div class="logo-wrapper" title={{.Title}} >
+                                            <img src={{.ImgComp}} width="80" height="80" style="padding: 5px;margin: 10px">
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -68,7 +68,7 @@
                     <div class="row">
                         {{range $element}}
                             <div class="col-md-4 col-xs-12">
-                                <a id="top-company" rel="nofollow" data-method="put" href="/company/{{.Name}}">
+                                <a class="top-company" rel="nofollow" data-method="put" href="/company/{{.Name}}" style="color:black;border: 1px solid #D8D8D8;background: white;display: block;padding: 20px;text-decoration: none;margin-top: 30px; box-shadow: 5px 5px 5px grey;">
                                     <div class="top-company__logo text-center">
                                         <img src={{.Logo}} alt={{.Name}} width="170">
                                     </div>

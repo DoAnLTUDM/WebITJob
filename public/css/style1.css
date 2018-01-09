@@ -86,6 +86,9 @@ a:hover{
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.job .job_content .logo .logo-wrapper{
+    padding: 5px;
+}
 .jobs .job_content .details .title a {
     color: #ea2635;
     text-decoration: none;
@@ -241,7 +244,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 
-#top-company{
+/*.top-company{
     color:black;
     border: 1px solid #D8D8D8;
     background: white;
@@ -250,11 +253,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     text-decoration: none;
     margin-top: 30px;
 
-}
-#top-company:hover{
+}*/
+
+/*.top-company:hover{
     box-shadow: 5px 5px 5px grey;
 }
-
+*/
 .top-company__logo{
     width: 170px;
     height: 170px;
@@ -262,6 +266,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-top: 30px;
     margin-bottom: 20px;
     line-height: 170px;
+    align-content: center;
 }
 
 .top_company_name{
@@ -327,6 +332,10 @@ div{
 .search-box > .search-list li a:link{
     text-decoration:none;
 }
+#submit{
+    background-color: #EA1E30;
+}
+
 
 
 /*Sign in*/
