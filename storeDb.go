@@ -97,8 +97,9 @@ func getCompanyByName(name string) (company Company, err error)  {
             nameSkill, _ := getSkillName(idSkill_int64[j])
             company.Skill_name = append(company.Skill_name, nameSkill)
         }
-        company.Introduce_map["title"] = company.Introduce[0]
-        company.Introduce_map["content"] = company.Introduce[1:]
+        //company.Introduce_map["title"] = company.Introduce[0]
+        //log.Print("==========company.Introduce_map['title']==========",company.Introduce_map["title"])
+        //company.Introduce_map["content"] = company.Introduce[1:]
     }
     return company, err
 }
