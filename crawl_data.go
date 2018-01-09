@@ -15,7 +15,6 @@ type Job struct {
     IdComp int
     IdSkills []int
     Skill_name []string
-    DetailUrl string
     Title string
     Salary string
     SrcImage string

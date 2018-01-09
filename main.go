@@ -20,10 +20,6 @@ func main() {
 	r.HandleFunc("/infojob", infoJobPage)
 	r.HandleFunc("/company/{company_name}",infoCompanyPage)
 	r.HandleFunc("/jobskill/{skill}", searchJobBySkill)
-	http.Handle("/homepage",r)
-	http.Handle("/notfound",r)
-	http.Handle("/infojob",r)
-	http.Handle("/infocompany",r)
-	//http.Handle("/jobskill/{skill}",r)
+	r.HandleFunc("/job/{title}/{id}", infoJobPage)
 	log.Fatal(http.ListenAndServe(":8000",r))
 }

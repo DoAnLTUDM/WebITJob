@@ -1,283 +1,125 @@
 {{define "content"}}
 	<div class="wrapper" style="background-color: #D3D3D3">
-    <div class ="container" style="margin-top: 3.6em;margin-bottom:2em;background-color: white">
-        <div class="row" >
-            <div class="company-page">
-                <div class="cover-images-cropped hidden-xs">
-                    <img src={{.Banner}} width="100%" >
-                </div>
-                <div class=col-md-4 style="border: 1px solid #D8D8D8;">
-                    <div class="logo-container">
-                        <div class="has-overtime logo">
-                            <img src={{.Logo}} alt="logo_{{.Name}}" width="300" height="300" >
+        {{range $index, $element := .}}
+            {{if eq $index "company"}}
+                <div class ="container" style="margin-top: 3.6em;margin-bottom:2em;background-color: white">
+                    <div class="row" >
+                        <div class="company-page">
+                            <div class="cover-images-cropped hidden-xs">
+                                <img src={{.Banner}} width="100%" >
+                            </div>
+                            <div class=col-md-4 style="border: 1px solid #D8D8D8;">
+                                <div class="logo-container">
+                                    <div class="has-overtime logo">
+                                        <img src={{.Logo}} alt="logo_{{.Name}}" width="300" height="300" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="name-and-info">
+                                <h1 class="title">{{.Name}}</h1>
+                                <div class="address">
+                                    <span class="glyphicon glyphicon-map-marker"></span>
+                                    <span class="address__full-address" >{{.Address}}</span>
+                                </div>
+                                <div class="company-info" style="margin-top: 20px;margin-bottom: 20px;">
+                                    <span class="glyphicon glyphicon-cog" ></span>
+                                    <span class="kind" style="padding-right: 50px">Product</span>
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span class="people" style="padding-right: 50px">300-500</span>
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                    <span class="calendar" style="padding-right: 50px">Monday to Friday</span>
+
+                                </div>
+                                <div class="working-date" style="margin-bottom: 20px">
+                                    <span class="glyphicon glyphicon-globe"></span>
+                                    <span class="country">{{.Country}}</span>
+                                </div>
+                                <div class="overtime" style="margin-bottom: 20px">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                    <span class="OT">No OT</span>
+                                </div>
+                            </div>
+                            <a href="#" title="" class="button-red btn-block">Follow</a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-8">
-                <div class="name-and-info">
-                    <h1 class="title">{{.Name}}</h1>
-                    <div class="address">
-                        <span class="glyphicon glyphicon-map-marker"></span>
-                        <span class="address__full-address" >{{.Address}}</span>
-                    </div>
-                    <div class="company-info" style="margin-top: 20px;margin-bottom: 20px;">
-                        <span class="glyphicon glyphicon-cog" ></span>
-                        <span class="kind" style="padding-right: 50px">Product</span>
-                        <span class="glyphicon glyphicon-user"></span>
-                        <span class="people" style="padding-right: 50px">300-500</span>
-                        <span class="glyphicon glyphicon-calendar"></span>
-                        <span class="calendar" style="padding-right: 50px">Monday to Friday</span>
-
-                    </div>
-                    <div class="working-date" style="margin-bottom: 20px">
-                        <span class="glyphicon glyphicon-globe"></span>
-                        <span class="country">{{.Country}}</span>
-                    </div>
-                    <div class="overtime" style="margin-bottom: 20px">
-                        <span class="glyphicon glyphicon-time"></span>
-                        <span class="OT">No OT</span>
-                    </div>
-                </div>
-                <a href="#" title="" class="button-red btn-block">Follow</a>
-            </div>
-        </div>
-    </div>
-    <div class ="container" style="margin-top: 3.6em;background-color: white">
-        <div class="row" >
-            <div class="col-md-8 col-xs-12 col-left" style="border: 1px solid #D8D8D8;">
-                <div class="panel">
-                    {{range $index,$element := .Introduce_map}}
-                        {{if eq $index "title"}}
-                            <div class="panel-heading">
-                                <h3 class="title">{{$element}}</h3>
-                            </div>
+                <div class ="container" style="margin-top: 3.6em;background-color: white">
+                    <div class="row" >
+                <div class="col-md-8 col-xs-12 col-left" style="border: 1px solid #D8D8D8;">
+                    <div class="panel">
+                        {{range $index, $element := .Introduce_map}}
+                            {{if eq $index "title"}}
+                                <div class="panel-heading">
+                                    <h3 class="title">{{$element}}</h3>
+                                </div>
+                            {{end}}
                         {{end}}
-                        {{if eq $index "content"}}
-                            <div class="panel-body">
-                                <div class=paragraph>
+                        {{range $index, $element := .Introduce_map}}
+                            {{if eq $index "content"}}
+                                <div class="panel-body">
+                                    <div class=paragraph>
                                     {{range $element}}
                                         <p>{{.}}</p>
                                     {{end}}
+                                    </div>
                                 </div>
-                            </div>
+                            {{end}}
                         {{end}}
-                    {{end}}
-                            <h2 class="title">Our key Skill </h2>
-                            <div class="tab-list">
-                                {{range .Skill_name}}
-                                    <a class="job__skill ilabel" href="/jobskill/{{.}}">
-                                        <span>{{.}}</span>
-                                    </a>
-                                {{end}}
-                            </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-xs-12 col-right">
-                <div class="panel company-rating">
-                    <div class="panel-heading">
-                        <h3 class="title">Feature Reviews</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="review featured">
-                            <strong>"Đánh giá công ty"</strong>
-                            <div class="paragaph">
-                                <p>Môi trường tốt, nhân viên hòa đồng. Cơ sở vật chất hiện đại</p>
-                            </div>
-                            <hr/>
-                        </div>
-                        <div class="review featured">
-                            <strong>"Môi trường tốt"</strong>
-                            <div class="paragaph">
-                                <p>Môi trường trẻ năng động, nhân viên phát triển cống hiến.Có nhiều hoạt động vui chơi. Chế độ lương thưởng tương đối tốt</p>
-                            </div>
-                            <hr/>
-                        </div>
-                        <div class="review featured">
-                            <strong>Công ty thường được chọn vào Top 100 employers</strong>
-                            <div class="paragaph">
-                                <p>Chế độ phúc lợi tốt. Công ty cố gắng đáp ứng các nhu cầu của Top 100 employers</p>
-                            </div>
-                            <hr/>
+                        <h2 class="title">Our key Skill </h2>
+                        <div class="tab-list">
+                            {{range .Skill_name}}
+                                <a class="job__skill ilabel" href="/jobskill/{{.}}">
+                                    <span>{{.}}</span>
+                                </a>
+                            {{end}}
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4 col-xs-12 col-right">
+                    <div class="panel company-rating">
+                        <div class="panel-heading">
+                            <h3 class="title">Feature Reviews</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="review featured">
+                                <strong>"Đánh giá công ty"</strong>
+                                <div class="paragaph">
+                                    <p>Môi trường tốt, nhân viên hòa đồng. Cơ sở vật chất hiện đại</p>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div class="review featured">
+                                <strong>"Môi trường tốt"</strong>
+                                <div class="paragaph">
+                                    <p>Môi trường trẻ năng động, nhân viên phát triển cống hiến.Có nhiều hoạt động vui chơi. Chế độ lương thưởng tương đối tốt</p>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div class="review featured">
+                                <strong>Công ty thường được chọn vào Top 100 employers</strong>
+                                <div class="paragaph">
+                                    <p>Chế độ phúc lợi tốt. Công ty cố gắng đáp ứng các nhu cầu của Top 100 employers</p>
+                                </div>
+                                <hr/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+                </div>
+            {{end}}
+        {{end}}
+        <div class ="container" style="margin-top: 3.6em;background-color: white">
+            <div class="relative-job" style="margin-bottom: 5em">
+                <h2 class="title">More Jobs of Company For You</h2>
+                {{range $index, $element := .}}
+                       {{if eq $index "jobs"}}
+                            {{template "summaryjob" .}}
+                       {{end}}
+                {{end}}
+            </div> <!--End Relatied Jobs-->
         </div>
     </div>
-    <div class ="container" style="margin-top: 3.6em;background-color: white">
-        <div class="relative-job" style="margin-bottom: 5em">
-            <h2 class="title">More Jobs of Company For You</h2>
-            <div class="jobs" id="job_1"> <!--id là mã tin-->
-                <div class="job_contest" style="background-color: white">
-                    <div class="logo">
-                        <div class="logo-wrapper" title="Embracing challenges">
-                            <a href="#"></a>
-                            <img src="/img/company-logo/vng-logo.png" alt="VNG" width="100" height="100" style="margin-left: 10px">
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="job_description">
-                        <div class="job_body">
-                            <div class=details>
-                                <h2 class="title">
-                                    <a href="#">500 Developer PHP Up to 1500$</a>
-                                </h2>
-                                <div class="salary">
-                                    <span class="glyphicon glyphicon-usd"></span>
-                                    <span class="salary-text">
-													Up to 1500$
-												</span>
-                                </div>
-                                <div class="hidden-xs"></div>
-                                <div class="description">VNG đang có đợt tuyển lập trình viên php</div>
-                                <div class=visible-xs></div>
-                            </div>
-                            <div class="city_and_posted_date hidden-xs">
-                                <div class="city">
-                                    <div class="address">
-                                        <div class="text-city">
-                                            TP.HCM
-                                        </div>
-                                        <div class="other_address">
-                                            Quận 1
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="distance-time-job-posted">
-                                    <span class="distance-time">23h ago</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-bottom">
-                            <div class="tab-list">
-                                <a class="job__skill ilabel" href="#">
-                                    <span>PHP</span>
-                                </a>
-                                <a class="job__skill ilabel" href="#">
-                                    <span>HTM5</span>
-                                </a>
-                                <a class="job__skill ilabel" href="#">
-                                    <span>AngularJS</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="jobs" id="job_1"> <!--id là mã tin-->
-                <div class="job_contest" style="background-color: white">
-                    <div class="logo">
-                        <div class="logo-wrapper" title="Embracing challenges">
-                            <a href="#"></a>
-                            <img src="/img/company-logo/vng-logo.png" alt="VNG" width="100" height="100" style="margin-left: 10px">
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="job_description">
-                        <div class="job_body">
-                            <div class=details>
-                                <h2 class="title">
-                                    <a href="#">500 Developer PHP Up to 1500$</a>
-                                </h2>
-                                <div class="salary">
-                                    <span class="glyphicon glyphicon-usd"></span>
-                                    <span class="salary-text">
-													Up to 1500$
-												</span>
-                                </div>
-                                <div class="hidden-xs"></div>
-                                <div class="description">VNG đang có đợt tuyển lập trình viên php</div>
-                                <div class=visible-xs></div>
-                            </div>
-                            <div class="city_and_posted_date hidden-xs">
-                                <div class="city">
-                                    <div class="address">
-                                        <div class="text-city">
-                                            TP.HCM
-                                        </div>
-                                        <div class="other_address">
-                                            Quận 1
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="distance-time-job-posted">
-                                    <span class="distance-time">23h ago</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-bottom">
-                            <div class="tab-list">
-                                <a class="job__skill ilabel" href="#">
-                                    <span>PHP</span>
-                                </a>
-                                <a class="job__skill ilabel" href="#">
-                                    <span>HTM5</span>
-                                </a>
-                                <a class="job__skill ilabel" href="#">
-                                    <span>AngularJS</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="jobs" id="job_1"> <!--id là mã tin-->
-                <div class="job_contest" style="background-color: white">
-                    <div class="logo">
-                        <div class="logo-wrapper" title="Embracing challenges">
-                            <a href="#"></a>
-                            <img src="/img/company-logo/vng-logo.png" alt="VNG" width="100" height="100" style="margin-left: 10px">
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="job_description">
-                        <div class="job_body">
-                            <div class=details>
-                                <h2 class="title">
-                                    <a href="#">500 Developer PHP Up to 1500$</a>
-                                </h2>
-                                <div class="salary">
-                                    <span class="glyphicon glyphicon-usd"></span>
-                                    <span class="salary-text">
-													Up to 1500$
-												</span>
-                                </div>
-                                <div class="hidden-xs"></div>
-                                <div class="description">VNG đang có đợt tuyển lập trình viên php</div>
-                                <div class=visible-xs></div>
-                            </div>
-                            <div class="city_and_posted_date hidden-xs">
-                                <div class="city">
-                                    <div class="address">
-                                        <div class="text-city">
-                                            TP.HCM
-                                        </div>
-                                        <div class="other_address">
-                                            Quận 1
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="distance-time-job-posted">
-                                    <span class="distance-time">23h ago</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-bottom">
-                            <div class="tab-list">
-                                {{range .Skill_name}}
-                                    <a class="job__skill ilabel" href="/jobskill/"{{.}}>
-                                        <span>{{.}}</span>
-                                    </a>
-                                {{end}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!--End Relatied Jobs-->
-    </div>
-</div>
 {{end}}

@@ -1,6 +1,6 @@
-{{define "subcontent"}}
+{{define "summaryjob"}}
     {{range .}}
-        <div class="jobs" id="1"> <!--id là mã tin-->
+        <div class="jobs" id={{.Id}}> <!--id là mã tin-->
         <div class="job_contest" style="background-color: white">
             <div class="logo">
                 <div class="logo-wrapper" title={{.Title}}>
@@ -13,7 +13,7 @@
                 <div class="job_body">
                     <div class=details>
                         <h2 class="title">
-                            <a href="{{.DetailUrl}}">{{.Title}}</a>
+                            <a href="/job/{{.Title}}/{{.Id}}">{{.Title}}</a>
                         </h2>
                         <div class="salary">
                             <span class="glyphicon glyphicon-usd"></span>

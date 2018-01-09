@@ -5,10 +5,12 @@ import (
     "net/http"
     "log"
     "github.com/gorilla/mux"
+    "strconv"
 )
 
 func templateHomePage(w http.ResponseWriter, r *http.Request) {
-    t, err := template.ParseFiles("template/index.html", "template/main_page.html", "template/recommend.html")
+    t, err := template.ParseFiles("template/index.html", "template/main_page.html", "template/recommend.html",
+        "template/listjob.html")
     if err != nil{
         log.Println(err)
     }
@@ -36,17 +38,25 @@ func login(w http.ResponseWriter, r *http.Request){
 }
 
 func infoJobPage(w http.ResponseWriter, r *http.Request){
-	t, _ := template.ParseFiles("template/index.html", "template/infojob.html")
-	t.Execute(w,"" )
+    val := mux.Vars(r)
+    idstr := val["id"]
+    idjob, _:= strconv.Atoi(idstr)
+    idcomp, _:= getIdCompanyByJob(idjob)
+	t, _ := template.ParseFiles("template/index.html", "template/infojob.html", "template/listjob.html")
+    jobs, _ := getJobBySkill("java")
+    jodDetail, _:= getJobDetail(idcomp)
+    map_new := map[string]interface{}{"job-detail": jodDetail,"jobs":jobs}
+    t.Execute(w,map_new)
 }
 
 func infoCompanyPage(w http.ResponseWriter, r *http.Request){
     val := mux.Vars(r)
     company_name := val["company_name"]
-	t, _ := template.ParseFiles("template/index.html", "template/infocompany.html")
+	t, _ := template.ParseFiles("template/index.html", "template/infocompany.html",  "template/listjob.html")
     company, _ := getCompanyByName(company_name)
-    log.Print(company)
-	t.Execute(w,company)
+    job, _ := getJobByCompany(company.Id)
+    map_new := map[string]interface{}{ "company": company, "jobs":job}
+	t.Execute(w,map_new)
 }
 
 func searchJobBySkill(w http.ResponseWriter, r *http.Request){
