@@ -8,15 +8,15 @@
                             <div class="cover-images-cropped hidden-xs">
                                 <img src={{.Banner}} width="100%" >
                             </div>
-                            <div class=col-md-4 style="border: 1px solid #D8D8D8;">
+                            <div class="col-md-4" >
                                 <div class="logo-container">
-                                    <div class="has-overtime logo">
-                                        <img src={{.Logo}} alt="logo_{{.Name}}" width="300" height="300" >
+                                    <div class="has-overtime logo text-center" style="margin-top: 3em">
+                                        <img src={{.Logo}} alt="logo_{{.Name}}" width="170" height="170" >
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8" style="border-left: 1px solid #D8D8D8;">
                             <div class="name-and-info">
                                 <h1 class="title">{{.Name}}</h1>
                                 <div class="address">
@@ -47,7 +47,7 @@
                 </div>
                 <div class ="container" style="margin-top: 3.6em;background-color: white">
                     <div class="row" >
-                <div class="col-md-8 col-xs-12 col-left" style="border: 1px solid #D8D8D8;">
+                <div class="col-md-8 col-xs-12 col-left" style="border-right: 1px solid #D8D8D8;">
                     <div class="panel">
                         {{range $index, $element := .Introduce_map}}
                             {{if eq $index "title"}}
