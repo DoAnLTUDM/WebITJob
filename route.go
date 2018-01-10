@@ -60,8 +60,7 @@ func infoCompanyPage(w http.ResponseWriter, r *http.Request){
 }
 
 func searchJobBySkill(w http.ResponseWriter, r *http.Request){
-    t,_:= template.ParseFiles("template/index.html", "template/main_page.html",
-        "template/listjob.html")
+    t,_:= template.ParseFiles("template/index.html", "template/main_page.html", "template/listjobforhome.html")
     vars := mux.Vars(r)
     skill := vars["skill"]
     job, err := getJobBySkill(skill)
