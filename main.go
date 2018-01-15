@@ -20,6 +20,8 @@ func main() {
 	r.HandleFunc("/infojob", infoJobPage)
 	r.HandleFunc("/company/{company_name}",infoCompanyPage)
 	r.HandleFunc("/jobskill/{skill}", searchJobBySkill)
+	r.HandleFunc("/title/{title}", searchByTitle)
 	r.HandleFunc("/job/{title}/{id}", infoJobPage)
+	r.HandleFunc("/search", searchByTitle)
 	log.Fatal(http.ListenAndServe(":8000",r))
 }

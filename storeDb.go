@@ -10,75 +10,75 @@ import (
 
 var DB *sql.DB
 
-func init(){
+func init() {
     var err error
     //Connect to Database
-    DB, err = sql.Open("postgres", "user=postgres dbname=gwp password=a sslmode=disable")
+    DB, err = sql.Open("postgres", "user=postgres dbname=gwp password=a " +
+        "sslmode=disable")
     if err != nil{
         panic(err)
     }
 }
 
 func (company *Company) Create() (id int, err error)  {
-    statement := "insert into company (nameComp, address, country, logo, banner, intro, idSkill) " +
-        "values ($1, $2, $3, $4, $5, $6, $7) returning id;"
-    stmtm, err := DB.Prepare(statement)
-    defer stmtm.Close()
+    rows, err := DB.Query("insert into company (nameComp, address, country, logo, banner, intro, idSkill) " +
+        "values ($1, $2, $3, $4, $5, $6, $7) returning id;",company.Name, company.Address, company.Country, company.Logo, company.Banner,
+        pq.Array(company.Introduce), pq.Array(company.IdSkills))
     if err != nil{
         log.Println(err)
         return id, err
     }
-    stmtm.QueryRow(company.Name, company.Address, company.Country, company.Logo, company.Banner,
-        pq.Array(company.Introduce), pq.Array(company.IdSkills)).Scan(&id)
+    if rows.Next(){
+        err = rows.Scan(&id)
+    }
     return id,nil
 }
 
 func (job *Job) Create() (id int, err error) {
-    statement := "insert into job (idSkill, idComps, title, salary, address, time_posted, reason, description, skill)" +
-        " values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id;"
-    stmtm, err := DB.Prepare(statement)
-    defer stmtm.Close()
+    rows, err := DB.Query("insert into job (idSkill, idComps, title, salary, address, time_posted, reason, description, skill)" +
+        " values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id;", pq.Array(job.IdSkills), job.IdComp, job.Title, job.Salary, job.Address,
+        job.Time_posted, pq.Array(job.Job_reason), pq.Array(job.Job_description), pq.Array(job.Skill_expirence))
     if err != nil{
         log.Println(err)
         return id, err
     }
-    stmtm.QueryRow(pq.Array(job.IdSkills), job.IdComp, job.Title, job.Salary, job.Address,
-        job.Time_posted, pq.Array(job.Job_reason), pq.Array(job.Job_description), pq.Array(job.Skill_expirence)).Scan(&id)
+    if rows.Next(){
+        err = rows.Scan(&id)
+    }
     return id,nil
 }
 
 func (skill *Skill) Create() (id int, err error){
-    statement :=  "insert into skill (nameSkill) values ($1) returning id;"
-    stmtm, err := DB.Prepare(statement)
-    defer stmtm.Close()
+    rows, err := DB.Query("insert into skill (nameSkill) values ($1) returning id;", skill.Name)
     if err != nil{
-        log.Println(err)
         return id, err
     }
-    stmtm.QueryRow(skill.Name).Scan(&id)
+    if rows.Next(){
+        rows.Scan(&id)
+    }
     return id,nil
 }
 
 func getIdSkill(name string) (id int, err error) {
-    statement := "select id from skill where nameSkill=$1;"
-    stmtm, err := DB.Prepare(statement)
-    defer stmtm.Close()
+    rows, err := DB.Query("select id from skill where nameSkill=$1;", name)
     if err != nil {
         return id, err
     }
-    stmtm.QueryRow(name).Scan(&id)
+    if rows.Next(){
+        err = rows.Scan(&id)
+    }
     return id, nil
 
 }
 
 func getIdCompany(name string) (id int, err error) {
-    statement := "select id from company where nameComp=$1;"
-    stmtm, err := DB.Prepare(statement)
-    defer stmtm.Close()
+    rows, err := DB.Query("select id from company where nameComp=$1;", name)
     if err != nil {
         return id, err
     }
-    stmtm.QueryRow(name).Scan(&id)
+    if rows.Next(){
+        err = rows.Scan(&id)
+    }
     return id, nil
 
 }
@@ -101,7 +101,7 @@ func getCompanyByName(name string) (company Company, err error)  {
     if err != nil {
         return company, err
     }
-    test := make(map[string]interface{})
+    temp := make(map[string]interface{})
     if rows.Next(){
         var idSkill_int64 []int64
         company = Company{}
@@ -111,9 +111,9 @@ func getCompanyByName(name string) (company Company, err error)  {
             nameSkill, _ := getSkillName(idSkill_int64[j])
             company.Skill_name = append(company.Skill_name, nameSkill)
         }
-        test["title"] = company.Introduce[0]
-        test["content"] = company.Introduce[1:]
-        company.Introduce_map = test
+        temp["title"] = company.Introduce[0]
+        temp["content"] = company.Introduce[1:]
+        company.Introduce_map = temp
     }
     return company, err
 }
@@ -168,7 +168,6 @@ func getLimitJob(limit int) (jobs []Job, err error){
 
 func countJobs(id_company int)  (id int, err error){
     rows, err := DB.Query("select count(idcomp) from job where idcomp=$1;",id_company)
-
     if err != nil {
         return id, err
     }
@@ -192,6 +191,7 @@ func getSkillName(id int64) (name string, err error){
 func getJobBySkill(val interface{}) (jobs []Job, err error){
     var id int
     var rows *sql.Rows
+    //chia làm 2 trường hợp: search theo tên skill hoặc theo id
     if (reflect.TypeOf(val).Kind() == reflect.String ){
         rows, err := DB.Query("select id from skill where lower(nameskill)=$1;", strings.ToLower(val.(string)))
         if err != nil {
@@ -274,11 +274,10 @@ func getJobByCompany(idcomp int) (jobs []Job, err error){
 }
 
 func getJobDetail(idjob int) (job Job, err error){
-    DB, err = sql.Open("postgres", "user=postgres dbname=gwp password=a sslmode=disable")
-
     rows, err := DB.Query("select job.title, job.salary, job.address, job.time_posted, job.reason, job.description" +
         ", job.skill, company.logo, job.idSkill from job inner join company on job.idComp = company.id where job.id = $1;",
             idjob)
+
     if err != nil {
         return job, err
     }
@@ -295,6 +294,54 @@ func getJobDetail(idjob int) (job Job, err error){
             job.Skill_name = append(job.Skill_name, nameSkill)
         }
     }
+    temp_reason := make(map[string]interface{})
+    temp_reason["title"] = job.Job_reason[0]
+    temp_reason["content"] = job.Job_reason[1:]
+    job.Job_reason_map = temp_reason
 
+    temp_descrip := make(map[string]interface{})
+    temp_descrip["title"] = job.Job_description[0]
+    temp_descrip["content"] = job.Job_description[1:]
+    job.Job_description_map = temp_descrip
+
+    temp_exper := make(map[string]interface{})
+    temp_exper["title"] = job.Skill_expirence[0]
+    temp_exper["content"] = job.Skill_expirence[1:]
+    job.Skill_expirence_map = temp_exper
     return job, nil
+}
+
+func getJobByTiltle(title string) (jobs []Job, err error){
+    rows, err := DB.Query("select id, title, salary, address, time_posted, reason, description, skill, idcomp, idSkill " +
+        "from job where lower(title) LIKE $1;", "% "+strings.ToLower(title)+"%")
+    if err != nil {
+        return jobs, err
+    }
+    for rows.Next() {
+        job := Job{}
+        var idSkill_int64 []int64
+        err = rows.Scan(&job.Id, &job.Title, &job.Salary, &job.Address, &job.Time_posted,
+            (*pq.StringArray)(&job.Job_reason), (*pq.StringArray)(&job.Job_description),
+            (*pq.StringArray)(&job.Skill_expirence), &job.IdComp, (*pq.Int64Array)(&idSkill_int64))
+        if err != nil {
+            return jobs, err
+        }
+        var temp []string
+        for i:=1; i<3;i++ {
+            if (job.Job_description[i] != ""){
+                temp = append(temp, job.Job_description[i])
+            }
+        }
+        job.Job_description = temp
+        for j:=0; j<len(idSkill_int64);j++{
+            nameSkill, _ := getSkillName(idSkill_int64[j])
+            job.Skill_name = append(job.Skill_name, nameSkill)
+        }
+        img, _ := DB.Query("select logo from company where id=$1;", job.IdComp)
+        if img.Next(){
+            err = img.Scan(&job.ImgComp)
+        }
+        jobs = append(jobs, job)
+    }
+    return jobs, nil
 }

@@ -10,29 +10,29 @@
         {{end}}
         {{if (eq $index "companies")}}
             <div class="company-recommed"> <!--company recommed-->
-                <div class="container">
-                    <h1>Company lasted</h1>
-                    <div class="row">
-                        {{range $element}}
-                            <div class="col-md-4 col-xs-12">
-                                <a class="top-company" rel="nofollow" data-method="put" href="/company/{{.Name}}" style="color:black;border: 1px solid #D8D8D8;background: white;display: block;padding: 20px;text-decoration: none;margin-top: 30px;box-shadow: 5px 5px 5px grey;">
-                                    <div class="top-company__logo text-center">
-                                        <img src={{.Logo}} alt={{.Name}} width="170">
-                                    </div>
-                                    <div class="top-company__name text-center">{{.Name}}</div>
-                                    <footer class="top-company__footer text-center">
-                                        <span class="top-company__footer-jobs">
-                                            <span class="red-link">{{.Numjobs}} Jobs</span>
-                                            <span>&nbsp;-&nbsp;</span>
-                                        </span>
-                                        <span class="top-company_footer-city">{{.Country}}</span>
-                                    </footer>
-                                </a>
+            <div class="container">
+                <h1>Company lasted</h1>
+                <div class="row">
+                {{range $element}}
+                    <div class="col-md-4 col-xs-12">
+                        <a class="top-company" rel="nofollow" data-method="put" href="/company/{{.Name}}" style="color:black;border: 1px solid #D8D8D8;background: white;display: block;padding: 20px;text-decoration: none;margin-top: 30px;box-shadow: 5px 5px 5px grey;">
+                            <div class="top-company__logo text-center">
+                                <img src={{.Logo}} alt={{.Name}} width="170">
                             </div>
-                        {{end}}
+                            <div class="top-company__name text-center">{{.Name}}</div>
+                            <footer class="top-company__footer text-center">
+                                            <span class="top-company__footer-jobs">
+                                                <span class="red-link">{{.Numjobs}} Jobs</span>
+                                                <span>&nbsp;-&nbsp;</span>
+                                            </span>
+                                <span class="top-company_footer-city">{{.Country}}</span>
+                            </footer>
+                        </a>
                     </div>
+                {{end}}
                 </div>
-            </div><!--End Company-recommed-->
+            </div>
+        </div><!--End Company-recommed-->
         {{end}}
     {{end}}
 {{end}}

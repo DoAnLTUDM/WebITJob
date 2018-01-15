@@ -24,7 +24,6 @@ func templateHomePage(w http.ResponseWriter, r *http.Request) {
         log.Println(err)
     }
     map_new := map[string]interface{}{"jobs":job, "companies": company}
-
     t.Execute(w, map_new)
 }
 
@@ -41,10 +40,10 @@ func infoJobPage(w http.ResponseWriter, r *http.Request){
     val := mux.Vars(r)
     idstr := val["id"]
     idjob, _:= strconv.Atoi(idstr)
-    idcomp, _:= getIdCompanyByJob(idjob)
+    //idcomp, _:= getIdCompanyidjobByJob(idjob)
 	t, _ := template.ParseFiles("template/index.html", "template/infojob.html", "template/listjob.html")
     jobs, _ := getJobBySkill("java")
-    jodDetail, _:= getJobDetail(idcomp)
+    jodDetail, _:= getJobDetail(idjob)
     map_new := map[string]interface{}{"job-detail": jodDetail,"jobs":jobs}
     t.Execute(w,map_new)
 }
@@ -70,6 +69,18 @@ func searchJobBySkill(w http.ResponseWriter, r *http.Request){
     t.Execute(w,job)
 }
 
-func search(w http.ResponseWriter, r *http.Request){
-
+func searchByTitle(w http.ResponseWriter, r *http.Request){
+    t,_:= template.ParseFiles("template/index.html", "template/main_page.html", "template/listjobforhome.html")
+    var title string
+    if r.FormValue("search") != ""{
+        title = r.FormValue("search")
+    }else{
+        vars := mux.Vars(r)
+        title = vars["title"]
+    }
+    job, err := getJobByTiltle(title)
+    if err != nil{
+        log.Println(err)
+    }
+    t.Execute(w,job)
 }

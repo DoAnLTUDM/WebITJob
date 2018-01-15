@@ -27,6 +27,7 @@ type Job struct {
     Skill_expirence []string
     Skill_expirence_map map[string]interface{}
     ImgComp string
+    NameComp string
 }
 
 type Company struct{
